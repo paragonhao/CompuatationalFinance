@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/main.cpp
+iostream
+-
+math.h
+-
+cmath
+-
+utils.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/utils.h
+chrono
+-
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/utils.h
+cmath
+-
+fstream
+-
+string
+-
+iostream
+-
+
