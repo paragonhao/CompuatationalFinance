@@ -3,4 +3,4 @@ project(computationalfinance)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(computationalfinance main.cpp utils.h)
+add_executable(computationalfinance main.cpp RandomGenerator.h RandomGenerator.cpp Utils.h)
