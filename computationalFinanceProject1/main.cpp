@@ -96,20 +96,15 @@ void RunQn4(int size, long double arr[]){
 }
 
 void RunQn5(int size){
-    long double *arr = RandomGenerator::runif(size);
 
-    double normArr[size];
+    // generate a common uniform distribution to be used for two algorithms
+    long double *arr = RandomGenerator::runif(size);
 
     // Simulate Standard Normal Distribution Using Box-Muller
     auto start1 = high_resolution_clock::now();
 
-    for(int i=0; i< size; i+=2){
-        // calculate z1
-        normArr[i] = sqrt(-2 * log(arr[i])) * cos(2 * M_PI * arr[i+1]);
+    long double *normArr = RandomGenerator::boxmuller(arr, size);
 
-        // calculate z2
-        normArr[i+1] = sqrt(-2 * log(arr[i])) * sin(2 * M_PI * arr[i+1]);
-    }
     auto stop1 = high_resolution_clock::now();
     auto duration1 = duration_cast<microseconds>(stop1 - start1);
 
@@ -120,36 +115,22 @@ void RunQn5(int size){
 
 
     // Simulate Standard Normal Distribution Using Polar-Marsaglia
-    double normArrPM[size];
-    int arrSize = 0;
-    double v1 = 0;
-    double v2 = 0;
-    double w = 0;
-
-    // Verify arr is a uniform distribution
-    //cout << Mean(arr, size)<< endl;
-    //cout << StDev(arr, size)<< endl;
-
     auto start2 = high_resolution_clock::now();
 
-    for(int i=0; i<size; i+=2){
-        v1 = 2 * arr[i] - 1;
-        v2 = 2 * arr[i+1] -1;
-        w = v1 * v1  + v2 * v2; // using pow() would significantly increase the execution time.
+    long double *normArrPM = RandomGenerator::polarmarsaglia(arr, size);
 
-        if(w <= 1.0 ){
-            normArrPM[arrSize] = v1 * sqrt(-2 * log(w) / w);
-            normArrPM[arrSize+1] = v2 * sqrt(-2 * log(w) / w);
-            arrSize +=2;
-        }
-    }
     auto stop2 = high_resolution_clock::now();
     auto duration2 = duration_cast<microseconds>(stop2 - start2);
 
+    // Number of random variables generated using polar-marsaglia
+    int arrSize = int(normArrPM[0]);
+
+    long double *normPM = &normArrPM[1];
+
     cout << "Simulation Standard Normal Distribution Using Polar-Marsaglia: " << endl;
     cout << "Number of values chosen: " << arrSize << endl;
-    cout << "Mean: " << Mean(normArrPM, arrSize) << endl;
-    cout << "Standard deviation: " << StDev(normArrPM, arrSize) << endl;
+    cout << "Mean: " << Mean(normPM, arrSize) << endl;
+    cout << "Standard deviation: " << StDev(normPM, arrSize) << endl;
     cout << endl;
     cout << "##################### Comparsion ###################################"<<endl;
     cout << "Simulation with data size: " << size << endl;
