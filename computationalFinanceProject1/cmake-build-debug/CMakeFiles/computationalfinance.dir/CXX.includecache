@@ -6,19 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/main.cpp
-iostream
--
-math.h
--
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/RandomGenerator.cpp
 cmath
 -
-utils.h
-/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/utils.h
-chrono
--
+RandomGenerator.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/RandomGenerator.h
 
-/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/utils.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/RandomGenerator.h
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/Utils.h
 cmath
 -
 fstream
@@ -27,4 +23,18 @@ string
 -
 iostream
 -
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/main.cpp
+iostream
+-
+math.h
+-
+cmath
+-
+chrono
+-
+Utils.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/Utils.h
+RandomGenerator.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/RandomGenerator.h
 

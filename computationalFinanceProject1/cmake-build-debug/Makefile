@@ -123,6 +123,33 @@ computationalfinance/fast:
 	$(MAKE) -f CMakeFiles/computationalfinance.dir/build.make CMakeFiles/computationalfinance.dir/build
 .PHONY : computationalfinance/fast
 
+RandomGenerator.o: RandomGenerator.cpp.o
+
+.PHONY : RandomGenerator.o
+
+# target to build an object file
+RandomGenerator.cpp.o:
+	$(MAKE) -f CMakeFiles/computationalfinance.dir/build.make CMakeFiles/computationalfinance.dir/RandomGenerator.cpp.o
+.PHONY : RandomGenerator.cpp.o
+
+RandomGenerator.i: RandomGenerator.cpp.i
+
+.PHONY : RandomGenerator.i
+
+# target to preprocess a source file
+RandomGenerator.cpp.i:
+	$(MAKE) -f CMakeFiles/computationalfinance.dir/build.make CMakeFiles/computationalfinance.dir/RandomGenerator.cpp.i
+.PHONY : RandomGenerator.cpp.i
+
+RandomGenerator.s: RandomGenerator.cpp.s
+
+.PHONY : RandomGenerator.s
+
+# target to generate assembly for a file
+RandomGenerator.cpp.s:
+	$(MAKE) -f CMakeFiles/computationalfinance.dir/build.make CMakeFiles/computationalfinance.dir/RandomGenerator.cpp.s
+.PHONY : RandomGenerator.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +186,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... computationalfinance"
+	@echo "... RandomGenerator.o"
+	@echo "... RandomGenerator.i"
+	@echo "... RandomGenerator.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

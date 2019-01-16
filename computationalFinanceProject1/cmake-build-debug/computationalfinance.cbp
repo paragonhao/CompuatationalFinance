@@ -80,10 +80,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/main.cpp">
+		<Unit filename="/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/RandomGenerator.cpp">
 			<Option target="computationalfinance"/>
 		</Unit>
-		<Unit filename="/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/utils.h">
+		<Unit filename="/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/RandomGenerator.h">
+			<Option target="computationalfinance"/>
+		</Unit>
+		<Unit filename="/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/Utils.h">
+			<Option target="computationalfinance"/>
+		</Unit>
+		<Unit filename="/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/main.cpp">
 			<Option target="computationalfinance"/>
 		</Unit>
 		<Unit filename="/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/CMakeLists.txt">
