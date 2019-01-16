@@ -1,21 +1,15 @@
 #include <iostream>
 #include <math.h>
 #include <cmath>
-#include "utils.h"
 #include <chrono>
+#include "Utils.h"
+#include "RandomGenerator.h"
 
 using namespace std;
 using namespace std::chrono;
 
-void showResult(double mean, double sd, double meanBuiltIn, double sdBuiltIn){
-    cout <<"Mean of randomly generated number: " << mean << endl;
-    cout <<"Standard Deviation of randomly generated number: " << sd <<endl;
-    cout <<"Mean of randomly generated number Using Built in Function: " << meanBuiltIn <<endl;
-    cout <<"Standard Deviation of randomly generated number Using Built in Function: " << sdBuiltIn <<endl;
-    cout <<"Comment:  LGM random number generator is similar to the random number generator"<<endl;
-}
 
-void RunQn1(int size, long double arr[]){
+void RunQn1(int size, long double *arr){
     long double builtRNG[size];
     //  Find mean with the generated random numbers
     double mean = Mean(arr, size);
@@ -31,11 +25,15 @@ void RunQn1(int size, long double arr[]){
     double meanBuiltIn = Mean(arr, size);
     double sdBuiltIn = StDev(builtRNG, size);
 
-    showResult(mean, sd, meanBuiltIn, sdBuiltIn);
+    cout <<"Mean of randomly generated number: " << mean << endl;
+    cout <<"Standard Deviation of randomly generated number: " << sd <<endl;
+    cout <<"Mean of randomly generated number Using Built in Function: " << meanBuiltIn <<endl;
+    cout <<"Standard Deviation of randomly generated number Using Built in Function: " << sdBuiltIn <<endl;
+    cout <<"Comment:  LGM random number generator is similar to the random number generator"<<endl;
     cout << endl;
 }
 
-void RunQn2(int size, long double arr[]){
+void RunQn2(int size, long double *arr){
     long double r[size];
 
     for(int i=0; i<size; i++){
@@ -54,38 +52,18 @@ void RunQn2(int size, long double arr[]){
     double sdQn2 = StDev(r, size);
     cout << "Mean: " <<meanQn2 <<endl;
     cout << "Standard Deviation: "<< sdQn2 <<endl;
-    //writeToCSV(r, size, "/Users/paragonhao/CLionProjects/computationalFinanceProject1/Q2Data.csv");
+    WriteToCSV(r, size, "../Data/Q2Data.csv");
     cout << endl;
 }
 
-void RunQn3(long double m){
+void RunQn3(){
     int binoSize = 1000;
-    int n =44;
-    int rngSize = binoSize * n;
-    double p =0.64;
-    int seed = 1234567890;
+    int n = 44;
+    double p = 0.64;
 
+    long double * binoArr = RandomGenerator::rbinom(binoSize, n, p);
 
-    double binoArr[binoSize];
-    double uniformArr[rngSize];
-
-    uniformArr[0] = seed;
-
-    for(int i=0; i<rngSize; i++){
-        uniformArr[i+1] = LGMGenerator(m, uniformArr[i]);
-        uniformArr[i] /= m;
-    }
-
-    int counter = 0;
-    for(int i=0; i<binoSize; i++){
-        int sum = 0;
-        for(int j=0; j<n; j++){
-            sum += (uniformArr[counter] <= 0.64)? 1 : 0;
-            counter++;
-        }
-        binoArr[i] = sum;
-    }
-    //writeToCSV(binoArr, binoSize, "/Users/paragonhao/CLionProjects/computationalFinanceProject1/Q3Data.csv");
+    WriteToCSV(binoArr, binoSize, "../Data/Q3Data.csv");
 
     // Compute the probability that P(X>=40)
     int probCounter = 0;
@@ -98,12 +76,8 @@ void RunQn3(long double m){
 }
 
 void RunQn4(int size, long double arr[]){
-    double lambda = 1.5;
-    double expArr[size];
 
-    for(int i=0; i<size; i++){
-        expArr[i] = -lambda * log(arr[i]);
-    }
+    long double *expArr = RandomGenerator::rexp(size, arr);
 
     //Compute P(X>=1) and P(X>=4)
     int x_1=0, x_4=0;
@@ -112,7 +86,7 @@ void RunQn4(int size, long double arr[]){
         x_4 += (expArr[i] >= 4 ) ? 1 : 0;
     }
 
-    //writeToCSV(expArr, size, "/Users/paragonhao/CLionProjects/computationalFinanceProject1/Q4Data.csv");
+    WriteToCSV(expArr, size, "../Data/Q4Data.csv");
 
     cout << "Probability that P(X>=1) is : " << x_1/double(size) << endl;
     cout << "Probability that P(X>=4) is : " << x_4/double(size) << endl;
@@ -122,15 +96,7 @@ void RunQn4(int size, long double arr[]){
 }
 
 void RunQn5(int size){
-    double arr[size];
-    double m = pow(2, 31) -1;
-    arr[0] = 1234567890;
-
-    // generate 5000 random numbers
-    for(int i=0; i<size;i++){
-        arr[i+1] = LGMGenerator(m, arr[i]);
-        arr[i] /= m;
-    }
+    long double *arr = RandomGenerator::runif(size);
 
     double normArr[size];
 
@@ -197,17 +163,9 @@ void RunQn5(int size){
 
 
 int main() {
+
     int size = 10000;
-    long double arr[size];
-    long double m = pow(2, 31) -1;
-    arr[0] = 1234567890;
-
-    // generate 10000 random numbers
-    for(int i=0; i<=size;i++){
-        arr[i+1] = LGMGenerator(m, arr[i]);
-        arr[i] /= m;
-    }
-
+    long double * arr = RandomGenerator::runif(size);
     cout << "######################### QN1 ################################"<<endl;
     RunQn1(size, arr);
     //    Findings for 1(c):
@@ -217,11 +175,12 @@ int main() {
     //    Standard Deviation of randomly generated number Using Built in Function: 0.28921
     //
     //    Comment:  LGM random number generator is similar to the random number generator
+    long double m = pow(2, 31) -1;
 
     cout << "######################### QN2 ################################"<<endl;
     RunQn2(size, arr);
     cout << "######################### QN3 ################################"<<endl;
-    RunQn3(m);
+    RunQn3();
     cout << "######################### QN4 ################################"<<endl;
     RunQn4(size, arr);
     cout << "######################### QN5 ################################"<<endl;

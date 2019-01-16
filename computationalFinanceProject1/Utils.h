@@ -1,6 +1,10 @@
 //
-// Copied the utils function online from: http://www.cplusplus.com/forum/general/18965/
+// Created by paragonhao on 15/1/19.
 //
+#pragma once
+#ifndef COMPUTATIONALFINANCE_STATSUTILS_H
+#define COMPUTATIONALFINANCE_STATSUTILS_H
+
 #include <cmath>
 #include <fstream>
 #include <string>
@@ -24,7 +28,7 @@ template <typename T>
 double StDev(const T arr[], size_t n)
 {
     double mean = Mean(arr, n);
-    double variance = 0.0;
+    long double variance = 0.0;
     for (size_t idx = 0; idx < n; idx++)
     {
         double temp = arr[idx] - mean;
@@ -32,14 +36,14 @@ double StDev(const T arr[], size_t n)
     }
 
     // Compute sample variance using Bessel's correction (see http://en.wikipedia.org/wiki/Bessel%27s_correction)
-    variance /= static_cast<double>(n) - (n == 1 ? 0.0 : 1.0);
+    variance /= static_cast<long double>(n) - (n == 1 ? 0.0 : 1.0);
 
     // Standard deviation is square root of variance
     return std::sqrt(variance);
 }
 
 template <typename T>
-void writeToCSV(const T arr[], size_t n, const string filename){
+void WriteToCSV(const T *arr, size_t n, const string filename){
     ofstream file;
     file.open(filename);
     for(int i=0; i < n; i++){
@@ -48,11 +52,4 @@ void writeToCSV(const T arr[], size_t n, const string filename){
     file.close();
 }
 
-int LGMGenerator(unsigned int m, unsigned int num) {
-    unsigned int a = pow(7, 5);
-    unsigned int b = 0;
-    return (a * num + b) % m ;
-}
-
-
-
+#endif //COMPUTATIONALFINANCE_STATSUTILS_H
