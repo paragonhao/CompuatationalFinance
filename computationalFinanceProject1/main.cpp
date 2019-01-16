@@ -1,5 +1,5 @@
 #include <iostream>
-#include <math.h>
+#include <cmath>
 #include <cmath>
 #include <chrono>
 #include "Utils.h"
@@ -168,15 +168,6 @@ int main() {
     long double * arr = RandomGenerator::runif(size);
     cout << "######################### QN1 ################################"<<endl;
     RunQn1(size, arr);
-    //    Findings for 1(c):
-    //    Mean of randomly generated number: 0.501751
-    //    Standard Deviation of randomly generated number: 0.290391
-    //    Mean of randomly generated number Using Built in Function: 0.501751
-    //    Standard Deviation of randomly generated number Using Built in Function: 0.28921
-    //
-    //    Comment:  LGM random number generator is similar to the random number generator
-    long double m = pow(2, 31) -1;
-
     cout << "######################### QN2 ################################"<<endl;
     RunQn2(size, arr);
     cout << "######################### QN3 ################################"<<endl;
