@@ -123,6 +123,33 @@ computationalfinance/fast:
 	$(MAKE) -f CMakeFiles/computationalfinance.dir/build.make CMakeFiles/computationalfinance.dir/build
 .PHONY : computationalfinance/fast
 
+Mutils.o: Mutils.cpp.o
+
+.PHONY : Mutils.o
+
+# target to build an object file
+Mutils.cpp.o:
+	$(MAKE) -f CMakeFiles/computationalfinance.dir/build.make CMakeFiles/computationalfinance.dir/Mutils.cpp.o
+.PHONY : Mutils.cpp.o
+
+Mutils.i: Mutils.cpp.i
+
+.PHONY : Mutils.i
+
+# target to preprocess a source file
+Mutils.cpp.i:
+	$(MAKE) -f CMakeFiles/computationalfinance.dir/build.make CMakeFiles/computationalfinance.dir/Mutils.cpp.i
+.PHONY : Mutils.cpp.i
+
+Mutils.s: Mutils.cpp.s
+
+.PHONY : Mutils.s
+
+# target to generate assembly for a file
+Mutils.cpp.s:
+	$(MAKE) -f CMakeFiles/computationalfinance.dir/build.make CMakeFiles/computationalfinance.dir/Mutils.cpp.s
+.PHONY : Mutils.cpp.s
+
 RandomGenerator.o: RandomGenerator.cpp.o
 
 .PHONY : RandomGenerator.o
@@ -186,6 +213,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... computationalfinance"
+	@echo "... Mutils.o"
+	@echo "... Mutils.i"
+	@echo "... Mutils.s"
 	@echo "... RandomGenerator.o"
 	@echo "... RandomGenerator.i"
 	@echo "... RandomGenerator.s"

@@ -22,7 +22,10 @@ void RunQn1(int size, long double *arr){
         builtRNG[i] = ((double) rand() / (RAND_MAX)) ;
     }
 
-    double meanBuiltIn = Mutils::Mean(arr, size);
+    Mutils::WriteToCSV(arr, size, "../Data/Q1LGM.csv");
+    Mutils::WriteToCSV(builtRNG, size, "../Data/Q1BuiltIn.csv");
+
+    double meanBuiltIn = Mutils::Mean(builtRNG, size);
     double sdBuiltIn = Mutils::StDev(builtRNG, size);
 
     cout <<"Mean of randomly generated number: " << mean << endl;
@@ -108,11 +111,12 @@ void RunQn5(int size){
     auto stop1 = high_resolution_clock::now();
     auto duration1 = duration_cast<microseconds>(stop1 - start1);
 
+    Mutils::WriteToCSV(normArr, size, "../Data/Q5BoxMuller.csv");
+
     cout << "Simulation Standard Normal Distribution Using Box-Muller: " << endl;
     cout << "Mean: " << Mutils::Mean(normArr, size) << endl;
     cout << "Standard deviation: " << Mutils::StDev(normArr, size) << endl;
     cout << endl;
-
 
     // Simulate Standard Normal Distribution Using Polar-Marsaglia
     auto start2 = high_resolution_clock::now();
@@ -126,6 +130,8 @@ void RunQn5(int size){
     int arrSize = int(normArrPM[0]);
 
     long double *normPM = &normArrPM[1];
+
+    Mutils::WriteToCSV(normPM, arrSize, "../Data/Q5PM.csv");
 
     cout << "Simulation Standard Normal Distribution Using Polar-Marsaglia: " << endl;
     cout << "Number of values chosen: " << arrSize << endl;
