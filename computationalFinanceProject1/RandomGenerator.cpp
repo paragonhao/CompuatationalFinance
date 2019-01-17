@@ -75,6 +75,7 @@ long double* RandomGenerator::boxmuller(long double *arr, int size){
 }
 
 // Simulate Standard Normal Distribution Using Polar-Marsaglia
+// the first item in the array contains the number of random variables available
 long double* RandomGenerator::polarmarsaglia(long double *arr, int size){
 
     long double* normArr = new long double[size];
