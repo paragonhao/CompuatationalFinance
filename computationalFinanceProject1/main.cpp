@@ -2,8 +2,8 @@
 #include <cmath>
 #include <cmath>
 #include <chrono>
-#include "Utils.h"
 #include "RandomGenerator.h"
+#include "Mutils.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -12,18 +12,18 @@ using namespace std::chrono;
 void RunQn1(int size, long double *arr){
     long double builtRNG[size];
     //  Find mean with the generated random numbers
-    double mean = Mean(arr, size);
+    double mean = Mutils::Mean(arr, size);
 
     // Find standard deviation with the generated random numbers
-    double sd = StDev(arr, size);
+    double sd = Mutils::StDev(arr, size);
 
     // Genrate the Random Numbers using the built in function of C++
     for(int i =0;i<size;i++){
         builtRNG[i] = ((double) rand() / (RAND_MAX)) ;
     }
 
-    double meanBuiltIn = Mean(arr, size);
-    double sdBuiltIn = StDev(builtRNG, size);
+    double meanBuiltIn = Mutils::Mean(arr, size);
+    double sdBuiltIn = Mutils::StDev(builtRNG, size);
 
     cout <<"Mean of randomly generated number: " << mean << endl;
     cout <<"Standard Deviation of randomly generated number: " << sd <<endl;
@@ -48,11 +48,11 @@ void RunQn2(int size, long double *arr){
         }
     }
 
-    double meanQn2 = Mean(r, size);
-    double sdQn2 = StDev(r, size);
+    double meanQn2 = Mutils::Mean(r, size);
+    double sdQn2 = Mutils::StDev(r, size);
     cout << "Mean: " <<meanQn2 <<endl;
     cout << "Standard Deviation: "<< sdQn2 <<endl;
-    WriteToCSV(r, size, "../Data/Q2Data.csv");
+    Mutils::WriteToCSV(r, size, "../Data/Q2Data.csv");
     cout << endl;
 }
 
@@ -63,7 +63,7 @@ void RunQn3(){
 
     long double * binoArr = RandomGenerator::rbinom(binoSize, n, p);
 
-    WriteToCSV(binoArr, binoSize, "../Data/Q3Data.csv");
+    Mutils::WriteToCSV(binoArr, binoSize, "../Data/Q3Data.csv");
 
     // Compute the probability that P(X>=40)
     int probCounter = 0;
@@ -86,13 +86,13 @@ void RunQn4(int size, long double arr[]){
         x_4 += (expArr[i] >= 4 ) ? 1 : 0;
     }
 
-    WriteToCSV(expArr, size, "../Data/Q4Data.csv");
+    Mutils::WriteToCSV(expArr, size, "../Data/Q4Data.csv");
 
     cout << "Probability that P(X>=1) is : " << x_1/double(size) << endl;
     cout << "Probability that P(X>=4) is : " << x_4/double(size) << endl;
 
-    cout << "Mean of the simulated Exponentail  distribution is: " << Mean(expArr, size) << endl;
-    cout << "Standard deviation of the simulated Exponentail  distribution is: " << StDev(expArr, size) << endl;
+    cout << "Mean of the simulated Exponentail  distribution is: " << Mutils::Mean(expArr, size) << endl;
+    cout << "Standard deviation of the simulated Exponentail  distribution is: " << Mutils::StDev(expArr, size) << endl;
 }
 
 void RunQn5(int size){
@@ -109,8 +109,8 @@ void RunQn5(int size){
     auto duration1 = duration_cast<microseconds>(stop1 - start1);
 
     cout << "Simulation Standard Normal Distribution Using Box-Muller: " << endl;
-    cout << "Mean: " << Mean(normArr, size) << endl;
-    cout << "Standard deviation: " << StDev(normArr, size) << endl;
+    cout << "Mean: " << Mutils::Mean(normArr, size) << endl;
+    cout << "Standard deviation: " << Mutils::StDev(normArr, size) << endl;
     cout << endl;
 
 
@@ -129,8 +129,8 @@ void RunQn5(int size){
 
     cout << "Simulation Standard Normal Distribution Using Polar-Marsaglia: " << endl;
     cout << "Number of values chosen: " << arrSize << endl;
-    cout << "Mean: " << Mean(normPM, arrSize) << endl;
-    cout << "Standard deviation: " << StDev(normPM, arrSize) << endl;
+    cout << "Mean: " << Mutils::Mean(normPM, arrSize) << endl;
+    cout << "Standard deviation: " << Mutils::StDev(normPM, arrSize) << endl;
     cout << endl;
     cout << "##################### Comparsion ###################################"<<endl;
     cout << "Simulation with data size: " << size << endl;
