@@ -13,6 +13,7 @@ class Mutils {
 public:
     static double Mean(long double arr[], int n);
     static double StDev(long double arr[], int n);
+    static double Cov(long double x[], long double y[], int size);
     static void WriteToCSV(long double *arr, int n, const string filename);
 };
 

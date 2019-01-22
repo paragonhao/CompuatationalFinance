@@ -1,4 +1,0 @@
-/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1"
--- Configuring done
--- Generating done
--- Build files have been written to: /Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject1/cmake-build-debug

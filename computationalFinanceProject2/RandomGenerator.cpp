@@ -18,7 +18,7 @@ int RandomGenerator::LGMGenerator(unsigned int m, unsigned int num) {
 long double* RandomGenerator::runif(int size) {
     long double * arr = new long double[size];
     long double m = pow(2, 31) -1;
-    arr[0] = seed;
+    arr[0] = RandomGenerator::seed;
 
     for(int i=0; i<=size;i++){
         arr[i+1] = RandomGenerator::LGMGenerator(m, arr[i]);
@@ -101,4 +101,30 @@ long double* RandomGenerator::polarmarsaglia(long double *arr, int size){
     normArr[0] = arrSize -1;
 
     return normArr;
+}
+
+
+// generate bivariate normally distributed with correlation
+long double* RandomGenerator::bivariateNormalX(long double *z1, double size){
+    long double * arrX = new long double[size];
+    double muX = 0;
+    double sigmaX = 1;
+
+    for(int i = 0; i<size; i++){
+        arrX[i] = muX + sigmaX * z1[i];
+    }
+
+    return arrX;
+}
+
+long double* RandomGenerator::bivariateNormalY(long double *z1, long double *z2, double rho, double size) {
+    long double * arrY = new long double[size];
+    double muY = 0;
+    double sigmaY = 1;
+
+    for(int i = 0; i<size; i++){
+        arrY[i] = muY + sigmaY * rho * z1[i] + sigmaY * sqrt(1- rho * rho) * z2[i];
+    }
+
+    return arrY;
 }
