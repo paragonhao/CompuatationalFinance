@@ -38,7 +38,7 @@ double Mutils::StDev(long double arr[], int n)
     return std::sqrt(variance);
 }
 
-double Mutils::Cov(long double x[], long double y[], int size)
+double Mutils::Corr(long double *x, long double *y, int size)
 {
     double meanX = Mutils::Mean(x, size);
     double meanY = Mutils::Mean(y, size);
@@ -59,6 +59,16 @@ double Mutils::Cov(long double x[], long double y[], int size)
     return numerator/(denominatorY* denominatorX);
 }
 
+double Mutils::Cov(long double *x, long double *y, int size){
+    double meanX = Mutils::Mean(x, size);
+    double meanY = Mutils::Mean(y, size);
+    double sse = 0 ;
+    for(int i = 0; i< size; i++){
+        sse += (x[i] - meanX) * (y[i] - meanY);
+    }
+    return sse/(size-1);
+}
+
 
 
 void Mutils::WriteToCSV(long double *arr, int n, const string filename){
@@ -68,4 +78,18 @@ void Mutils::WriteToCSV(long double *arr, int n, const string filename){
         file << arr[i] << ",\n";
     }
     file.close();
+}
+
+long double * Mutils::Mutiply(long double *arr, int size, double sqrtT){
+
+    for(int i=0; i< size; i++){
+        arr[i] *= sqrtT;
+    }
+
+    return arr;
+}
+
+double Mutils::pnorm(double x)
+{
+    return std::erfc(-x/std::sqrt(2))/2;
 }

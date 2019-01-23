@@ -5,7 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include "RandomGenerator.h"
-
+#include "Mutils.h"
 using namespace std;
 
 
@@ -15,10 +15,10 @@ int RandomGenerator::LGMGenerator(unsigned int m, unsigned int num) {
     return (a * num + b) % m ;
 }
 
-long double* RandomGenerator::runif(int size) {
+long double* RandomGenerator::runif(int size, int seed) {
     long double * arr = new long double[size];
     long double m = pow(2, 31) -1;
-    arr[0] = RandomGenerator::seed;
+    arr[0] = seed;
 
     for(int i=0; i<=size;i++){
         arr[i+1] = RandomGenerator::LGMGenerator(m, arr[i]);
@@ -28,10 +28,10 @@ long double* RandomGenerator::runif(int size) {
 }
 
 
-long double* RandomGenerator::rbinom(int size, int n, double p) {
+long double* RandomGenerator::rbinom(int size, int n, double p, int seed) {
     int uniSize = size * n;
 
-    long double * uniformArr = RandomGenerator::runif(uniSize);
+    long double * uniformArr = RandomGenerator::runif(uniSize, seed);
     long double * binoArr = new long double[size];
 
     int counter = 0;
@@ -127,4 +127,12 @@ long double* RandomGenerator::bivariateNormalY(long double *z1, long double *z2,
     }
 
     return arrY;
+}
+
+// to generate 1 single weiner process
+long double* RandomGenerator::wienerProcess(double t, int size, int seed){
+
+    long double * stdNor = RandomGenerator::boxmuller(RandomGenerator::runif(size, seed), size);
+
+    return Mutils::Mutiply(stdNor, size, sqrt(t));
 }

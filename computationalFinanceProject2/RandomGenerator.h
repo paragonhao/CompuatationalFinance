@@ -16,9 +16,9 @@ public:
 
     static int LGMGenerator(unsigned int m, unsigned int num);
 
-    static long double* runif(int size);
+    static long double* runif(int size, int seed);
 
-    static long double* rbinom(int size, int n, double p);
+    static long double* rbinom(int size, int n, double p, int seed);
 
     static long double* rexp(int size, long double *arr);
 
@@ -29,6 +29,8 @@ public:
     static long double*  bivariateNormalX(long double *z1, double size);
 
     static long double*  bivariateNormalY(long double *z1, long double *z2, double rho, double size);
+
+    static long double* wienerProcess(double t, int size, int seed);
 };
 
 
