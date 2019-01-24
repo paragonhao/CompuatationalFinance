@@ -7,7 +7,7 @@
 #include <array>
 #include <fstream>
 
-void RunQn5b(int seed, double sigma, double s0, double r, string filenam);
+void RunQn5b(int seed, double sigma, double s0, double r);
 
 using namespace std;
 
@@ -65,7 +65,7 @@ void controlVar(long double * w_t, int size, double t ,int order){
 
     for(int i=0; i< size; i++){
         x[i] = cos(w_t[i]) * exp(t/2.0);
-        y[i] = cos(w_t[i]);
+        y[i] = w_t[i] * w_t[i];
     }
 
     double gamma_t5 = Mutils::Cov(x, y, size) / Mutils::Cov(y, y, size);
@@ -73,7 +73,7 @@ void controlVar(long double * w_t, int size, double t ,int order){
     long double tArr[size];
 
     for(int i= 0; i< size; i++) {
-        tArr[i] = x[i] - gamma_t5 * (y[i] - exp(-t/2.0));
+        tArr[i] = x[i] - gamma_t5 * (y[i] - t);
     }
     cout << "Ea"<< order<<" mean before variance reduction: " << Mutils::Mean(x, size) << endl;
     cout << "Ea"<< order<<" sd before variance reduction: " << Mutils::StDev(x, size) << endl;
@@ -206,26 +206,10 @@ void RunQn5a(int seed){
     Mutils::WriteToCSV(ESn, n, "../Data/Q5a1.csv");
     cout <<"################################################################################"<< endl;
 
-    sigma = 0.35;
-    for(int i=0; i< n; i++){
-        //w_i generation
-        long double *arr = RandomGenerator::wienerProcess(i + 1, size, seed);
-
-        double sum = 0;
-        for(int j=0; j< size; j++){
-            sum += s0 * exp(sigma * arr[j] + (r - sigma * sigma * 0.5) * (i + 1));
-        }
-
-        ESn[i+1] = sum / size ;
-    }
-    cout <<"################################# Write data to CSV file ...#####################"<< endl;
-    Mutils::WriteToCSV(ESn, n, "../Data/Q5a2.csv");
-    cout <<"################################################################################"<< endl;
-
 
 }
 
-void RunQn5b(int seed, double sigma, double s0, double r, string filename){
+void RunQn5b(int seed, double sigma, double s0, double r){
     cout <<"################################### Qn 5b #########################################"<< endl;
     int row = 6, col = 1001, pathNum = 1000;
     double delta = 10.0/1000;
@@ -244,7 +228,7 @@ void RunQn5b(int seed, double sigma, double s0, double r, string filename){
 
     // Writing to CSV
     ofstream file;
-    file.open(filename);
+    file.open("../Data/Q5b1.csv");
     for(int i=0; i<row; i++){
        for(int j=0; j<col; j++){
             file << s[i][j] << ",";
@@ -254,6 +238,30 @@ void RunQn5b(int seed, double sigma, double s0, double r, string filename){
     cout <<"##############################################################################"<< endl;
 }
 
+void RunQn5d(int seed){
+
+    int size =10000, n=10;
+    double r = 0.04;
+    double sigma = 0.35;
+    double s0 = 88;
+    long double ESn[n];
+    ESn[0] = s0;
+
+    for(int i=0; i< n; i++){
+        //w_i generation
+        long double *arr = RandomGenerator::wienerProcess(i + 1, size, seed+120);
+
+        double sum = 0;
+        for(int j=0; j< size; j++){
+            sum += s0 * exp(sigma * arr[j] + (r - sigma * sigma * 0.5) * (i + 1));
+        }
+
+        ESn[i+1] = sum / size ;
+    }
+    cout <<"################################# Write data to CSV file ...#####################"<< endl;
+    Mutils::WriteToCSV(ESn, n, "../Data/Q5d1.csv");
+    cout <<"################################################################################"<< endl;
+}
 
 void RunQn6a(){
     // use euler method
@@ -293,20 +301,21 @@ void RunQn6c(int seed){
     int counter = 0;
     long double y_rv =0;
     long double sum =0.0;
-    int size =5000;
+    int size =10000;
     long double *y = RandomGenerator::runif(size, seed);
     long double *uni = RandomGenerator::runif(size, seed + 1000);
     long double result = 0.0;
 
     for(int i=0; i< size; i++){
         y_rv = t_x_function(y[i]);
-
         if(uni[i] <= y_rv/1.5){
             result +=derivationVal(uni[i])/t_x_function(uni[i]);
             counter++;
         }
     }
-    cout <<result/counter *4<<endl;
+    cout <<"#################################### Qn 6(b) ###################################"<< endl;
+    cout << "Monte Carlo Using Importance Sampling Method: "<< result/counter *4<< endl;
+    cout <<"################################################################################"<< endl;
 }
 
 int main() {
@@ -330,7 +339,8 @@ int main() {
     RunQn3(seed);
     RunQn4(seed);
     RunQn5a(seed);
-    RunQn5b(seed, sigma, s0, r, "../Data/Q5b1.csv");
+    RunQn5b(seed, sigma, s0, r);
+    RunQn5d(seed);
     RunQn6a();
     RunQn6b(seed);
     RunQn6c(seed);
