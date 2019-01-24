@@ -176,7 +176,7 @@ void RunQn4(int seed){
     for(int i=0; i<size; i++){
         tArr[i] = 0.5 * (s_T[i] + s_T_2[i]);
     }
-    cout << "Call Option Price is: " << Mutils::Mean(tArr, size)<< endl;
+    cout << "Call Option Price Using Reduction technique Antithetic Variable is: " << Mutils::Mean(tArr, size)<< endl;
 
 }
 
