@@ -7,7 +7,7 @@
 #include <array>
 #include <fstream>
 
-void RunQn5b(int seed, double sigma, double s0, double r);
+void RunQn5b(int seed, double sigma, double s0, double r, string filename);
 
 using namespace std;
 
@@ -183,7 +183,7 @@ void RunQn4(int seed){
 void RunQn5a(int seed){
     cout <<"#################################### Qn 5(a) ###################################"<< endl;
 
-    int size =10000, n=10;
+    int size =10000, n=11;
     double r = 0.04;
     double sigma = 0.18;
     double s0 = 88;
@@ -193,8 +193,8 @@ void RunQn5a(int seed){
     for(int i=0; i< n; i++){
         //w_i generation
         long double *arr = RandomGenerator::wienerProcess(i + 1, size, seed);
-
         double sum = 0;
+
         for(int j=0; j< size; j++){
            sum += s0 * exp(sigma * arr[j] + (r - sigma * sigma * 0.5) * (i + 1));
         }
@@ -202,14 +202,14 @@ void RunQn5a(int seed){
         ESn[i+1] = sum / size ;
     }
 
+
     cout <<"################################# Write data to CSV file ...#####################"<< endl;
     Mutils::WriteToCSV(ESn, n, "../Data/Q5a1.csv");
     cout <<"################################################################################"<< endl;
 
-
 }
 
-void RunQn5b(int seed, double sigma, double s0, double r){
+void RunQn5b(int seed, double sigma, double s0, double r, string filename){
     cout <<"################################### Qn 5b #########################################"<< endl;
     int row = 6, col = 1001, pathNum = 1000;
     double delta = 10.0/1000;
@@ -228,7 +228,7 @@ void RunQn5b(int seed, double sigma, double s0, double r){
 
     // Writing to CSV
     ofstream file;
-    file.open("../Data/Q5b1.csv");
+    file.open(filename);
     for(int i=0; i<row; i++){
        for(int j=0; j<col; j++){
             file << s[i][j] << ",";
@@ -240,7 +240,7 @@ void RunQn5b(int seed, double sigma, double s0, double r){
 
 void RunQn5d(int seed){
 
-    int size =10000, n=10;
+    int size =10000, n=11;
     double r = 0.04;
     double sigma = 0.35;
     double s0 = 88;
@@ -249,7 +249,7 @@ void RunQn5d(int seed){
 
     for(int i=0; i< n; i++){
         //w_i generation
-        long double *arr = RandomGenerator::wienerProcess(i + 1, size, seed+120);
+        long double *arr = RandomGenerator::wienerProcess(i + 1, size, seed);
 
         double sum = 0;
         for(int j=0; j< size; j++){
@@ -259,7 +259,7 @@ void RunQn5d(int seed){
         ESn[i+1] = sum / size ;
     }
     cout <<"################################# Write data to CSV file ...#####################"<< endl;
-    Mutils::WriteToCSV(ESn, n, "../Data/Q5d1.csv");
+    Mutils::WriteToCSV(ESn, n, "../Data/Q5dESN.csv");
     cout <<"################################################################################"<< endl;
 }
 
@@ -339,7 +339,9 @@ int main() {
     RunQn3(seed);
     RunQn4(seed);
     RunQn5a(seed);
-    RunQn5b(seed, sigma, s0, r);
+    RunQn5b(seed, sigma, s0, r,"../Data/Q5b1.csv");
+    sigma = 0.35;
+    RunQn5b(seed, sigma, s0, r,"../Data/Q5dhigsigma.csv");
     RunQn5d(seed);
     RunQn6a();
     RunQn6b(seed);
