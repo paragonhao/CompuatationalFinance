@@ -292,6 +292,7 @@ void RunQn6b(int seed){
     }
     cout <<"#################################### Qn 6(b) ###################################"<< endl;
     cout << "Monte Carlo Approx is: "<< Mutils::Mean(gArr,size) * 4 << endl;
+    cout << "Monte Carlo Approx Standard Deviation is : "<< Mutils::StDev(gArr,size) * 4 << endl;
     cout <<"################################################################################"<< endl;
 }
 
@@ -302,19 +303,21 @@ void RunQn6c(int seed){
     long double y_rv =0;
     long double sum =0.0;
     int size =10000;
-    long double *y = RandomGenerator::runif(size, seed);
+    long double *y = RandomGenerator::runif(size, seed +100);
     long double *uni = RandomGenerator::runif(size, seed + 1000);
-    long double result = 0.0;
+    long double result[size];
 
+    double h_x = 1.53;
     for(int i=0; i< size; i++){
         y_rv = t_x_function(y[i]);
-        if(uni[i] <= y_rv/1.5){
-            result +=derivationVal(uni[i])/t_x_function(uni[i]);
+        if(uni[i] <= y_rv/h_x){
+            result[counter]=derivationVal(uni[i])/t_x_function(uni[i]);
             counter++;
         }
     }
     cout <<"#################################### Qn 6(b) ###################################"<< endl;
-    cout << "Monte Carlo Using Importance Sampling Method: "<< result/counter *4<< endl;
+    cout << "Monte Carlo Using Importance Sampling Method: "<< Mutils::Mean(result,counter) *4<< endl;
+    cout << "Monte Carlo Using Importance Sampling Method Variance: "<< Mutils::StDev(result,counter)<< endl;
     cout <<"################################################################################"<< endl;
 }
 
