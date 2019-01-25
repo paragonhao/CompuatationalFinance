@@ -20,15 +20,15 @@ public:
 
     static long double* rbinom(int size, int n, double p, int seed);
 
-    static long double* rexp(int size, long double *arr);
+    static long double* rexp(long double *arr, int size, double lambda);
 
     static long double* boxmuller(long double *arr, int size);
 
     static long double* polarmarsaglia(long double *arr, int size);
 
-    static long double*  bivariateNormalX(long double *z1, double size);
+    static long double*  bivariateNormalX(long double *z1, int size);
 
-    static long double*  bivariateNormalY(long double *z1, long double *z2, double rho, double size);
+    static long double*  bivariateNormalY(long double *z1, long double *z2, double rho, int size);
 
     static long double* wienerProcess(double t, int size, int seed);
 };

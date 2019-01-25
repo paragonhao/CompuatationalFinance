@@ -15,6 +15,13 @@ int RandomGenerator::LGMGenerator(unsigned int m, unsigned int num) {
     return (a * num + b) % m ;
 }
 
+
+/* Generate Uniform Distribution using LGM generator
+ *
+ * @param:
+ * int size: array size to be generated
+ * int seed: seed which is used to generate standard normal
+ * */
 long double* RandomGenerator::runif(int size, int seed) {
     long double * arr = new long double[size];
     long double m = pow(2, 31) -1;
@@ -27,7 +34,14 @@ long double* RandomGenerator::runif(int size, int seed) {
     return arr;
 }
 
-
+/* To generate Binomial Distribution
+ *
+ * @param:
+ * int size: size of the binomial distribution generated
+ * int n: n units wish to occur
+ * double p: probability of the occurence in n units of uniform distribution: P(X <= p)
+ * int seed: seed which is used to generate standard normal
+ * */
 long double* RandomGenerator::rbinom(int size, int n, double p, int seed) {
     int uniSize = size * n;
 
@@ -47,8 +61,16 @@ long double* RandomGenerator::rbinom(int size, int n, double p, int seed) {
     return binoArr;
 }
 
-long double* RandomGenerator::rexp(int size, long double *arr){
-    double lambda = 1.5;
+
+/* To generate Exponential Distribution
+ *
+ * @param:
+ * long double *arr: array size
+ * int size: size of array
+ * double lambda: lambda in the expoenetial distribution
+ * */
+long double* RandomGenerator::rexp(long double *arr, int size, double lambda){
+
     long double *expArr = new long double[size];
 
     for(int i=0; i<size; i++){
@@ -58,7 +80,13 @@ long double* RandomGenerator::rexp(int size, long double *arr){
     return expArr;
 }
 
-// Simulate Standard Normal Distribution Using Box-Muller
+
+/* Simulate Standard Normal Distribution Using Box-Muller
+ *
+ * @param:
+ * long double *arr: uniform distribution array
+ * int size: size of array
+ * */
 long double* RandomGenerator::boxmuller(long double *arr, int size){
 
     long double* normArr = new long double[size];
@@ -74,18 +102,44 @@ long double* RandomGenerator::boxmuller(long double *arr, int size){
     return normArr;
 }
 
-// Simulate Standard Normal Distribution Using Polar-Marsaglia
-// the first item in the array contains the number of random variables available
+
+/* Simulate Standard Normal Distribution Using Polar-Marsaglia
+ *
+ * @param:
+ * long double *arr: uniform distribution array
+ * int size: size of array
+ * int normSize: size of the normal distribution wish to be generated , normSize has to be
+ * smaller than uniform distribution
+ *
+ * NOTE: For simplicity, the generated number of normal will be only half of the input uniform distribution
+ * */
 long double* RandomGenerator::polarmarsaglia(long double *arr, int size){
 
-    long double* normArr = new long double[size];
-    int arrSize = 1;
+    int normSize = size /2;
+    long double* normArr = new long double[normSize];
+//    int arrSize = 1;
+    int arrSize =0;
     long double v1 = 0;
     long double v2 = 0;
     long double w = 0;
 
+//
+//    for(int i=0; i<size; i+=2){
+//        v1 = 2 * arr[i] - 1;
+//        v2 = 2 * arr[i+1] -1;
+//        w = v1 * v1  + v2 * v2; // using pow() would significantly increase the execution time.
+//
+//        if(w <= 1.0 ){
+//            normArr[arrSize] = v1 * sqrt(-2 * log(w) / w);
+//            normArr[arrSize+1] = v2 * sqrt(-2 * log(w) / w);
+//            arrSize +=2;
+//        }
+//    }
+//    //Put the total number of random variables generated in the first cell.
+//    normArr[0] = arrSize -1;
 
-    for(int i=0; i<size; i+=2){
+
+    for(int i=0; i < normSize; i++){
         v1 = 2 * arr[i] - 1;
         v2 = 2 * arr[i+1] -1;
         w = v1 * v1  + v2 * v2; // using pow() would significantly increase the execution time.
@@ -97,16 +151,20 @@ long double* RandomGenerator::polarmarsaglia(long double *arr, int size){
         }
     }
 
-    //Put the total number of random variables generated in the first cell.
-    normArr[0] = arrSize -1;
-
     return normArr;
 }
 
 
-// generate bivariate normally distributed with correlation
-long double* RandomGenerator::bivariateNormalX(long double *z1, double size){
+/* Generate the X of the bivariate normal
+ *
+ * @param:
+ * long double *z1: standard normal array
+ * double size: size of the array
+ * */
+long double* RandomGenerator::bivariateNormalX(long double *z1, int size){
+
     long double * arrX = new long double[size];
+
     double muX = 0;
     double sigmaX = 1;
 
@@ -117,8 +175,19 @@ long double* RandomGenerator::bivariateNormalX(long double *z1, double size){
     return arrX;
 }
 
-long double* RandomGenerator::bivariateNormalY(long double *z1, long double *z2, double rho, double size) {
+
+/* Generate the Y in the bivariate normal
+ *
+ * @param:
+ * long double *z1: standard normal array
+ * long double *z2: standard normal array
+ * double rho: correlation between z1 and z2
+ * double size:  size of both z1 and z2
+ * */
+long double* RandomGenerator::bivariateNormalY(long double *z1, long double *z2, double rho, int size) {
+
     long double * arrY = new long double[size];
+
     double muY = 0;
     double sigmaY = 1;
 
@@ -129,7 +198,13 @@ long double* RandomGenerator::bivariateNormalY(long double *z1, long double *z2,
     return arrY;
 }
 
-// to generate 1 single weiner process
+/* To generate Wiener process
+ *
+ * @param:
+ * double t: Time period
+ * int size: array size of t
+ * int seed: seed which is used to generate standard normal
+ * */
 long double* RandomGenerator::wienerProcess(double t, int size, int seed){
 
     long double * stdNor = RandomGenerator::boxmuller(RandomGenerator::runif(size, seed), size);

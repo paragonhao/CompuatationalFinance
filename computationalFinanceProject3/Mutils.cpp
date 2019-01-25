@@ -79,6 +79,7 @@ void Mutils::WriteToCSV(long double *arr, int n, const string filename){
     }
     file.close();
 }
+
 // TODO: figure out a way to pass array into function
 //void Mutils::WriteToCSV2DMatrix(long double arr[][1001], int row,int col, const string filename){
 //    ofstream file;

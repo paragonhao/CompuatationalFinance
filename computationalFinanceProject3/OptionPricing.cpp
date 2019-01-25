@@ -11,6 +11,17 @@
 
 using namespace std;
 
+/* Call Option Price Simulation
+ *
+ * @param:
+ * long double* : Wiener process generated
+ * int : size of the array
+ * double r: interest rate
+ * double sigma: sigma
+ * double T: Period during which the process exists
+ * double s0: initial stock price of x
+ * double x: strike price
+ * */
 long double *  OptionPricing::callOptionPriceSimulation(long double *w_t, int size, double r, double sigma, double T, double s0, double x){
 
     long double * s_T = new long double[size];
@@ -23,6 +34,15 @@ long double *  OptionPricing::callOptionPriceSimulation(long double *w_t, int si
     return s_T;
 }
 
+/* Call Option Price using Black-holes
+ *
+ * @param:
+ * double r: interest rate
+ * double sigma: sigma
+ * double T: Period during which the process exists
+ * double s0: initial stock price of x
+ * double x: strike price
+ * */
 double OptionPricing::callOptionPriceBS(double r, double sigma, double T, double s0, double x){
     double d1;
     double d2;
