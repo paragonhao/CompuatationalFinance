@@ -95,10 +95,19 @@ void Mutils::WriteToCSV(long double *arr, int n, const string filename){
 //    file.close();
 //}
 
-long double * Mutils::Mutiply(long double *arr, int size, double sqrtT){
+long double * Mutils::MatrixMultiply(long double *arr, int size, double sqrtT){
 
     for(int i=0; i< size; i++){
         arr[i] *= sqrtT;
+    }
+
+    return arr;
+}
+
+long double * Mutils::MatrixAddition(long double *arr, int size, long double num){
+
+    for(int i=0; i< size; i++){
+        arr[i] += num;
     }
 
     return arr;

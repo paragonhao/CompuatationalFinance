@@ -207,7 +207,7 @@ long double* RandomGenerator::bivariateNormalY(long double *z1, long double *z2,
  * */
 long double* RandomGenerator::wienerProcess(double t, int size, int seed){
 
-    long double * stdNor = RandomGenerator::boxmuller(RandomGenerator::runif(size, seed), size);
+    long double * stdNor= RandomGenerator::boxmuller(RandomGenerator::runif(size, seed), size);
 
-    return Mutils::Mutiply(stdNor, size, sqrt(t));
+    return Mutils::MatrixMultiply(stdNor, size, sqrt(t));
 }
