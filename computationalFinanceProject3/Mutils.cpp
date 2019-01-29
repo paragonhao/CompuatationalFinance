@@ -113,7 +113,20 @@ long double * Mutils::MatrixAddition(long double *arr, int size, long double num
     return arr;
 }
 
-double Mutils::pnorm(double x)
+long double Mutils::pnorm(double x)
 {
-    return std::erfc(-x/std::sqrt(2))/2;
+    const long double d1 = 0.0498673470;
+    const long double d2 = 0.0211410061;
+    const long double d3 = 0.0032776263;
+    const long double d4 = 0.0000380036;
+    const long double d5 = 0.0000488906;
+    const long double d6 = 0.0000053830;
+
+    long double probability = 0.0;
+    long double absX = (x >=0)?x:-x;
+    long double temp =  1 + (d1 * absX) + (d2 * absX * absX) + (d3 * absX * absX * absX) + (d4 * pow(absX,4))
+            + (d5 * pow(absX,5)) + (d6 * pow(absX, 6));
+    probability = 1 - 0.5 * pow(temp, -16);
+
+    return  (x >= 0)? probability : (1- probability);
 }
