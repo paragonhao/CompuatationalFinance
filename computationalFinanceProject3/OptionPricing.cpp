@@ -65,7 +65,7 @@ double OptionPricing::callOptionPriceBS(double r, double sigma, double T, double
  * double s0: initial stock price of x
  * double x: strike price
  * */
-long double * OptionPricing::callOptionSimAntithetic(int seed, int size, double r, double sigma, double T, double s0, double x){
+long double OptionPricing::callOptionSimAntithetic(int seed, int size, double r, double sigma, double T, double s0, double x){
 
     long double *w_t = RandomGenerator::wienerProcess(T,size,seed);
 
@@ -84,5 +84,5 @@ long double * OptionPricing::callOptionSimAntithetic(int seed, int size, double 
     for(int i=0; i<size; i++){
         tArr[i] = 0.5 * (s_T[i] + s_T_2[i]);
     }
-    return tArr;
+    return Mutils::Mean(tArr, size);
 }

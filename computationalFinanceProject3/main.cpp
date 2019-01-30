@@ -78,6 +78,87 @@ inline long double * solveQn2YT(double t, int size, int seed){
     return y_t;
 }
 
+inline long double reflectionTruncationModel(int seed, double T, int size, int x, double rho, double r,
+                                             double s0, double v0, double sigma, double a, double b){
+    double delta = T/size;
+    long double * z1;
+    long double * z2;
+
+    long double * w1;
+    long double * w2;
+
+
+    double v_reflect = v0;
+    double s_reflect = s0;
+
+    //generate normal distribution
+    z1 = RandomGenerator::boxmuller(RandomGenerator::runif(size * 2, seed), size * 2);
+    z2 = &z1[size];
+
+    w1 = RandomGenerator::bivariateNormalX(z1, size);
+    w2 = RandomGenerator::bivariateNormalY(z1, z2, rho, size);
+
+    for(int i = 0; i < size; i++){
+        s_reflect = s_reflect + r * s_reflect * delta + sqrt(abs(v_reflect)) * s_reflect * w1[i] * sqrt(delta);
+        v_reflect = abs(v_reflect) + a * (b - abs(v_reflect)) * delta + sigma * sqrt(abs(v_reflect))* w2[i] * sqrt(delta);
+    }
+    return  max(s_reflect - x, 0.0);
+}
+
+inline double partialTruncationModel(int seed, double T, int size, int x, double rho, double r,
+                                  double s0, double v0, double sigma, double a, double b){
+    double delta = T/size;
+    long double * z1;
+    long double * z2;
+
+    long double * w1;
+    long double * w2;
+
+    double v_partial = v0;
+    double s_partial = s0;
+
+    //generate normal distribution
+    z1 = RandomGenerator::boxmuller(RandomGenerator::runif(size * 2, seed), size * 2);
+    z2 = &z1[size];
+
+    w1 = RandomGenerator::bivariateNormalX(z1, size);
+    w2 = RandomGenerator::bivariateNormalY(z1, z2, rho, size);
+
+    for(int i = 0; i < size; i++){
+        s_partial += r * s_partial * delta + sqrt(max(0.0, v_partial)) * s_partial * w1[i] * sqrt(delta);
+        v_partial += a * (b - v_partial) * delta + sigma * sqrt(max(0.0, v_partial)) * w2[i] * sqrt(delta);
+    }
+
+    return  max(s_partial - x, 0.0);
+}
+
+inline double fullTruncationModel(int seed, double T, int size, int x, double rho, double r,
+                                double s0, double v0, double sigma, double a, double b){
+
+    double delta = T/size;
+    long double * z1;
+    long double * z2;
+
+    long double * w1;
+    long double * w2;
+
+    double v_full = v0;
+    double s_full = s0;
+
+    //generate normal distribution
+    z1 = RandomGenerator::boxmuller(RandomGenerator::runif(size * 2, seed), size * 2);
+    z2 = &z1[size];
+
+    w1 = RandomGenerator::bivariateNormalX(z1, size);
+    w2 = RandomGenerator::bivariateNormalY(z1, z2, rho, size);
+
+    for(int i = 0; i < size; i++){
+        s_full +=r * s_full * delta + sqrt(max(0.0, v_full)) * s_full * w1[i] * sqrt(delta);
+        v_full += a * (b - max(0.0,v_full)) * delta + sigma * sqrt(max(0.0, v_full)) * w2[i] * sqrt(delta);
+    }
+    return  max(s_full - x, 0.0);
+}
+
 // Using Euler scheme
 void RunQn1(int seed){
     int size = 2000;
@@ -150,66 +231,116 @@ void RunQn2(int seed){
 }
 
 void RunQn3(int seed){
+
+    int iter = 11;
+    double x = 20;
+    double sigma = 0.25;
     double r = 0.04;
-    double sigma = 0.2;
-    double s0 = 88;
-    double T = 5;
+    double T = 0.5;
+    double epsilon = 0.01;
+    long double greek_delta[iter];
+    long double greek_theta[iter];
+    long double greek_vega[iter];
+    long double greek_rho[iter];
+    long double greek_gamma[iter];
+
+    int s0 = 15;
     int size = 1000;
-    double x = 100;
 
+    for(int i = 0; i < iter; i++) {
 
-    cout << "3 (a) Function <callOptionSimAntithetic> is available at OptionPricing.cpp "<<endl;
-    cout << "Assuming r = 0.04, sigma =0.2, s0= 88, T = 5, x= 100 for 1000 simulation"<<endl;
-    long double * price = OptionPricing::callOptionSimAntithetic(seed,size,r,sigma,T,s0, x);
-    cout <<  "Price using Antithetic Variates in Monte Carlo Simulation: $"<< Mutils::Mean(price, size) << endl;
+        double price = OptionPricing::callOptionSimAntithetic(seed,size,r,sigma,T,s0, x);
+
+        greek_delta[i] = (OptionPricing::callOptionSimAntithetic(seed,size,r,sigma,T,s0 + epsilon, x) -
+                price)/ epsilon;
+
+        greek_theta[i] = (OptionPricing::callOptionSimAntithetic(seed,size,r,sigma,T + epsilon,s0, x) -
+                price)/epsilon;
+
+        greek_vega[i] = (OptionPricing::callOptionSimAntithetic(seed,size,r,sigma + epsilon * epsilon, T, s0, x) -
+                price) / (epsilon * epsilon);
+
+        greek_rho[i] = (OptionPricing::callOptionSimAntithetic(seed,size,r + epsilon * epsilon,sigma , T, s0, x) -
+                price) / (epsilon * epsilon);
+
+        greek_gamma[i] = (OptionPricing::callOptionSimAntithetic(seed, size, r, sigma , T, s0 + epsilon * 2, x) -
+                2 * OptionPricing::callOptionSimAntithetic(seed, size, r, sigma , T, s0 + epsilon, x) + price)
+                         / (epsilon*epsilon);
+
+        s0++;
+    }
+    cout << "Delta: ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_delta[i] << ", ";
+    }
     cout << endl;
-    cout << "3 (b) Function <callOptionPriceBS> is available at OptionPricing.cpp "<<endl;
-    double bsprice = OptionPricing::callOptionPriceBS(r, sigma, T, s0, x);
-    cout <<  "Price using black scholes formula: $"<< bsprice << endl;
-    cout <<endl;
-    cout << "#################################### Qn 3(c) ###################################"<<endl;
-    // TODO: TO be determined whether to use formula or approximation
+
+    cout << "Gamma: ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_gamma[i] << ", ";
+    }
+    cout << endl;
+
+    cout << "Theta: ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_theta[i] << ", ";
+    }
+    cout << endl;
+
+    cout << "Rho: ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_rho[i] << ", ";
+    }
+    cout << endl;
+
+    cout << "Vega: ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_vega[i] << ", ";
+    }
+    cout << endl;
+
+
 }
 
 void RunQn4(int seed){
     int size = 1000;
-    auto rho = 0.6;
-    auto r =0.03;
-    auto s_0 = 48;
-    auto v_0 = 0.05;
-    auto sigma = 0.42;
-    auto alpha = 5.8;
-    auto beta = 0.0625;
+    double rho = -0.6;
+    double r = 0.03;
+    double s_0 = 48;
+    double v_0 = 0.05;
+    double sigma = 0.42;
+    double alpha = 5.8;
+    double beta = 0.0625;
+    double T = 0.5;
+    double x = 50;
 
-    long double * z1;
-    long double * z2;
+    long double * full = new long double[size];
+    long double * partial = new long double[size];
+    long double * reflection = new long double[size];
 
-    long double * x;
-    long double * y;
+    for(int i =0; i< size; i++){
 
-    //generate normal distribution
-    z1 = RandomGenerator::boxmuller(RandomGenerator::runif(size * 2, seed), size * 2);
-    z2 = &z1[size];
-
-    x = RandomGenerator::bivariateNormalX(z1, size);
-    y = RandomGenerator::bivariateNormalY(z1, z2, rho, size);
-
-
-
+        full[i] = fullTruncationModel(seed + i * 1000, T, size, x, rho, r, s_0, v_0, sigma, alpha, beta);
+        partial[i] = partialTruncationModel(seed + i * 1000, T, size, x, rho, r, s_0, v_0, sigma, alpha, beta);
+        reflection[i] = reflectionTruncationModel(seed + i * 1000, T, size, x, rho, r, s_0, v_0, sigma, alpha, beta);
+    }
+    cout << Mutils::Mean(full,size) << endl;
+    cout << Mutils::Mean(partial,size) << endl;
+    cout << Mutils::Mean(reflection,size) << endl;
 }
 
 int main() {
     int seed = 1234567890;
     cout << "#################################### Qn 1 ###################################" << endl;
-    RunQn1(seed);
+    //RunQn1(seed);
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 2 ###################################" << endl;
-    RunQn2(seed);
+    //RunQn2(seed);
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 3 ###################################" << endl;
-    RunQn3(seed);
+    //RunQn3(seed);
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 4 ###################################" << endl;
