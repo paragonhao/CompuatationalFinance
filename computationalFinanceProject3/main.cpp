@@ -78,85 +78,50 @@ inline long double * solveQn2YT(double t, int size, int seed){
     return y_t;
 }
 
-inline long double reflectionTruncationModel(int seed, double T, int size, int x, double rho, double r,
+inline long double reflectionTruncationModel(long double *w1, long double *w2, double T, int size, int x, double r,
                                              double s0, double v0, double sigma, double a, double b){
     double delta = T/size;
-    long double * z1;
-    long double * z2;
-
-    long double * w1;
-    long double * w2;
-
 
     double v_reflect = v0;
     double s_reflect = s0;
-
-    //generate normal distribution
-    z1 = RandomGenerator::boxmuller(RandomGenerator::runif(size * 2, seed), size * 2);
-    z2 = &z1[size];
-
-    w1 = RandomGenerator::bivariateNormalX(z1, size);
-    w2 = RandomGenerator::bivariateNormalY(z1, z2, rho, size);
 
     for(int i = 0; i < size; i++){
         s_reflect = s_reflect + r * s_reflect * delta + sqrt(abs(v_reflect)) * s_reflect * w1[i] * sqrt(delta);
         v_reflect = abs(v_reflect) + a * (b - abs(v_reflect)) * delta + sigma * sqrt(abs(v_reflect))* w2[i] * sqrt(delta);
     }
-    return  max(s_reflect - x, 0.0);
+    return  max(s_reflect - x, 0.0)/exp(r*T);
 }
 
-inline double partialTruncationModel(int seed, double T, int size, int x, double rho, double r,
+inline double partialTruncationModel(long double *w1, long double *w2, double T, int size, int x, double r,
                                   double s0, double v0, double sigma, double a, double b){
     double delta = T/size;
-    long double * z1;
-    long double * z2;
-
-    long double * w1;
-    long double * w2;
 
     double v_partial = v0;
     double s_partial = s0;
-
-    //generate normal distribution
-    z1 = RandomGenerator::boxmuller(RandomGenerator::runif(size * 2, seed), size * 2);
-    z2 = &z1[size];
-
-    w1 = RandomGenerator::bivariateNormalX(z1, size);
-    w2 = RandomGenerator::bivariateNormalY(z1, z2, rho, size);
 
     for(int i = 0; i < size; i++){
         s_partial += r * s_partial * delta + sqrt(max(0.0, v_partial)) * s_partial * w1[i] * sqrt(delta);
         v_partial += a * (b - v_partial) * delta + sigma * sqrt(max(0.0, v_partial)) * w2[i] * sqrt(delta);
     }
 
-    return  max(s_partial - x, 0.0);
+    return  max(s_partial - x, 0.0)/exp(r*T);
 }
 
-inline double fullTruncationModel(int seed, double T, int size, int x, double rho, double r,
+inline double fullTruncationModel(long double *w1, long double *w2, double T, int size, int x, double r,
                                 double s0, double v0, double sigma, double a, double b){
 
     double delta = T/size;
-    long double * z1;
-    long double * z2;
-
-    long double * w1;
-    long double * w2;
 
     double v_full = v0;
     double s_full = s0;
 
-    //generate normal distribution
-    z1 = RandomGenerator::boxmuller(RandomGenerator::runif(size * 2, seed), size * 2);
-    z2 = &z1[size];
 
-    w1 = RandomGenerator::bivariateNormalX(z1, size);
-    w2 = RandomGenerator::bivariateNormalY(z1, z2, rho, size);
 
     for(int i = 0; i < size; i++){
         s_full +=r * s_full * delta + sqrt(max(0.0, v_full)) * s_full * w1[i] * sqrt(delta);
         v_full += a * (b - max(0.0,v_full)) * delta + sigma * sqrt(max(0.0, v_full)) * w2[i] * sqrt(delta);
     }
-    return  max(s_full - x, 0.0);
+    return  max(s_full - x, 0.0)/exp(r*T);
 }
 
 // Using Euler scheme
@@ -243,6 +208,13 @@ void RunQn3(int seed){
     long double greek_vega[iter];
     long double greek_rho[iter];
     long double greek_gamma[iter];
+    long double *all_greeks[5];
+
+    long double greek_delta_bs[iter];
+    long double greek_theta_bs[iter];
+    long double greek_vega_bs[iter];
+    long double greek_rho_bs[iter];
+    long double greek_gamma_bs[iter];
 
     int s0 = 15;
     int size = 1000;
@@ -250,55 +222,118 @@ void RunQn3(int seed){
     for(int i = 0; i < iter; i++) {
 
         double price = OptionPricing::callOptionSimAntithetic(seed,size,r,sigma,T,s0, x);
-
+        double forumlaPrice = OptionPricing::callOptionPriceBS(r,sigma,T,s0, x);
+        // delta
         greek_delta[i] = (OptionPricing::callOptionSimAntithetic(seed,size,r,sigma,T,s0 + epsilon, x) -
                 price)/ epsilon;
 
+        greek_delta_bs[i] = (OptionPricing::callOptionPriceBS(r,sigma,T,s0 + epsilon, x) -
+                forumlaPrice)/epsilon;
+
+        // theta
         greek_theta[i] = (OptionPricing::callOptionSimAntithetic(seed,size,r,sigma,T + epsilon,s0, x) -
                 price)/epsilon;
 
+        greek_theta_bs[i] = (OptionPricing::callOptionPriceBS(r,sigma,T + epsilon,s0, x) -
+                forumlaPrice)/epsilon;
+
+        //vega
         greek_vega[i] = (OptionPricing::callOptionSimAntithetic(seed,size,r,sigma + epsilon * epsilon, T, s0, x) -
                 price) / (epsilon * epsilon);
 
+        greek_vega_bs[i] = (OptionPricing::callOptionPriceBS(r,sigma + epsilon * epsilon, T, s0, x) -
+                forumlaPrice) / (epsilon * epsilon);
+
+        //rho
         greek_rho[i] = (OptionPricing::callOptionSimAntithetic(seed,size,r + epsilon * epsilon,sigma , T, s0, x) -
                 price) / (epsilon * epsilon);
 
-        greek_gamma[i] = (OptionPricing::callOptionSimAntithetic(seed, size, r, sigma , T, s0 + epsilon * 2, x) -
-                2 * OptionPricing::callOptionSimAntithetic(seed, size, r, sigma , T, s0 + epsilon, x) + price)
-                         / (epsilon*epsilon);
+        greek_rho_bs[i] = (OptionPricing::callOptionPriceBS(r + epsilon * epsilon,sigma , T, s0, x) -
+                forumlaPrice) / (epsilon * epsilon);
+
+        //gamma
+        greek_gamma[i] = (OptionPricing::callOptionSimAntithetic(seed, size, r, sigma , T, s0 + 0.95 * 2, x) -
+                2 * OptionPricing::callOptionSimAntithetic(seed, size, r, sigma , T, s0 + 0.95, x) + price);
+
+        greek_gamma_bs[i] = ((OptionPricing::callOptionPriceBS(r, sigma , T, s0 + epsilon * 2, x) -
+                          2 * OptionPricing::callOptionPriceBS( r, sigma , T, s0 + epsilon, x) + forumlaPrice))/(epsilon*epsilon);
 
         s0++;
     }
-    cout << "Delta: ";
+    cout << "#################################### Compute using Monte carlo simulation ###########################" << endl;
+    cout << "Delta Simulatio: ";
     for(int i=0; i< iter;i++){
         cout <<greek_delta[i] << ", ";
     }
+    all_greeks[0] = greek_delta;
     cout << endl;
 
-    cout << "Gamma: ";
+    cout << "Gamma Simulatio: ";
     for(int i=0; i< iter;i++){
         cout <<greek_gamma[i] << ", ";
     }
+    all_greeks[1] = greek_gamma;
     cout << endl;
 
-    cout << "Theta: ";
+    cout << "Theta Simulatio: ";
     for(int i=0; i< iter;i++){
         cout <<greek_theta[i] << ", ";
     }
+    all_greeks[2] = greek_theta;
     cout << endl;
 
-    cout << "Rho: ";
+    cout << "Rho Simulatio: ";
     for(int i=0; i< iter;i++){
         cout <<greek_rho[i] << ", ";
     }
+    all_greeks[3] = greek_rho;
     cout << endl;
 
-    cout << "Vega: ";
+    cout << "Vega Simulatio: ";
     for(int i=0; i< iter;i++){
         cout <<greek_vega[i] << ", ";
     }
+    all_greeks[4] = greek_vega;
     cout << endl;
 
+    Mutils::WriteToCSV2DMatrix(all_greeks,iter,5, "../Data/greeks.csv");
+
+    cout << "#################################### Compute using black shole formula ###########################" << endl;
+    cout << "Delta (Black shole): ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_delta_bs[i] << ", ";
+    }
+    all_greeks[0] = greek_delta_bs;
+    cout << endl;
+
+    cout << "Gamma (Black sholes): ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_gamma_bs[i] << ", ";
+    }
+    all_greeks[1] = greek_gamma_bs;
+    cout << endl;
+
+    cout << "Theta (Black sholes): ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_theta_bs[i] << ", ";
+    }
+    all_greeks[2] = greek_theta_bs;
+    cout << endl;
+
+    cout << "Rho (Black sholes): ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_rho_bs[i] << ", ";
+    }
+    all_greeks[3] = greek_rho_bs;
+    cout << endl;
+
+    cout << "Vega (Black sholes): ";
+    for(int i=0; i< iter;i++){
+        cout <<greek_vega_bs[i] << ", ";
+    }
+    all_greeks[4] = greek_vega_bs;
+    cout << endl;
+    Mutils::WriteToCSV2DMatrix(all_greeks,iter,5, "../Data/greeks_bs.csv");
 
 }
 
@@ -318,34 +353,100 @@ void RunQn4(int seed){
     long double * partial = new long double[size];
     long double * reflection = new long double[size];
 
+    long double * z1;
+    long double * z2;
+
+    long double * w1;
+    long double * w2;
+
     for(int i =0; i< size; i++){
 
-        full[i] = fullTruncationModel(seed + i * 1000, T, size, x, rho, r, s_0, v_0, sigma, alpha, beta);
-        partial[i] = partialTruncationModel(seed + i * 1000, T, size, x, rho, r, s_0, v_0, sigma, alpha, beta);
-        reflection[i] = reflectionTruncationModel(seed + i * 1000, T, size, x, rho, r, s_0, v_0, sigma, alpha, beta);
+        z1 = RandomGenerator::boxmuller(RandomGenerator::runif(size * 2, seed + i * 1000), size * 2);
+        z2 = &z1[size];
+
+        w1 = RandomGenerator::bivariateNormalX(z1, size);
+        w2 = RandomGenerator::bivariateNormalY(z1, z2, rho, size);
+
+        full[i] = fullTruncationModel(w1, w2, T, size, x, r, s_0, v_0, sigma, alpha, beta);
+        partial[i] = partialTruncationModel(w1, w2, T, size, x, r, s_0, v_0, sigma, alpha, beta);
+        reflection[i] = reflectionTruncationModel(w1, w2, T, size, x, r, s_0, v_0, sigma, alpha, beta);
     }
-    cout << Mutils::Mean(full,size) << endl;
-    cout << Mutils::Mean(partial,size) << endl;
-    cout << Mutils::Mean(reflection,size) << endl;
+    cout << "Full Truncation: " <<Mutils::Mean(full,size) << endl;
+    cout << "Partial Truncation: " <<Mutils::Mean(partial,size) << endl;
+    cout << "Reflection: " <<Mutils::Mean(reflection,size) << endl;
+}
+
+inline long double integralVal(long double x, long double y){
+    return exp(-x*y)*(sin(6*M_PI*x) + cbrt(cos(2*M_PI*y)));
+}
+
+void solveIntegral(int base1, int base2, int size){
+    long double * halton[2];
+    halton[0] = Mutils::getHaltonSequence(base1,size);
+    halton[1] = Mutils::getHaltonSequence(base2,size);
+    long double sum = 0;
+
+    for(int i =0; i<size; i++){
+        long double x = halton[0][i];
+        long double y = halton[1][i];
+        sum +=integralVal(x,y);
+    }
+    cout << "For base "<< base1<< " and "<<base2<<", the value of the integral is: "<< sum/size<<endl;
+}
+
+void RunQn5(int seed){
+    int row = 100;
+    int col = 2;
+    long double * uniArr[2];
+    long double * halton1[2];
+    long double * halton2[2];
+
+
+    // #################################### Qn 5a ###################################
+    for(int i =0; i<col; i++){
+        uniArr[i] = RandomGenerator::runif(row, seed + i * 1000);
+    }
+    Mutils::WriteToCSV2DMatrix(uniArr,row, col,"../Data/pseudo_uniform.csv");
+
+    // #################################### Qn 5b ###################################
+    halton1[0] = Mutils::getHaltonSequence(2,100);
+    halton1[1] = Mutils::getHaltonSequence(7,100);
+
+    Mutils::WriteToCSV2DMatrix(halton1,row, col,"../Data/base_2_7.csv");
+
+    // #################################### Qn 5c ###################################
+    halton2[0] = Mutils::getHaltonSequence(2,100);
+    halton2[1] = Mutils::getHaltonSequence(4,100);
+    Mutils::WriteToCSV2DMatrix(halton2,row, col,"../Data/base_2_4.csv");
+
+    // #################################### Qn 5e ###################################
+    int n =10000;
+    solveIntegral(2,4,n);
+    solveIntegral(2,7,n);
+    solveIntegral(5,7,n);
+
 }
 
 int main() {
     int seed = 1234567890;
     cout << "#################################### Qn 1 ###################################" << endl;
-    //RunQn1(seed);
+    RunQn1(seed);
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 2 ###################################" << endl;
-    //RunQn2(seed);
+    RunQn2(seed);
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 3 ###################################" << endl;
-    //RunQn3(seed);
+    RunQn3(seed);
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 4 ###################################" << endl;
     RunQn4(seed);
     cout << "#############################################################################" << endl;
+    cout << endl;
+    cout << "#################################### Qn 5 ###################################" << endl;
+    RunQn5(seed);
     cout << endl;
     return 0;
 }

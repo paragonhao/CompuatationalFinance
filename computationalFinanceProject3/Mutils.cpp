@@ -71,7 +71,7 @@ double Mutils::Cov(long double *x, long double *y, int size){
 
 
 
-void Mutils::WriteToCSV(long double *arr, int n, const string filename){
+void Mutils::WriteArrayToCSV(long double *arr, int n, const string filename){
     ofstream file;
     file.open(filename);
     for(int i=0; i < n; i++){
@@ -80,20 +80,19 @@ void Mutils::WriteToCSV(long double *arr, int n, const string filename){
     file.close();
 }
 
-// TODO: figure out a way to pass array into function
-//void Mutils::WriteToCSV2DMatrix(long double arr[][1001], int row,int col, const string filename){
-//    ofstream file;
-//    file.open(filename);
-//
-//    for(int i=0; i<row;i++){
-//        for(int j=0; j<col; j++){
-//            file << arr[i][j] << ",";
-//            cout << arr[i][j] << endl;
-//        }
-//        file << "\n";
-//    }
-//    file.close();
-//}
+
+void Mutils::WriteToCSV2DMatrix(long double **arr, int row,int col, const string filename){
+    ofstream file;
+    file.open(filename);
+
+    for(int i=0; i<row;i++){
+        for(int j=0; j<col; j++){
+            file << arr[j][i] << ",";
+        }
+        file << "\n";
+    }
+    file.close();
+}
 
 long double * Mutils::MatrixMultiply(long double *arr, int size, double sqrtT){
 
@@ -129,4 +128,57 @@ long double Mutils::pnorm(double x)
     probability = 1 - 0.5 * pow(temp, -16);
 
     return  (x >= 0)? probability : (1- probability);
+}
+
+
+/* Vector element wise multiplication
+ * s
+ *
+ * @param:
+ * double *: first array
+ * double *: seconed array
+ * int : size of the array to check
+ * */
+long double Mutils::arrayElementWiseMultiply(long double * v1, long double * v2, int NumBits){
+    long double sum = 0;
+    for(int i = 0; i<NumBits; i++){
+        sum += v1[i] * v2[i];
+    }
+    return sum;
+}
+
+/* Generate Low Discrepency Sequence
+ *
+ * @param:
+ * int base : prime number
+ * int size : size of the array to be generated
+ * */
+long double * Mutils::getHaltonSequence(int base, int size){
+
+    long double *seq = new long double[size];
+    for(int i=0; i<size; i++){
+       seq[i] = 0;
+    }
+
+    int NumBits = 1 + ceil(log(size)/log(base));
+
+    long double vetBase[NumBits];
+    long double workVet[NumBits];
+    for(int i=0; i< NumBits; i++){
+        vetBase[i] = pow(base, -(i+1));
+        workVet[i] = 0;
+    }
+
+    for(int i=1; i<=size; i++){
+        int num = i;
+        int counter = 0;
+        while (num > 0){
+            workVet[counter] = num % base;
+            num /= base;
+            counter++;
+        }
+        seq[i-1] = arrayElementWiseMultiply(workVet, vetBase,NumBits);
+    }
+
+    return seq;
 }
