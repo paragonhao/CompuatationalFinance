@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include <iostream>
+#include <vector>
 #include "Mutils.h"
 #include "RandomGenerator.h"
 
@@ -98,18 +99,62 @@ long double OptionPricing::callOptionSimAntithetic(int seed, int size, double r,
  * double t: time to maturity
  * double step: Number of periods for binomial trees
  * */
-double callOptionEuropeanBinomial(const string& method, const double& S, const double& K, const double& r,
+double OptionPricing::callOptionEuropeanBinomial(const string& method, const double& S, const double& K, const double& r,
                                        const double& sigma, const double& t, const int& steps){
     double delta = t/steps;
     double c = 0.0;
-
+    double d = 0.0;
+    double u = 0.0;
+    double p_up = 0.0;
+    double p_down = 0.0;
+    double discount = exp(r*(delta));
 
     if(method == "a"){
-       cout <<endl;
+        c = 0.5 * (exp(-r * delta) + exp((r + sigma * sigma)* delta));
+
+        // volatility determines the up and down factors
+        d = c - sqrt(c*c - 1);
+        u = 1/d;
+        p_up = (exp(r * delta) - d)/(u - d);
+    }else if(method == "b"){
+        u = exp(r * delta) * (1 + sqrt(exp(sigma * sigma * delta) - 1));
+        d = exp(r * delta) * (1 - sqrt(exp(sigma * sigma * delta) - 1));
+        p_up = 0.5;
+    }else if(method == "c"){
+        u = exp((r - sigma * sigma * 0.5) * delta + sigma * sqrt(delta));
+        d = exp((r - sigma * sigma * 0.5) * delta - sigma * sqrt(delta));
+        p_up = 0.5;
+    }else if(method == "d"){
+        u = exp(sigma * sqrt(delta));
+        d = exp(-sigma * sqrt(delta));
+        p_up = 0.5 + 0.5 * ((r - 0.5 * sigma * sigma) * sqrt(delta) / sigma);
     }
 
+    p_down = 1 - p_up;
+
+    vector< vector< double > > tree ( steps+1, vector<double> ( steps +1, 0 ) );
+    vector< vector< double > > optionPriceTree ( steps+1, vector<double> ( steps +1, 0 ) );
 
 
-    return 0.0;
+    // generate the binomial tree based on the p_up, d, u factors
+    for(int i=0; i<=steps; i++){
+        for(int j=0; j<=i; j++){
+            tree[i][j] = S * pow(u, j) * pow(d, i-j);
+        }
+    }
+
+    for(int i=0; i<=steps; i++){
+        for(int j=0; j<=i; j++){
+            optionPriceTree[i][j] = max(0.0, tree[i][j] - K);
+        }
+    }
+
+    for(int i = steps - 1; i >= 0; i--){
+        for(int j = 0; j<= i; j++){
+            optionPriceTree[i][j] = (p_down * optionPriceTree[i+1][j] + p_up * optionPriceTree[i+1][j+1])/discount;
+        }
+    }
+
+    return optionPriceTree[0][0];
 
 }

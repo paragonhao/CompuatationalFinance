@@ -15,7 +15,7 @@ public:
     static double StDev(long double arr[], int n);
     static double Corr(long double *x, long double *y, int size);
     static void WriteArrayToCSV(long double *arr, int n, const string filename);
-    static void WriteToCSV2DMatrix(long double **arr, int row,int col, const string filename);
+    static void WriteToCSV2DMatrix( double **arr, int row,int col, const string filename);
     static long double pnorm(double x);
     static double Cov(long double *x, long double *y, int size);
     static long double * MatrixMultiply(long double *arr, int size, double sqrtT);
