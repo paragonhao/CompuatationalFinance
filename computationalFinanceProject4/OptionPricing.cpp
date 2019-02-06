@@ -351,3 +351,73 @@ double OptionPricing::putOptionEuropeanBinomial(const string& method, const doub
     return optionPriceTree[0][0];
 
 }
+
+
+double OptionPricing::callOptionEuropeanTrinomial(const string& method, const double& S, const double& K, const double& r,
+                                   const double& sigma, const double& t, const int& steps){
+    double delta = t/steps;
+    double d = 0.0;
+    double u = 0.0;
+    double p_up = 0.0;
+    double p_down = 0.0;
+    double p_m = 0.0;
+    double discount = exp(r*(delta));
+
+    if(method == "a"){
+        d = exp(-sigma * sqrt(3 * delta));
+        u = 1/d;
+        p_down = (r*delta*(1-u) + (r*delta) *(r*delta) + sigma*sigma*delta)/((u-d)*(1-d));
+        p_up = (r*delta*(1-d) + r*delta*r*delta + sigma*sigma*delta)/((u - d) *(u- 1));
+    }
+    p_m = 1 - p_down - p_up;
+
+    vector< vector< double > > tree ( steps+1, vector<double> ( 2 * steps +1, 0 ) );
+    vector< vector< double > > optionPriceTree ( steps+1, vector<double> ( 2 * steps +1, 0 ) );
+
+    // generate the trinomial tree based on the u, d factors
+    for(int i=0; i<=steps; i++){
+        for(int j=0; j<2*i + 1; j++){
+            tree[i][j] = S * pow(u, max(i-j, 0)) * pow(d, max(j-i, 0));
+        }
+    }
+
+    for(int i=0; i<=steps; i++){
+        for(int j=0; j<2*i + 1; j++){
+            optionPriceTree[i][j] = max(0.0, tree[i][j] - K);
+        }
+    }
+
+
+    for(int i = steps - 1; i >= 0; i--){
+        int num = (i+1)*2 + 1;
+        for(int j = 0; j< num; j++){
+            if(j+2 <num){
+                optionPriceTree[i][j] = (p_up * optionPriceTree[i+1][j]
+                                        + p_m * optionPriceTree[i+1][j+1] + p_down * optionPriceTree[i+1][j+2])/discount;
+            }else{
+                break;
+            }
+
+        }
+        cout << endl;
+    }
+
+//    for(int i=0; i<=steps; i++){
+//        for(int j=0; j<2*i + 1; j++){
+//            cout<< tree[i][j]<<", ";
+//        }
+//        cout << endl;
+//    }
+
+//    for(int i=0; i<=steps; i++){
+//        for(int j=0; j<2*i + 1; j++){
+//            cout<< optionPriceTree[i][j]<<", ";
+//        }
+//        cout << endl;
+//    }
+
+
+
+
+    return optionPriceTree[0][0];
+}

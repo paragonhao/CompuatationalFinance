@@ -37,34 +37,23 @@ void RunQn2(){
     double price = 1141.42;
     double k = (int(price)/10) * 10.0 * 1.1;
 
-    ifstream  data("../Data/GOOG_2013_01_2018_01.csv");
+    ifstream  data("../Data/GOOG_monthly_ret.csv");
 
 
     string line;
     int counter = 0;
-    long double *adjustedPrice = new long double[1500];
+    long double *ret = new long double[60];
 
     while(getline(data,line))
     {
         long double temp = stold(line);
-        adjustedPrice[counter] = temp;
+        ret[counter] = temp;
         counter ++;
     }
 
-    vector<int> yearEndpoints = {251, 502, 753, 1006};
-    long double ret[4];
-
-    int prev = 0;
-    for(int i=0; i<6; i++){
-        if( i< 4){
-            int pos = yearEndpoints[i];
-            ret[i] = (adjustedPrice[pos] - adjustedPrice[prev])/adjustedPrice[prev];
-            prev = pos;
-        }
-    }
-    long double sigma = Mutils::StDev(ret, 4);
+    long double sigma = Mutils::StDev(ret, 60);
     cout << "Price is 58.8 on Yahoo Finance"<< endl;
-    cout << "Estimate the option price on Jan 2020: " <<OptionPricing::callOptionEuropeanBinomial("d", price, k, rf, sigma, 1, 200)<< endl;
+    cout << "Estimate the option price on Jan 2020: " <<OptionPricing::callOptionEuropeanBinomial("d", price, k, rf, sigma * sqrt(12), 1, 200)<< endl;
     cout << "Estimate the option price with Volatility equal to 20.4%: " <<OptionPricing::callOptionEuropeanBinomial("d", price, k, rf, 0.204, 1, 200)<< endl;
 
 }
@@ -163,6 +152,22 @@ void RunQn4(){
 
 }
 
+void RunQn5(){
+    double r = 0.05;
+    double sigma = 0.24;
+    double s0 = 32;
+    double k = 30;
+    double t = 0.5;
+
+    vector<int> nSize {10, 15, 20, 40, 70, 80, 100, 200, 500};
+    cout <<OptionPricing::callOptionEuropeanTrinomial("a",s0,k, r, sigma, t, 500)<<endl;
+    cout<< OptionPricing::callOptionPriceBS(r,sigma, t,s0,k)<<endl;
+    for(auto &i : nSize) {
+        OptionPricing::callOptionEuropeanTrinomial("a",s0,k, r, sigma, t, i);
+    }
+
+}
+
 int main(){
 
     cout << "#################################### Qn 1 ###################################" << endl;
@@ -178,11 +183,11 @@ int main(){
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 4 ###################################" << endl;
-    RunQn4();
+    //RunQn4();
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 5 ###################################" << endl;
-//    RunQn5(seed);
+    RunQn5();
     cout << endl;
     return 0;
 }
