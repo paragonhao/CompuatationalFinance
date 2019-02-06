@@ -16,6 +16,12 @@ public:
     static double callOptionPriceBS(double r, double sigma, double T, double s0, double x);
     static double callOptionEuropeanBinomial(const string& method, const double& S, const double& K, const double& r,
                                                   const double& sigma, const double& t, const int& steps);
+
+    static double putOptionEuropeanBinomial(const string& method, const double& S, const double& K, const double& r,
+                                             const double& sigma, const double& t, const int& steps);
+    static double putOptionPriceBS(double r, double sigma, double T, double s0, double x);
+    static double putOptionAmericanBinomial(const string& method, const double& S, const double& K, const double& r,
+                                            const double& sigma, const double& t, const int& steps);
 };
 
 

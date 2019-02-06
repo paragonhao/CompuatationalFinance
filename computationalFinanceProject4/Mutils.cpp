@@ -71,7 +71,7 @@ double Mutils::Cov(long double *x, long double *y, int size){
 
 
 
-void Mutils::WriteArrayToCSV(long double *arr, int n, const string filename){
+void Mutils::WriteArrayToCSV( double *arr, int n, const string filename){
     ofstream file;
     file.open(filename);
     for(int i=0; i < n; i++){
@@ -84,7 +84,7 @@ void Mutils::WriteArrayToCSV(long double *arr, int n, const string filename){
 void Mutils::WriteToCSV2DMatrix(double arr[][31], int row,int col, const string filename){
     ofstream file;
     file.open(filename);
-    cout << "closing"<<endl;
+
     for(int i=0; i<row;i++){
         for(int j=0; j<col; j++){
             file << arr[j][i] << ",";

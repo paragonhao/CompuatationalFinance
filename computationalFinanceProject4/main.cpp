@@ -20,7 +20,7 @@ void RunQn1(){
     double k = 30;
     double t = 0.5;
 
-    vector<int> nSize {10, 20, 40, 80, 100, 200};
+    vector<int> nSize {10, 20, 40, 80, 100, 200, 500};
     vector<string> method {"a", "b", "c", "d"};
     cout << "Option price using Black Sholes: " << OptionPricing::callOptionPriceBS(r,sigma,t, s0, k) << endl;
 
@@ -86,9 +86,9 @@ void RunQn3(){
     s0 = 20;
     for(int i = 0; i <= 30; i++){
 
-        double price = s0 + i * 2;
+        double price = s0 + i * s0_increment;
         double curr_price = OptionPricing::callOptionEuropeanBinomial("d", price, k, r, sigma, t, steps);
-        double curr_price_bs = OptionPricing::callOptionPriceBS(r,sigma, t, s0, k);
+        double curr_price_bs = OptionPricing::callOptionPriceBS(r,sigma, t, price, k);
         // delta
         greeks[0][i] =  (OptionPricing::callOptionEuropeanBinomial("d", price + epsilon, k, r, sigma, t, steps) - curr_price)/epsilon;
         greeks_bs[0][i] =  (OptionPricing::callOptionPriceBS(r,sigma, t, price + epsilon, k) - curr_price_bs)/epsilon;
@@ -116,19 +116,54 @@ void RunQn3(){
         greeks[4][i] = (OptionPricing::callOptionEuropeanBinomial("d", price, k, r + epsilon * epsilon, sigma, t, steps) -
                 curr_price) / (epsilon * epsilon);
         greeks_bs[4][i] =  (OptionPricing::callOptionPriceBS(r + epsilon * epsilon, sigma, t, price, k) - curr_price_bs)/(epsilon * epsilon);
-
-
     }
-    cout << "output data"<<endl;
+
+    s0 = 49;
 
     Mutils::WriteToCSV2DMatrix(greeks,31,5,"../Data/Qn3.csv");
+    Mutils::WriteToCSV2DMatrix(greeks_bs,31,5,"../Data/Qn3_bs.csv");
 
+    int iter = int(t/epsilon);
 
+    double *delta = new double [iter+2];
+    t = 0;
+    for(int i =0; i<=iter; i++){
+        double curr_t = t + i * epsilon;
+        double curr_price = OptionPricing::callOptionEuropeanBinomial("d", s0, k, r, sigma, curr_t, steps);
+
+        delta[i] =  (OptionPricing::callOptionEuropeanBinomial("d", s0 + epsilon, k, r, sigma, curr_t, steps) - curr_price)/epsilon;
+    }
+    t = 0.3846;
+    double curr_price = OptionPricing::callOptionEuropeanBinomial("d", s0, k, r, sigma, t, steps);
+    delta[iter+1] =  (OptionPricing::callOptionEuropeanBinomial("d", s0 + epsilon, k, r, sigma, t, steps) - curr_price)/epsilon;
+    Mutils::WriteArrayToCSV(delta,iter+2,"../Data/Qn3_delta_t.csv");
 
 
 }
 
-int main() {
+void RunQn4(){
+    double r =0.05;
+    double sigma = 0.3;
+    double k = 100;
+    double t = 1;
+    double s = 80;
+    int steps = 200;
+
+    double * euroPutPrice = new double [11];
+    double * americanPutPrice = new double [11];
+    double increment = 4;
+
+    for(int i=0;i<=10;i++){
+        double stockPrice = s + i * increment;
+        euroPutPrice[i] = OptionPricing::putOptionEuropeanBinomial("d", stockPrice, k, r, sigma, t, steps);
+        americanPutPrice[i] = OptionPricing::putOptionAmericanBinomial("d", stockPrice, k, r, sigma, t, steps);
+    }
+    Mutils::WriteArrayToCSV(euroPutPrice,11,"../Data/Qn4EuroPut.csv");
+    Mutils::WriteArrayToCSV(americanPutPrice,11,"../Data/Qn4AmericanPut.csv");
+
+}
+
+int main(){
 
     cout << "#################################### Qn 1 ###################################" << endl;
     //RunQn1();
@@ -139,11 +174,11 @@ int main() {
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 3 ###################################" << endl;
-    RunQn3();
+    //RunQn3();
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 4 ###################################" << endl;
-//    RunQn4(seed);
+    RunQn4();
     cout << "#############################################################################" << endl;
     cout << endl;
     cout << "#################################### Qn 5 ###################################" << endl;
