@@ -80,7 +80,7 @@ void RunQn3(){
     double epsilon = 0.01;
 
     double greeks[5][31];
-
+    double greeks_bs[5][31];
 
     int s0_increment = 2;
     s0 = 20;
@@ -88,42 +88,41 @@ void RunQn3(){
 
         double price = s0 + i * 2;
         double curr_price = OptionPricing::callOptionEuropeanBinomial("d", price, k, r, sigma, t, steps);
-
+        double curr_price_bs = OptionPricing::callOptionPriceBS(r,sigma, t, s0, k);
         // delta
         greeks[0][i] =  (OptionPricing::callOptionEuropeanBinomial("d", price + epsilon, k, r, sigma, t, steps) - curr_price)/epsilon;
+        greeks_bs[0][i] =  (OptionPricing::callOptionPriceBS(r,sigma, t, price + epsilon, k) - curr_price_bs)/epsilon;
+
 
         // theta
         greeks[1][i] = (OptionPricing::callOptionEuropeanBinomial("d", price, k, r, sigma, t + epsilon, steps) - curr_price)/epsilon;
+        greeks_bs[1][i] =  (OptionPricing::callOptionPriceBS(r,sigma, t + epsilon, price, k) - curr_price_bs)/epsilon;
 
         // gamma
-        greeks[2][i] = (OptionPricing::callOptionEuropeanBinomial("d", price + epsilon * 2, k, r, sigma, t, steps)
-                - 2 * OptionPricing::callOptionEuropeanBinomial("d", price + epsilon, k, r, sigma, t, steps) + price)/epsilon;
+        greeks[2][i] = (OptionPricing::callOptionEuropeanBinomial("d", price + 1 * 2, k, r, sigma, t, steps)
+                - 2 * OptionPricing::callOptionEuropeanBinomial("d", price + 1, k, r, sigma, t, steps) + curr_price)/1;
+
+        greeks_bs[2][i] = ((OptionPricing::callOptionPriceBS(r, sigma , t, price + 1 * 2, k) -
+                            2 * OptionPricing::callOptionPriceBS( r, sigma , t, price + 1, k) + curr_price_bs))/(1*1);
+
 
         // Vega
         greeks[3][i] = (OptionPricing::callOptionEuropeanBinomial("d", price, k, r, sigma + epsilon * epsilon, t, steps) -
-                        price) / (epsilon * epsilon);
+                curr_price) / (epsilon * epsilon);
+        greeks_bs[3][i] =  (OptionPricing::callOptionPriceBS(r,sigma + epsilon * epsilon, t, price, k) - curr_price_bs)/(epsilon * epsilon);
+
 
         //rho
         greeks[4][i] = (OptionPricing::callOptionEuropeanBinomial("d", price, k, r + epsilon * epsilon, sigma, t, steps) -
-                        price) / (epsilon * epsilon);
+                curr_price) / (epsilon * epsilon);
+        greeks_bs[4][i] =  (OptionPricing::callOptionPriceBS(r + epsilon * epsilon, sigma, t, price, k) - curr_price_bs)/(epsilon * epsilon);
+
 
     }
     cout << "output data"<<endl;
-    for(int j =0; j <5; j++){
-        for(int i = 0; i<31; i++){
-           cout << greeks[j][i] <<",";
-        }
-        cout << endl;
-        cout << endl;
-    }
 
+    Mutils::WriteToCSV2DMatrix(greeks,31,5,"../Data/Qn3.csv");
 
-
-//    int iter = int(t / epsilon);
-//    s0= 49;
-//    for(int i=0; i<=iter; i++){
-//        double curr_price = OptionPricing::callOptionEuropeanBinomial("d", s0, k, r, sigma, t, steps);
-//    }
 
 
 

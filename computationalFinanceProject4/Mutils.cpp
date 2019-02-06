@@ -81,7 +81,7 @@ void Mutils::WriteArrayToCSV(long double *arr, int n, const string filename){
 }
 
 
-void Mutils::WriteToCSV2DMatrix(double **arr, int row,int col, const string filename){
+void Mutils::WriteToCSV2DMatrix(double arr[][31], int row,int col, const string filename){
     ofstream file;
     file.open(filename);
     cout << "closing"<<endl;
