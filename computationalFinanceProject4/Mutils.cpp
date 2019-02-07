@@ -95,10 +95,10 @@ void Mutils::WriteToCSV2DMatrix(double arr[][31], int row,int col, const string 
     file.close();
 }
 
-long double * Mutils::MatrixMultiply(long double *arr, int size, double sqrtT){
+long double * Mutils::MatrixMultiply(long double *arr, int size, double t){
 
     for(int i=0; i< size; i++){
-        arr[i] *= sqrtT;
+        arr[i] *= t;
     }
 
     return arr;
@@ -146,40 +146,4 @@ long double Mutils::arrayElementWiseMultiply(long double * v1, long double * v2,
         sum += v1[i] * v2[i];
     }
     return sum;
-}
-
-/* Generate Low Discrepency Sequence
- *
- * @param:
- * int base : prime number
- * int size : size of the array to be generated
- * */
-long double * Mutils::getHaltonSequence(int base, int size){
-
-    long double *seq = new long double[size];
-    for(int i=0; i<size; i++){
-       seq[i] = 0;
-    }
-
-    int NumBits = 1 + ceil(log(size)/log(base));
-
-    long double vetBase[NumBits];
-    long double workVet[NumBits];
-    for(int i=0; i< NumBits; i++){
-        vetBase[i] = pow(base, -(i+1));
-        workVet[i] = 0;
-    }
-
-    for(int i=1; i<=size; i++){
-        int num = i;
-        int counter = 0;
-        while (num > 0){
-            workVet[counter] = num % base;
-            num /= base;
-            counter++;
-        }
-        seq[i-1] = arrayElementWiseMultiply(workVet, vetBase,NumBits);
-    }
-
-    return seq;
 }

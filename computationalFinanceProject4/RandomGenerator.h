@@ -24,6 +24,8 @@ public:
 
     static long double* boxmuller(long double *arr, int size);
 
+    static long double * boxmullerWithHaltonSeq(long double *base1, long double * base2,int size);
+
     static long double* polarmarsaglia(long double *arr, int size);
 
     static long double*  bivariateNormalX(long double *z1, int size);
@@ -31,6 +33,8 @@ public:
     static long double*  bivariateNormalY(long double *z1, long double *z2, double rho, int size);
 
     static long double* wienerProcess(double t, int size, int seed);
+
+    static long double * getHaltonSequence(int base, int size);
 };
 
 

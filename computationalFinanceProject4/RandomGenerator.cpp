@@ -102,6 +102,28 @@ long double* RandomGenerator::boxmuller(long double *arr, int size){
     return normArr;
 }
 
+/* Simulate Standard Normal Distribution Using Box-Muller with two arrays of halton sequence
+ *
+ * @param:
+ * long double *base1: uniform distribution array from base 1
+ * long double *base1: uniform distribution array from base 2
+ * int size: size of array
+ * */
+long double* RandomGenerator::boxmullerWithHaltonSeq(long double *base1, long double * base2,int size){
+
+    long double* normArr = new long double[size];
+
+    for(int i=0; i< size; i+=2){
+        // calculate z1
+        normArr[i] = sqrt(-2 * log(base1[i])) * cos(2 * M_PI * base2[i]);
+
+        // calculate z2
+        normArr[i+1] = sqrt(-2 * log(base1[i+1])) * sin(2 * M_PI * base2[i+1]);
+    }
+
+    return normArr;
+}
+
 
 /* Simulate Standard Normal Distribution Using Polar-Marsaglia
  *
@@ -210,4 +232,40 @@ long double* RandomGenerator::wienerProcess(double t, int size, int seed){
     long double * stdNor= RandomGenerator::boxmuller(RandomGenerator::runif(size, seed), size);
 
     return Mutils::MatrixMultiply(stdNor, size, sqrt(t));
+}
+
+/* Generate Low Discrepency Sequence
+ *
+ * @param:
+ * int base : prime number
+ * int size : size of the array to be generated
+ * */
+long double * RandomGenerator::getHaltonSequence(int base, int size){
+
+    long double *seq = new long double[size];
+    for(int i=0; i<size; i++){
+        seq[i] = 0;
+    }
+
+    int NumBits = 1 + ceil(log(size)/log(base));
+
+    long double vetBase[NumBits];
+    long double workVet[NumBits];
+    for(int i=0; i< NumBits; i++){
+        vetBase[i] = pow(base, -(i+1));
+        workVet[i] = 0;
+    }
+
+    for(int i=1; i<=size; i++){
+        int num = i;
+        int counter = 0;
+        while (num > 0){
+            workVet[counter] = num % base;
+            num /= base;
+            counter++;
+        }
+        seq[i-1] = Mutils::arrayElementWiseMultiply(workVet, vetBase,NumBits);
+    }
+
+    return seq;
 }

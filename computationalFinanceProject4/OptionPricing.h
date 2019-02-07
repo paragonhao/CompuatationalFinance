@@ -19,6 +19,11 @@ public:
     static double callOptionEuropeanTrinomial(const string& method, const double& S, const double& K, const double& r,
                                               const double& sigma, const double& t, const int& steps);
 
+    static double callOptionEuropeanLDS(const double& S, const double& K, const double& r,
+                                        const double& sigma, const double& T, const int& N,
+                                        const int& base1, const int& base2);
+
+
     static double putOptionEuropeanBinomial(const string& method, const double& S, const double& K, const double& r,
                                              const double& sigma, const double& t, const int& steps);
     static double putOptionPriceBS(double r, double sigma, double T, double s0, double x);

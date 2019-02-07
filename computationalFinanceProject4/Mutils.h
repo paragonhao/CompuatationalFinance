@@ -18,9 +18,9 @@ public:
     static void WriteToCSV2DMatrix( double arr[][31], int col,int row, const string filename);
     static long double pnorm(double x);
     static double Cov(long double *x, long double *y, int size);
-    static long double * MatrixMultiply(long double *arr, int size, double sqrtT);
+    static long double * MatrixMultiply(long double *arr, int size, double t);
     static long double * MatrixAddition(long double *arr, int size, long double num);
-    static long double * getHaltonSequence(int base, int size);
+
     static long double arrayElementWiseMultiply(long double * v1, long double * v2, int size);
 };
 

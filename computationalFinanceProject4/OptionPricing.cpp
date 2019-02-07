@@ -352,7 +352,17 @@ double OptionPricing::putOptionEuropeanBinomial(const string& method, const doub
 
 }
 
-
+/* Put Option Pricing by using trinomial trees
+ *
+ * @param:
+ * string method: method chose to generate p_up, p_down, u & d
+ * double S: spot price
+ * double K: Strike price
+ * double r: Interest rate
+ * double Sigma: volatility
+ * double t: time to maturity
+ * double step: Number of periods for binomial trees
+ * */
 double OptionPricing::callOptionEuropeanTrinomial(const string& method, const double& S, const double& K, const double& r,
                                    const double& sigma, const double& t, const int& steps){
     double delta = t/steps;
@@ -362,30 +372,55 @@ double OptionPricing::callOptionEuropeanTrinomial(const string& method, const do
     double p_down = 0.0;
     double p_m = 0.0;
     double discount = exp(r*(delta));
+    double delta_xu = 0.0;
+    double delta_xd = 0.0;
 
     if(method == "a"){
         d = exp(-sigma * sqrt(3 * delta));
         u = 1/d;
         p_down = (r*delta*(1-u) + (r*delta) *(r*delta) + sigma*sigma*delta)/((u-d)*(1-d));
         p_up = (r*delta*(1-d) + r*delta*r*delta + sigma*sigma*delta)/((u - d) *(u- 1));
+    }else if(method == "b"){
+        delta_xu = sigma * sqrt(3*delta);
+        delta_xd = -delta_xu;
+        double tempNumerator1 = sigma * sigma * delta + pow((r - 0.5 * sigma * sigma), 2)  * delta * delta;
+        double tempNumerator2 = (r - 0.5 * sigma * sigma) * delta;
+        p_down = 0.5*((tempNumerator1/(delta_xu*delta_xu)) - (tempNumerator2/delta_xu));
+        p_up = 0.5*((tempNumerator1/(delta_xu*delta_xu)) + (tempNumerator2/delta_xu));
     }
     p_m = 1 - p_down - p_up;
 
     vector< vector< double > > tree ( steps+1, vector<double> ( 2 * steps +1, 0 ) );
     vector< vector< double > > optionPriceTree ( steps+1, vector<double> ( 2 * steps +1, 0 ) );
 
-    // generate the trinomial tree based on the u, d factors
-    for(int i=0; i<=steps; i++){
-        for(int j=0; j<2*i + 1; j++){
-            tree[i][j] = S * pow(u, max(i-j, 0)) * pow(d, max(j-i, 0));
+    if(method == "a"){
+        // generate the trinomial tree based on the u, d factors
+        for(int i=0; i<=steps; i++){
+            for(int j=0; j<2*i + 1; j++){
+                tree[i][j] = S * pow(u, max(i-j, 0)) * pow(d, max(j-i, 0));
+            }
+        }
+        for(int i=0; i<=steps; i++){
+            for(int j=0; j<2*i + 1; j++){
+                optionPriceTree[i][j] = max(0.0, tree[i][j] - K);
+            }
+        }
+
+    }else if(method == "b"){
+        double X = log(S);
+        for(int i=0; i<=steps; i++){
+            for(int j=0; j<2*i + 1; j++){
+                tree[i][j] = X  + delta_xu * max(i-j, 0) + delta_xd * max(j-i, 0);
+            }
+        }
+        for(int i=0; i<=steps; i++){
+            for(int j=0; j<2*i + 1; j++){
+                optionPriceTree[i][j] = max(0.0, exp(tree[i][j]) - K);
+            }
         }
     }
 
-    for(int i=0; i<=steps; i++){
-        for(int j=0; j<2*i + 1; j++){
-            optionPriceTree[i][j] = max(0.0, tree[i][j] - K);
-        }
-    }
+
 
 
     for(int i = steps - 1; i >= 0; i--){
@@ -393,31 +428,40 @@ double OptionPricing::callOptionEuropeanTrinomial(const string& method, const do
         for(int j = 0; j< num; j++){
             if(j+2 <num){
                 optionPriceTree[i][j] = (p_up * optionPriceTree[i+1][j]
-                                        + p_m * optionPriceTree[i+1][j+1] + p_down * optionPriceTree[i+1][j+2])/discount;
+                                         + p_m * optionPriceTree[i+1][j+1] + p_down * optionPriceTree[i+1][j+2])/discount;
             }else{
                 break;
             }
-
         }
-        cout << endl;
     }
 
-//    for(int i=0; i<=steps; i++){
-//        for(int j=0; j<2*i + 1; j++){
-//            cout<< tree[i][j]<<", ";
-//        }
-//        cout << endl;
-//    }
 
+//  print out the tree
 //    for(int i=0; i<=steps; i++){
 //        for(int j=0; j<2*i + 1; j++){
 //            cout<< optionPriceTree[i][j]<<", ";
 //        }
 //        cout << endl;
 //    }
-
-
+//
+//
 
 
     return optionPriceTree[0][0];
+}
+
+
+double OptionPricing::callOptionEuropeanLDS(const double& S, const double& K, const double& r,
+                                                  const double& sigma, const double& T, const int& N,
+                                            const int& base1, const int& base2){
+    long double * base1Arr = RandomGenerator::getHaltonSequence(base1, N);
+    long double * base2Arr = RandomGenerator::getHaltonSequence(base2, N);
+    long double * NormArr;
+
+    // Generate standardard normal using halton sequence
+    NormArr = RandomGenerator::boxmullerWithHaltonSeq(base1Arr, base2Arr, N);
+    // Generate wiener process
+    long double * pay_off = OptionPricing::callOptionPriceSimulation(Mutils::MatrixMultiply(NormArr,N, sqrt(T)),N,r,sigma,T,S,K);
+
+    return Mutils::Mean(pay_off, N);
 }
