@@ -10,7 +10,7 @@ using namespace std;
 
 
 int RandomGenerator::LGMGenerator(unsigned int m, unsigned int num) {
-    unsigned int a = pow(7, 5);
+    unsigned int a = int(pow(7, 5));
     unsigned int b = 0;
     return (a * num + b) % m ;
 }
@@ -23,7 +23,7 @@ int RandomGenerator::LGMGenerator(unsigned int m, unsigned int num) {
  * int seed: seed which is used to generate standard normal
  * */
 long double* RandomGenerator::runif(int size, int seed) {
-    long double * arr = new long double[size];
+    auto * arr = new long double[size];
     long double m = pow(2, 31) -1;
     arr[0] = seed;
 
@@ -46,7 +46,7 @@ long double* RandomGenerator::rbinom(int size, int n, double p, int seed) {
     int uniSize = size * n;
 
     long double * uniformArr = RandomGenerator::runif(uniSize, seed);
-    long double * binoArr = new long double[size];
+    auto * binoArr = new long double[size];
 
     int counter = 0;
     for(int i=0; i<size; i++){
@@ -71,7 +71,7 @@ long double* RandomGenerator::rbinom(int size, int n, double p, int seed) {
  * */
 long double* RandomGenerator::rexp(long double *arr, int size, double lambda){
 
-    long double *expArr = new long double[size];
+    auto *expArr = new long double[size];
 
     for(int i=0; i<size; i++){
         expArr[i] = -lambda * log(arr[i]);
@@ -89,7 +89,7 @@ long double* RandomGenerator::rexp(long double *arr, int size, double lambda){
  * */
 long double* RandomGenerator::boxmuller(long double *arr, int size){
 
-    long double* normArr = new long double[size];
+    auto* normArr = new long double[size];
 
     for(int i=0; i< size; i+=2){
         // calculate z1
@@ -111,7 +111,7 @@ long double* RandomGenerator::boxmuller(long double *arr, int size){
  * */
 long double* RandomGenerator::boxmullerWithHaltonSeq(long double *base1, long double * base2,int size){
 
-    long double* normArr = new long double[size];
+    auto* normArr = new long double[size];
 
     for(int i=0; i< size; i+=2){
         // calculate z1
@@ -185,7 +185,7 @@ long double* RandomGenerator::polarmarsaglia(long double *arr, int size){
  * */
 long double* RandomGenerator::bivariateNormalX(long double *z1, int size){
 
-    long double * arrX = new long double[size];
+    auto * arrX = new long double[size];
 
     double muX = 0;
     double sigmaX = 1;
@@ -208,7 +208,7 @@ long double* RandomGenerator::bivariateNormalX(long double *z1, int size){
  * */
 long double* RandomGenerator::bivariateNormalY(long double *z1, long double *z2, double rho, int size) {
 
-    long double * arrY = new long double[size];
+    auto * arrY = new long double[size];
 
     double muY = 0;
     double sigmaY = 1;
@@ -242,12 +242,12 @@ long double* RandomGenerator::wienerProcess(double t, int size, int seed){
  * */
 long double * RandomGenerator::getHaltonSequence(int base, int size){
 
-    long double *seq = new long double[size];
+    auto *seq = new long double[size];
     for(int i=0; i<size; i++){
         seq[i] = 0;
     }
 
-    int NumBits = 1 + ceil(log(size)/log(base));
+    auto NumBits = int(1 + ceil(log(size)/log(base)));
 
     long double vetBase[NumBits];
     long double workVet[NumBits];
