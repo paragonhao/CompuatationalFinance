@@ -15,26 +15,23 @@ using namespace Eigen;
 
 
 void RunQn1(int nPath, int nSims, double sigma, double r, double x, double s, double *tArray, double delta) {
-    int k = 2; // k is set to 2 but can be 3 or 4
-    int method =1; // method is set to 1 but can be 1 or 2 or 3;
+    int k = 3; // k is set to 2 but can be 3 or 4
+    int method =3; // method is set to 1 but can be 1 or 2 or 3;
 
     int halfPath = nPath / 2;
 
     // matrix to show price path
-    vector<vector<double> > priceProcess(nPath, vector<double>(nSims + 1, 0));
-    // index matrix to understand when to exercise
-    vector<vector<double> > index(nPath, vector<double>(nSims + 1, 0));
-    // matrix to save the payoff
-    vector<vector<double> > cashFlowMatrix(nPath, vector<double>(nSims + 1, 0));
+    ArrayXXd priceProcess(nPath, nSims+1);
+    ArrayXXd cashFlowMatrix(nPath, nSims+1);
+    ArrayXXd index(nPath, nSims + 1);
 
     //Generate Price process
-    OptionPricing::generatePricePath(tArray, nSims, halfPath, s, r, sigma, priceProcess);
-
+   OptionPricing::generatePricePath(tArray, nSims, halfPath, s, r, sigma, priceProcess);
 //#################################### code to verify price process ###################################"
 //    double total =0;
 //    for (int i = 0; i < nPath; i++) {
 //
-//        total += Mutils::max(x - priceProcess[i][nSims],0);
+//        total += Mutils::max(x - priceProcess(i,nSims),0);
 //
 //    }
 //    cout << total/nPath<<endl;
@@ -43,20 +40,21 @@ void RunQn1(int nPath, int nSims, double sigma, double r, double x, double s, do
 
     for(int j = nSims; j >=0; j--) {
         for (int i = 0; i < nPath; i++) {
-            double EV = x - priceProcess[i][j];
+            double EV = x - priceProcess(i,j);
 
             // At the last step, ECV = 0 and payoff is just EV;
             if (j == nSims) {
                 if (EV > 0) {
-                    cashFlowMatrix[i][j] = EV;
-                    index[i][j] = 1;
+                    cashFlowMatrix(i,j) = EV;
+                    index(i,j) = 1;
                 }
             }
-            cashFlowMatrix[i][j] = (EV > 0) ? EV : 0;
+            cashFlowMatrix(i,j) = (EV > 0) ? EV : 0;
         }
     }
-//
-//    // TOOD: change i>6 later to i>0
+
+
+ //TOOD: change i>6 later to i>0
     for(int i=nSims - 1; i>0; i--){
 
         MatrixXd matA(k, k);
@@ -76,33 +74,18 @@ void RunQn1(int nPath, int nSims, double sigma, double r, double x, double s, do
         //so far so good
         OptionPricing::calculateContinuationValue(result, priceProcess, index, cashFlowMatrix, nSims, i, nPath, k, 1);
     }
-//
-    double payoff = OptionPricing::calculateFinalPayOff(cashFlowMatrix, index, nPath, nSims, r, delta);
-    cout <<"Continuation Value is: " <<payoff << endl;
 
-//    cout << "#################################### Price Process matrix ###################################" << endl;
-//    for (int i = 0; i < nPath; i++) {
-//        for (int j = 0; j <= nSims; j++) {
-//            cout << priceProcess[i][j] << " ";
-//        }
-//        cout << endl;
-//    }
-//
-//    cout << "#################################### cashflow matrix ###################################" << endl;
-//    for (int i = 0; i < nPath; i++) {
-//        for (int j = 0; j <= nSims; j++) {
-//            cout << cashFlowMatrix[i][j] << " ";
-//        }
-//        cout << endl;
-//    }
-//
-//    cout << "#################################### index ###################################" << endl;
-//    for (int i = 0; i < nPath; i++) {
-//        for (int j = 0; j <= nSims; j++) {
-//            cout << index[i][j] << " ";
-//        }
-//        cout << endl;
-//    }
+//    double payoff = OptionPricing::calculateFinalPayOff(cashFlowMatrix, index, nPath, nSims, r, delta);
+//    cout <<"Continuation Value is: " <<payoff << endl;
+
+    cout << "#################################### Price Process matrix ###################################" << endl;
+    cout << priceProcess <<endl;
+
+    cout << "#################################### cashflow matrix ###################################" << endl;
+    cout << cashFlowMatrix <<endl;
+
+    cout << "#################################### index ###################################" << endl;
+    cout << index << endl;
 
 
 }
@@ -111,8 +94,8 @@ void RunQn1(int nPath, int nSims, double sigma, double r, double x, double s, do
 int main(){
 
     cout << "#################################### Qn 1 ###################################" << endl;
-    int nPath =1000; // rows
-    int nSims = 1000; //cols
+    int nPath =100; // rows
+    int nSims = 200; //cols
     double sigma = 0.2;
     double r = 0.06;
     double x = 40;

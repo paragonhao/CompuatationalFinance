@@ -30,17 +30,17 @@ public:
     static double putOptionPriceBS(double r, double sigma, double T, double s0, double x);
     static double putOptionAmericanBinomial(const string& method, const double& S, const double& K, const double& r,
                                             const double& sigma, const double& t, const int& steps);
-    static void generatePricePath(const double * tArray,  const double & nSims, const double & halfPath, const double &s, const double &r,
-                                    const double &sigma, vector< vector< double > >  &priceProcess);
-    static void calculateMatrixA(vector< vector< double > > &priceProcess, MatrixXd &matA,
+    static void generatePricePath(const double *tArray,  const double & nSims, const double & halfPath, const double &s, const double &r,
+                                  const double &sigma, ArrayXXd &priceProcess);
+    static void calculateMatrixA(ArrayXXd &priceProcess, MatrixXd &matA,
                                  const int &k, const int &nPath, const int &currentSimCol, const int &method);
-    static void calcualateMatrixb(vector< vector< double > > & cashflowMatrix, vector< vector< double > > & priceProcess, VectorXd & b,vector< vector< double > > & index,
+    static void calcualateMatrixb(ArrayXXd & cashflowMatrix, ArrayXXd & priceProcess, VectorXd & b, ArrayXXd & index,
                                   const int &k, const int &nPath, const int &currentSimCol, const int &method, const int &nSims,
                                   const double &r, const double &delta, const double x);
-    static void calculateContinuationValue(VectorXd &a, vector< vector< double > > & priceProcess, vector< vector< double > > & index,
-                                                   vector< vector< double > > & cashFlowMatrix, const int &nSims,
-                                                   const int &currentSimCol, const int &nPath, const int &k, const int &method);
-    static double calculateFinalPayOff(vector< vector< double > > & cashFlowMatrix, vector< vector< double > > &index,
+    static void calculateContinuationValue(VectorXd &a, ArrayXXd & priceProcess, ArrayXXd & index,
+                                           ArrayXXd & cashFlowMatrix, const int &nSims,
+                                           const int &currentSimCol, const int &nPath, const int &k, const int &method);
+    static double calculateFinalPayOff(ArrayXXd & cashFlowMatrix, ArrayXXd &index,
                                        const int &nPath, const int &nSims, const double &r, const double & delta);
 };
 

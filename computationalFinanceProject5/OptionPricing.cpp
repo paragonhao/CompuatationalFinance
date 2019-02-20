@@ -485,14 +485,15 @@ double OptionPricing::stockPriceAtT(const double& S, const double& r, const doub
  * const double & sigma: sigma
  * const double & priceProcess: the initialized priceprocess matrix
  * */
-void OptionPricing::generatePricePath(const double * tArray,  const double & nSims, const double & halfPath, const double &s, const double &r,
-                                      const double &sigma, vector< vector< double > > &priceProcess){
+void OptionPricing::generatePricePath(const double *tArray,  const double & nSims, const double & halfPath, const double &s, const double &r,
+                                      const double &sigma, ArrayXXd &priceProcess){
     for (int i = 0; i <= nSims; i++) {
         // Generate half of total path number at column i
-        double *temp = RandomGenerator::wienerProcess(tArray[i], halfPath, rand());
+        double *temp = new double [halfPath];
+        temp = RandomGenerator::wienerProcess(tArray[i], halfPath, rand());
         for (int j = 0; j < halfPath; j++) {
-            priceProcess[j][i] = float(OptionPricing::stockPriceAtT(s, r, sigma, tArray[i], temp[j]));
-            priceProcess[j + halfPath][i] = float(OptionPricing::stockPriceAtT(s, r, sigma, tArray[i], -1 * temp[j]));
+            priceProcess(j,i) = float(OptionPricing::stockPriceAtT(s, r, sigma, tArray[i], temp[j]));
+            priceProcess(j + halfPath,i) = float(OptionPricing::stockPriceAtT(s, r, sigma, tArray[i], -1 * temp[j]));
         }
     }
 }
@@ -543,50 +544,49 @@ inline double L_function(double price, int index, int method){
  * vector< vector< double > > A: Matrix A
  * const int &k: number of simulation path (columns in the matrix)
  * */
-void OptionPricing::calculateMatrixA(vector< vector< double > > &priceProcess, MatrixXd &matA,
+void OptionPricing::calculateMatrixA(ArrayXXd &priceProcess, MatrixXd &matA,
                                      const int &k, const int &nPath, const int &currentSimCol, const int &method){
     for(int m =0; m < k ;m++){
         for(int l=0; l< k; l++){
             for(int j =0; j<nPath; j++){
-                matA(m,l) += L_function(priceProcess[j][currentSimCol], m, method) * L_function(priceProcess[j][currentSimCol], l, method);
+                matA(m,l) += L_function(priceProcess(j,currentSimCol), m, method) * L_function(priceProcess(j, currentSimCol), l, method);
             }
         }
     }
 }
 
-inline double getYValue(vector< vector< double > > & cashflowMatrix, vector< vector< double > > & index, vector< vector< double > > & priceProcess, const int &currentSimCol,
+inline double getYValue(ArrayXXd & cashflowMatrix, ArrayXXd & index, const int &currentSimCol,
                         const int &nSims, const int &currentRow, const double &r, const double &delta, const double &x){
 
     double y = 0.0;
     for(int i =1; i <= nSims - currentSimCol; i++){
-        y += index[currentRow][currentSimCol + i] * cashflowMatrix[currentRow][currentSimCol+i] * (exp( -r * delta * i));
+        y += index(currentRow,currentSimCol + i) * cashflowMatrix(currentRow,currentSimCol+i) * (exp( -r * delta * i));
     }
 
     return y;
 }
 
 
-void OptionPricing::calcualateMatrixb(vector< vector< double > > & cashflowMatrix, vector< vector< double > > & priceProcess, VectorXd &matb,
-                                      vector< vector< double > > & index, const int &k, const int &nPath, const int &currentSimCol,
+void OptionPricing::calcualateMatrixb(ArrayXXd & cashflowMatrix, ArrayXXd & priceProcess, VectorXd &matb,
+                                      ArrayXXd & index, const int &k, const int &nPath, const int &currentSimCol,
                                       const int &method, const int &nSims, const double &r, const double &delta, const double x){
     for(int i=0; i<k; i++){
          for(int j=0; j<nPath; j++){
-             double y = getYValue(cashflowMatrix, index, priceProcess,
-                                  currentSimCol, nSims, j, r, delta, x);
-               matb(i) +=  L_function(priceProcess[j][currentSimCol], i, method) * y;
+             double y = getYValue(cashflowMatrix, index, currentSimCol, nSims, j, r, delta, x);
+               matb(i) +=  L_function(priceProcess(j,currentSimCol), i, method) * y;
         }
     }
 }
 
-void setAllPathBehindToZero(const int &row, const int &nSims, const int &currentSimCol, vector< vector< double > > & index){
+void setAllPathBehindToZero(const int &row, const int &nSims, const int &currentSimCol, ArrayXXd & index){
     for(int i = currentSimCol+1; i <= nSims ;i++){
-        index[row][i] =0;
+        index(row,i) =0;
     }
 }
 
 
-void OptionPricing::calculateContinuationValue(VectorXd &a, vector< vector< double > > & priceProcess, vector< vector< double > > & index,
-                                               vector< vector< double > > & cashFlowMatrix, const int &nSims,
+void OptionPricing::calculateContinuationValue(VectorXd &a, ArrayXXd & priceProcess, ArrayXXd & index,
+                                               ArrayXXd & cashFlowMatrix, const int &nSims,
                                                const int &currentSimCol, const int &nPath, const int &k, const int &method){
 
     for(int i = 0; i < nPath; i++){
@@ -594,30 +594,26 @@ void OptionPricing::calculateContinuationValue(VectorXd &a, vector< vector< doub
         double ECV = 0;
 
         // current Exercise value is 0, skip this path for now
-        if(priceProcess[i][currentSimCol] == 0) break;
-
-        for(int j=0; j<k; j++){
-            ECV += L_function(priceProcess[i][currentSimCol], j, method) * a(j);
-        }
-        if(cashFlowMatrix[i][currentSimCol] > ECV){
-            index[i][currentSimCol] = 1;
-            setAllPathBehindToZero(i, nSims, currentSimCol, index);
+        if(priceProcess(i,currentSimCol) > 0){
+            for(int j=0; j<k; j++){
+                ECV += L_function(priceProcess(i,currentSimCol), j, method) * a(j);
+            }
+            if(cashFlowMatrix(i,currentSimCol) > ECV){
+                index(i,currentSimCol) = 1;
+                setAllPathBehindToZero(i, nSims, currentSimCol, index);
+            }
         }
     }
 
-
 }
 
-double OptionPricing::calculateFinalPayOff(vector< vector< double > > & cashFlowMatrix, vector< vector< double > > &index,
+double OptionPricing::calculateFinalPayOff(ArrayXXd & cashFlowMatrix, ArrayXXd &index,
                                            const int &nPath, const int &nSims, const double &r, const double & delta){
     double payoff = 0.0;
-
     for(int i=0; i<nPath; i++){
         for(int j=0; j<=nSims; j++){
-            if(index[i][j] == 1){
-                cashFlowMatrix[i][j];
-
-                payoff += cashFlowMatrix[i][j] * exp(-r * delta * j );
+            if(index(i,j) == 1){
+                payoff += cashFlowMatrix(i,j) * exp(-r * delta * j );
                 break;
             }
 
