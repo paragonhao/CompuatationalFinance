@@ -4,10 +4,11 @@
 
 #ifndef COMPUTATIONALFINANCE_OPTIONPRICING_H
 #define COMPUTATIONALFINANCE_OPTIONPRICING_H
-
+#include <Eigen/Dense>
 #include <string>
 
 using namespace std;
+using namespace Eigen;
 
 class OptionPricing {
 public:
@@ -31,10 +32,16 @@ public:
                                             const double& sigma, const double& t, const int& steps);
     static void generatePricePath(const double * tArray,  const double & nSims, const double & halfPath, const double &s, const double &r,
                                     const double &sigma, vector< vector< double > >  &priceProcess);
-    static void calculateMatrixA(vector< vector< double > > &priceProcess, vector< vector< double > > &A,
+    static void calculateMatrixA(vector< vector< double > > &priceProcess, MatrixXd &matA,
                                  const int &k, const int &nPath, const int &currentSimCol, const int &method);
-    static void calcualateMatrixb(vector< vector< double > > & priceProcess, vector< vector< double > > & b,vector< vector< double > > & index,
-                                  const int &k, const int &nPath, const int &currentSimCol, const int &method, const int &nSims, const double &r, const double &delta, const double x);
+    static void calcualateMatrixb(vector< vector< double > > & cashflowMatrix, vector< vector< double > > & priceProcess, VectorXd & b,vector< vector< double > > & index,
+                                  const int &k, const int &nPath, const int &currentSimCol, const int &method, const int &nSims,
+                                  const double &r, const double &delta, const double x);
+    static void calculateContinuationValue(VectorXd &a, vector< vector< double > > & priceProcess, vector< vector< double > > & index,
+                                                   vector< vector< double > > & cashFlowMatrix, const int &nSims,
+                                                   const int &currentSimCol, const int &nPath, const int &k, const int &method);
+    static double calculateFinalPayOff(vector< vector< double > > & cashFlowMatrix, vector< vector< double > > &index,
+                                       const int &nPath, const int &nSims, const double &r, const double & delta);
 };
 
 

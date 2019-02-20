@@ -14,23 +14,33 @@ using namespace std::chrono;
 using namespace Eigen;
 
 
-void RunQn1(int nPath, int nSims, double sigma, double r, double x, double t, double s, double *tArray, double delta) {
+void RunQn1(int nPath, int nSims, double sigma, double r, double x, double s, double *tArray, double delta) {
     int k = 2; // k is set to 2 but can be 3 or 4
+    int method =1; // method is set to 1 but can be 1 or 2 or 3;
 
     int halfPath = nPath / 2;
+
     // matrix to show price path
     vector<vector<double> > priceProcess(nPath, vector<double>(nSims + 1, 0));
     // index matrix to understand when to exercise
     vector<vector<double> > index(nPath, vector<double>(nSims + 1, 0));
     // matrix to save the payoff
     vector<vector<double> > cashFlowMatrix(nPath, vector<double>(nSims + 1, 0));
-    // matrix to save coefficent of the linear regression
-    vector<vector<double> > a_coef(k, vector<double>(nSims, 0));
 
     //Generate Price process
     OptionPricing::generatePricePath(tArray, nSims, halfPath, s, r, sigma, priceProcess);
 
-    // Determine the payoff and index and terminal stage
+//#################################### code to verify price process ###################################"
+//    double total =0;
+//    for (int i = 0; i < nPath; i++) {
+//
+//        total += Mutils::max(x - priceProcess[i][nSims],0);
+//
+//    }
+//    cout << total/nPath<<endl;
+//########################################################################################################################
+    //Determine the payoff and index and terminal stage
+
     for(int j = nSims; j >=0; j--) {
         for (int i = 0; i < nPath; i++) {
             double EV = x - priceProcess[i][j];
@@ -45,51 +55,54 @@ void RunQn1(int nPath, int nSims, double sigma, double r, double x, double t, do
             cashFlowMatrix[i][j] = (EV > 0) ? EV : 0;
         }
     }
+//
+//    // TOOD: change i>6 later to i>0
+    for(int i=nSims - 1; i>0; i--){
 
-    // TODO: change the i to 0 for actual running
-    for(int i=nSims - 1; i>=nSims - 1; i--){
-        vector<vector< double > > A ( k, vector<double> ( k, 0 ) );
-        vector<vector< double > > b ( k, vector<double> ( 1, 0 ) );
-        vector<vector< double > > invMatrix ( k, vector<double> ( 1, 0 ) );
+        MatrixXd matA(k, k);
+        VectorXd matb(k);
+        VectorXd result(k);
+        matA = MatrixXd::Zero(k, k);
+        matb = VectorXd::Zero(k);
+
         // find out Matrix A for the current simulation Path
-        OptionPricing::calculateMatrixA(priceProcess, A, k, nPath, i, 1);
+        OptionPricing::calculateMatrixA(priceProcess, matA, k, nPath, i, 1);
 
         // find out Matrix b for the current simulation path
-        OptionPricing::calcualateMatrixb(priceProcess, b, index, k, nPath, i, 1, nSims, r, delta, x);
+        OptionPricing::calcualateMatrixb(cashFlowMatrix,priceProcess, matb, index, k, nPath, i, 1, nSims, r, delta, x);
+        result = matA.inverse() * matb;
 
-        
-        for(int i =0; i< k; i++){
-            for(int j =0; j< k; j++){
-                cout << A[i][j] <<",";
-            }
-            cout <<endl;
-        }
+
+        //so far so good
+        OptionPricing::calculateContinuationValue(result, priceProcess, index, cashFlowMatrix, nSims, i, nPath, k, 1);
     }
+//
+    double payoff = OptionPricing::calculateFinalPayOff(cashFlowMatrix, index, nPath, nSims, r, delta);
+    cout <<"Continuation Value is: " <<payoff << endl;
 
-
-    cout << "#################################### price path ###################################" << endl;
-    for (int i = 0; i < nPath; i++) {
-        for (int j = 0; j <= nSims; j++) {
-            cout << priceProcess[i][j] << ", ";
-        }
-        cout << endl;
-    }
-
-    cout << "#################################### cashflow matrix ###################################" << endl;
-    for (int i = 0; i < nPath; i++) {
-        for (int j = 0; j <= nSims; j++) {
-            cout << cashFlowMatrix[i][j] << ", ";
-        }
-        cout << endl;
-    }
-
-    cout << "#################################### index ###################################" << endl;
-    for (int i = 0; i < nPath; i++) {
-        for (int j = 0; j <= nSims; j++) {
-            cout << index[i][j] << ", ";
-        }
-        cout << endl;
-    }
+//    cout << "#################################### Price Process matrix ###################################" << endl;
+//    for (int i = 0; i < nPath; i++) {
+//        for (int j = 0; j <= nSims; j++) {
+//            cout << priceProcess[i][j] << " ";
+//        }
+//        cout << endl;
+//    }
+//
+//    cout << "#################################### cashflow matrix ###################################" << endl;
+//    for (int i = 0; i < nPath; i++) {
+//        for (int j = 0; j <= nSims; j++) {
+//            cout << cashFlowMatrix[i][j] << " ";
+//        }
+//        cout << endl;
+//    }
+//
+//    cout << "#################################### index ###################################" << endl;
+//    for (int i = 0; i < nPath; i++) {
+//        for (int j = 0; j <= nSims; j++) {
+//            cout << index[i][j] << " ";
+//        }
+//        cout << endl;
+//    }
 
 
 }
@@ -98,21 +111,22 @@ void RunQn1(int nPath, int nSims, double sigma, double r, double x, double t, do
 int main(){
 
     cout << "#################################### Qn 1 ###################################" << endl;
-    int nPath = 10; // rows
-    int nSims = 10; //cols
+    int nPath =1000; // rows
+    int nSims = 1000; //cols
     double sigma = 0.2;
     double r = 0.06;
     double x = 40;
     double t = 0.5;
     double s = 40;
-    double tArray[nSims];
-    double delta = 1.0/nSims;
+    auto * tArray = new double [nSims+1];
+    double delta = t/nSims;
     // initialize to get delta t to generate weiner process
     for(int i=0; i<=nSims; i++){
-        tArray[i] = delta * i * t;
+        tArray[i] = delta * i;
     }
 
-    RunQn1(nPath, nSims, sigma, r, x, t, s, tArray, delta);
+    //American Put
+    RunQn1(nPath, nSims, sigma, r, x, s, tArray, delta);
 
     return 0;
 }

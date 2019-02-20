@@ -22,6 +22,7 @@ public:
     static double * MatrixAddition(double *arr, int size, double num);
     static vector<vector<double>> MatrixInverse(vector<vector<double>> &matrix, int order);
     static double arrayElementWiseMultiply(double * v1, double * v2, int size);
+    static double max(const double & num1, const double & num2);
 };
 
 

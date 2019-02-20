@@ -7,10 +7,12 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <Eigen/Dense>
 #include "Mutils.h"
 #include "RandomGenerator.h"
 
 using namespace std;
+using namespace Eigen;
 
 
 /* Call Option Price Simulation
@@ -541,42 +543,89 @@ inline double L_function(double price, int index, int method){
  * vector< vector< double > > A: Matrix A
  * const int &k: number of simulation path (columns in the matrix)
  * */
-void OptionPricing::calculateMatrixA(vector< vector< double > > &priceProcess, vector< vector< double > > &A,
+void OptionPricing::calculateMatrixA(vector< vector< double > > &priceProcess, MatrixXd &matA,
                                      const int &k, const int &nPath, const int &currentSimCol, const int &method){
     for(int m =0; m < k ;m++){
         for(int l=0; l< k; l++){
             for(int j =0; j<nPath; j++){
-                A[m][l] += L_function(priceProcess[j][currentSimCol], m, method) * L_function(priceProcess[j][currentSimCol], l, method);
+                matA(m,l) += L_function(priceProcess[j][currentSimCol], m, method) * L_function(priceProcess[j][currentSimCol], l, method);
             }
         }
     }
 }
 
-inline double getYValue(vector< vector< double > > & index, vector< vector< double > > & priceProcess, const int &currentSimCol,
+inline double getYValue(vector< vector< double > > & cashflowMatrix, vector< vector< double > > & index, vector< vector< double > > & priceProcess, const int &currentSimCol,
                         const int &nSims, const int &currentRow, const double &r, const double &delta, const double &x){
 
     double y = 0.0;
     for(int i =1; i <= nSims - currentSimCol; i++){
-        double payoff = x - priceProcess[currentRow][currentSimCol + i];
-        payoff = (payoff>0) ? payoff : 0;
-        y += index[currentRow][currentSimCol + i] * payoff * (exp( -r * delta * i));
+        y += index[currentRow][currentSimCol + i] * cashflowMatrix[currentRow][currentSimCol+i] * (exp( -r * delta * i));
     }
 
     return y;
 }
 
 
-void OptionPricing::calcualateMatrixb(vector< vector< double > > & priceProcess, vector< vector< double > > & b,
+void OptionPricing::calcualateMatrixb(vector< vector< double > > & cashflowMatrix, vector< vector< double > > & priceProcess, VectorXd &matb,
                                       vector< vector< double > > & index, const int &k, const int &nPath, const int &currentSimCol,
                                       const int &method, const int &nSims, const double &r, const double &delta, const double x){
     for(int i=0; i<k; i++){
-        for(int j=0; j<nPath; j++){
-           b[i][0] +=  L_function(priceProcess[j][currentSimCol], i, method) * getYValue(index, priceProcess,
-                                               currentSimCol, nSims, j, r, delta, x);
+         for(int j=0; j<nPath; j++){
+             double y = getYValue(cashflowMatrix, index, priceProcess,
+                                  currentSimCol, nSims, j, r, delta, x);
+               matb(i) +=  L_function(priceProcess[j][currentSimCol], i, method) * y;
         }
     }
 }
 
+void setAllPathBehindToZero(const int &row, const int &nSims, const int &currentSimCol, vector< vector< double > > & index){
+    for(int i = currentSimCol+1; i <= nSims ;i++){
+        index[row][i] =0;
+    }
+}
+
+
+void OptionPricing::calculateContinuationValue(VectorXd &a, vector< vector< double > > & priceProcess, vector< vector< double > > & index,
+                                               vector< vector< double > > & cashFlowMatrix, const int &nSims,
+                                               const int &currentSimCol, const int &nPath, const int &k, const int &method){
+
+    for(int i = 0; i < nPath; i++){
+        // Expected Continuous value
+        double ECV = 0;
+
+        // current Exercise value is 0, skip this path for now
+        if(priceProcess[i][currentSimCol] == 0) break;
+
+        for(int j=0; j<k; j++){
+            ECV += L_function(priceProcess[i][currentSimCol], j, method) * a(j);
+        }
+        if(cashFlowMatrix[i][currentSimCol] > ECV){
+            index[i][currentSimCol] = 1;
+            setAllPathBehindToZero(i, nSims, currentSimCol, index);
+        }
+    }
+
+
+}
+
+double OptionPricing::calculateFinalPayOff(vector< vector< double > > & cashFlowMatrix, vector< vector< double > > &index,
+                                           const int &nPath, const int &nSims, const double &r, const double & delta){
+    double payoff = 0.0;
+
+    for(int i=0; i<nPath; i++){
+        for(int j=0; j<=nSims; j++){
+            if(index[i][j] == 1){
+                cashFlowMatrix[i][j];
+
+                payoff += cashFlowMatrix[i][j] * exp(-r * delta * j );
+                break;
+            }
+
+        }
+    }
+    return payoff/nPath;
+
+}
 
 
 
