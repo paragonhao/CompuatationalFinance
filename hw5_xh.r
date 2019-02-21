@@ -60,18 +60,59 @@ GetX <- function(priceProcess, col, isBelowStrike){
 }
 
 GetY <- function(currCol, cashflow, nSims, discount_factor , isBelowStrike){
-  if (currCol == nSims-1){
-    y = cashflow[, (currCol+1):nSims] * discount_factor * isBelowStrike
+  if ( (nSims - currCol) == 1){
+    y <- cashflow[, (currCol+1):nSims] * discount_factor * isBelowStrike
   }else{
-    y = cashflow[, (currCol+1):nSims] %*% discount_factor * isBelowStrike
+    y <- cashflow[, (currCol+1):nSims] %*% discount_factor * isBelowStrike
   }
 }
 
-RemoveZeros <- function(isBelowStrike, nPath){
-  
+CalculateMatrixA <- function(k, METHOD, x_nonzeros){
+  matA <- matrix(0, k,k)
+  for (i in 1:k){
+    for (j in 1:k){
+      matA[i,j] <- sum(METHOD(x_nonzeros, i) * METHOD(x_nonzeros, j))
+    }
+  }
+  return(matA)
 }
 
+calculateMatrixB <- function(k, METHOD,x_nonzeros, y_nonzeros){
+  vecB <- matrix(0, k,1)
+  for (i in 1:k){
+    vecB[i,1] <- sum(METHOD(x_nonzeros,i) * y_nonzeros)
+  }
+  return(vecB)
+}
 
+RemoveZeros <- function(isBelowStrike, nPath, variable){
+  key <- seq(1, nPath, 1) * isBelowStrike
+  return(variable[key])
+}
+
+GetRegressionX <- function(x, METHOD){
+  LfuncValues <- c()
+  for (i in 1:k){
+    LfuncValues <- cbind(LfuncValues, METHOD(x, i))
+  }
+  return(LfuncValues)
+}
+
+GetFinalPayOff <- function(currCol, priceProcess, currentPayoff, cashflow, ECV){
+  payoff <- strike - priceProcess[,currCol+1]
+  payoff[payoff<0] <- 0
+  currentPayoff <- cashflow[,currCol] + payoff
+  
+  for (j in 1: nPath){
+    if (currentPayoff[j] > ECV[j]){
+      cashflow[j, (currCol+1):nSims] <- 0
+      cashflow[j, (currCol-1):1] <- 0
+      cashflow[j, currCol] <- currentPayoff[j]
+    }
+  }
+}
+
+################################# Qn1  #################################
 LSMC <- function (delta, nSims, t, strike, S, r, sigma, nPath, k, METHOD){
   
   # Initialize price process with antithetic variance reduction technique
@@ -80,62 +121,178 @@ LSMC <- function (delta, nSims, t, strike, S, r, sigma, nPath, k, METHOD){
   # intialize cashflow matrix
   cashflow <- InitializeCashFlow(nPath, strike, nSims, priceProcess)
   
-  priceProcess[, 1] = S
-  
-  zeros = rep(0 , len = nPath)
-  zeros_row = rep(0, len = nSims)
+  priceProcess[, 1] <- S
   
   for (i in (nSims-1) : 1){
-    isBelowStrike = (strike - priceProcess[,i+1] > 0)
+    # find out positions where it is below strike
+    isBelowStrike <- (strike - priceProcess[,i+1] > 0)
     
-    discount_factor = exp(seq(-r*delta,-(nSims-i)*r*delta, -r*delta))
+    discount_factor <- exp(seq(-r*delta,-(nSims-i)*r*delta, -r*delta))
+    
+    #Get X and discounted Y accordingly
     x <- GetX(priceProcess, i+1 , isBelowStrike)
     y <- GetY(i, cashflow, nSims, discount_factor , isBelowStrike)
     
-    pos = seq(1, nPath, 1) * isBelowStrike
+    # Get rid of zeros in y and x for linear regression analysis
+    y_nonzeros <- RemoveZeros(isBelowStrike, nPath, y)
+    x_nonzeros <- RemoveZeros(isBelowStrike, nPath, x)
     
+    if(length(x_nonzeros) < 2) break;
     
-    y_clean = y[pos]
-    x_clean = x[pos]
-    A = matrix(0, k,k)
-    B = matrix(0, k)
-    X = c()
-    for (a in 1:k){
-      for (b in 1:k){
-        A[a,b] = sum(METHOD(x_clean, a) * METHOD(x_clean, b))
+    matA <- CalculateMatrixA(k, METHOD, x_nonzeros)
+    vecB <- calculateMatrixB(k, METHOD, x_nonzeros, y_nonzeros)
+    
+    LfuncValues <- GetRegressionX(x, METHOD)
+    
+    if(length(x_nonzeros) >= 2) {
+      # use cholesky decomposition to find coef 
+      coef <- chol2inv(chol(matA))%*%vecB
+      
+      # to find the expected continuation value on path that are not zeros
+      ECV <- LfuncValues %*% coef * isBelowStrike
+      
+      # initialize payoff to current pay on the column/path
+      payoff <- strike - priceProcess[,i+1]
+      payoff[payoff<0] <- 0
+      currentPayoff <- cashflow[,i] + payoff
+      
+      for (j in 1: nPath){
+        if (currentPayoff[j] > ECV[j]){
+          cashflow[j, (i+1):nSims] <- 0
+          cashflow[j, (i-1):1] <- 0
+          cashflow[j,i] <- currentPayoff[j]
+        }
       }
-      B[a,1] = sum(METHOD(x_clean,a) * y_clean)
-      X = cbind(X, METHOD(x, a))
-    }
-    reg = solve(A,B)
-    continuation = X %*% reg * isBelowStrike
-    newCF = apply(cbind(strike - priceProcess[,i+1], zeros), 1, max)
-    
-    for (j in 1: nPath){
-      if (newCF[j] > continuation[j]){
-        cashflow[j, ] = zeros_row
-        cashflow[j,i] = newCF[j]
-      }
+    # Update cashflow matrix with current payoff
     }
   }
-  D = exp(seq(-r*delta,-nSims*r*delta, -r*delta))
-  return(mean(cashflow%*% D))
+  discountFactorForAllPeriods <- exp(seq(-r*delta,-nSims*r*delta, -r*delta))
+  finalPayOff <-mean(cashflow%*% discountFactorForAllPeriods)
+  return(finalPayOff)
 }
 
 
+r <- 0.06
+sigma <- 0.2
+strike <- 40
+nPath <- 100000
 
-
-nSims = 250
-S = 40
-r = 0.06
-sigma = 0.2
-strike = 40
-t = 0.5
-nPath = 1000
-k = 3
+# (a)
+#################### Please uncomment to run the entire scripts #################### 
+################################# t= 0.05 ##########################################
+# three methods: Lagurre, Hermit and Monomial, replace with method accordingly
+# k=2
+nSims <- 100
+t <- 0.5
+k <- 2
 delta <- t/nSims
-out = LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Monomial)
-out
-#out2 = LSMC(nSims, t, strike, S, r, sigma, nPath, k, Hermit)
-#out3 = LSMC(nSims, t, strike, S, r, sigma, nPath, k, Lagur)
+S <-36
+payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+S <-40
+payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+S <-44
+payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+
+k <- 3
+S <-36
+payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+S <-40
+payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+S <-44
+payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+
+k <- 4
+S <-36
+payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+S <-40
+payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+S <-44
+payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+
+################################# t= 1 ##########################################
+nSims <- 200
+t <- 1
+k <- 2
+delta <- t/nSims
+S <- 36
+payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-40
+payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-44
+payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+
+k <- 3
+S <-36
+payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-40
+payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-44
+payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+
+k <- 4
+S <-36
+payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-40
+payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-44
+payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+
+################################# t= 2 ##########################################
+nSims <- 400
+t <- 2
+k <- 2
+delta <- t/nSims
+S <- 36
+payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-40
+payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-44
+payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+
+k <- 3
+S <-36
+payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-40
+payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-44
+payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+
+k <- 4
+S <-36
+payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-40
+payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+S <-44
+payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+
+# (b)
+
+################################# End of Qn 1  #################################
+
+################################# Qn2  #################################
+
+# 2(a)
+
+ForwardStartOpt <- function(Terminal, t, S, strike, sigma, r){
+  delta <- (Terminal / nSims)
+  priceProcess <- GeneratePricePath(nPath, nSims, S, r, sigma, delta)
+  
+  # intialize cashflow matrix
+  cashflow <- priceProcess - strike
+  cashflow[cashflow<0] <- 0 
+  strikeCol <- t/delta + 1
+  priceProcess[,strikeCol]
+  
+  
+}
+nPath <- 100000
+nSims <- 100
+Terminal <- 1
+t <- 0.2
+S <- 65
+strike <- 60
+sigma <- 0.2
+r <- 0.06
+
+
 
