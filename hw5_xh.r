@@ -112,18 +112,25 @@ GetFinalPayOff <- function(currCol, priceProcess, currentPayoff, cashflow, ECV){
   }
 }
 
-################################# Qn1  #################################
-LSMC <- function (delta, nSims, t, strike, S, r, sigma, nPath, k, METHOD){
+################################# LSMC General function for this project #################################
+LSMC <- function (delta, nSims, t, strikePrice, S, r, sigma, nPath, k, METHOD, isForwardStart, stopping_time){
   
   # Initialize price process with antithetic variance reduction technique
   priceProcess <- GeneratePricePath(nPath, nSims, S, r, sigma, delta)
+  
+  strike <- 0;
+  
+  # Take the mean of the strike price at small t 
+  if(isForwardStart){
+    strike <- mean(priceProcess[, stopping_time + 1])
+  }
   
   # intialize cashflow matrix
   cashflow <- InitializeCashFlow(nPath, strike, nSims, priceProcess)
   
   priceProcess[, 1] <- S
   
-  for (i in (nSims-1) : 1){
+  for (i in (nSims-1) : stopping_time){
     # find out positions where it is below strike
     isBelowStrike <- (strike - priceProcess[,i+1] > 0)
     
@@ -171,13 +178,13 @@ LSMC <- function (delta, nSims, t, strike, S, r, sigma, nPath, k, METHOD){
   return(finalPayOff)
 }
 
-
+# (a)
 r <- 0.06
 sigma <- 0.2
 strike <- 40
 nPath <- 100000
-
-# (a)
+stopping_time <- 1
+isForwardStart <- FALSE
 #################### Please uncomment to run the entire scripts #################### 
 ################################# t= 0.05 ##########################################
 # three methods: Lagurre, Hermit and Monomial, replace with method accordingly
@@ -187,27 +194,27 @@ t <- 0.5
 k <- 2
 delta <- t/nSims
 S <-36
-payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 S <-40
-payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 S <-44
-payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 
 k <- 3
 S <-36
-payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 S <-40
-payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 S <-44
-payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 
 k <- 4
 S <-36
-payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 S <-40
-payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 S <-44
-payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit)
+payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 
 ################################# t= 1 ##########################################
 nSims <- 200
@@ -215,27 +222,27 @@ t <- 1
 k <- 2
 delta <- t/nSims
 S <- 36
-payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-40
-payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-44
-payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 
 k <- 3
 S <-36
-payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-40
-payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-44
-payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 
 k <- 4
 S <-36
-payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-40
-payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-44
-payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 
 ################################# t= 2 ##########################################
 nSims <- 400
@@ -243,27 +250,27 @@ t <- 2
 k <- 2
 delta <- t/nSims
 S <- 36
-payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-40
-payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-44
-payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 
 k <- 3
 S <-36
-payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-40
-payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-44
-payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 
 k <- 4
 S <-36
-payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-40
-payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 S <-44
-payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
+payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
 
 # (b)
 
@@ -276,15 +283,15 @@ payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre)
 ForwardStartOpt <- function(Terminal, t, S, strike, sigma, r){
   delta <- (Terminal / nSims)
   priceProcess <- GeneratePricePath(nPath, nSims, S, r, sigma, delta)
-  
   # intialize cashflow matrix
-  cashflow <- priceProcess - strike
+  strikeCol <- nSims * t + 1
+  strikeAtt <- mean(priceProcess[,strikeCol])
+  cashflow <- strikeAtt  - priceProcess[, nSims + 1]
   cashflow[cashflow<0] <- 0 
-  strikeCol <- t/delta + 1
-  priceProcess[,strikeCol]
-  
-  
+  payoff <- mean(exp(-r*Terminal) * cashflow)
+  return(payoff)
 }
+
 nPath <- 100000
 nSims <- 100
 Terminal <- 1
@@ -293,6 +300,12 @@ S <- 65
 strike <- 60
 sigma <- 0.2
 r <- 0.06
+payoff2a <- ForwardStartOpt(Terminal, t, S, strike, sigma, r)
 
-
+#2(b)
+stopping_time <- nSims * t 
+isForwardStart <- TRUE
+delta <- Terminal/ nSims
+k <- 3
+payoff2b <- LSMC(delta, nSims, Terminal, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
 
