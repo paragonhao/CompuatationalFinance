@@ -185,7 +185,7 @@ strike <- 40
 nPath <- 100000
 stopping_time <- 1
 isForwardStart <- FALSE
-technique <- Monomial # three methods: Lagurre, Hermit and Monomial, replace with method accordingly
+technique <- Hermit # three methods: Lagurre, Hermit and Monomial, replace with method accordingly
 #################### Please uncomment to run the entire scripts #################### 
 ################################# t= 0.05 ##########################################
 # k=2
