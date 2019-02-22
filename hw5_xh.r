@@ -118,11 +118,9 @@ LSMC <- function (delta, nSims, t, strikePrice, S, r, sigma, nPath, k, METHOD, i
   # Initialize price process with antithetic variance reduction technique
   priceProcess <- GeneratePricePath(nPath, nSims, S, r, sigma, delta)
   
-  strike <- 0;
-  
   # Take the mean of the strike price at small t 
   if(isForwardStart){
-    strike <- mean(priceProcess[, stopping_time + 1])
+    strike <- priceProcess[, stopping_time + 1]
   }
   
   # intialize cashflow matrix
@@ -132,6 +130,9 @@ LSMC <- function (delta, nSims, t, strikePrice, S, r, sigma, nPath, k, METHOD, i
   
   for (i in (nSims-1) : stopping_time){
     # find out positions where it is below strike
+    
+    # TODO: trying replacing the strike with if else to differentiate between european
+    # can american
     isBelowStrike <- (strike - priceProcess[,i+1] > 0)
     
     discount_factor <- exp(seq(-r*delta,-(nSims-i)*r*delta, -r*delta))
@@ -151,7 +152,7 @@ LSMC <- function (delta, nSims, t, strikePrice, S, r, sigma, nPath, k, METHOD, i
     
     LfuncValues <- GetRegressionX(x, METHOD)
     
-    if(length(x_nonzeros) >= 2) {
+    if(det(matA) > 0.00000000001 && length(matA) >=2){
       # use cholesky decomposition to find coef 
       coef <- chol2inv(chol(matA))%*%vecB
       
@@ -162,7 +163,7 @@ LSMC <- function (delta, nSims, t, strikePrice, S, r, sigma, nPath, k, METHOD, i
       payoff <- strike - priceProcess[,i+1]
       payoff[payoff<0] <- 0
       currentPayoff <- cashflow[,i] + payoff
-      
+      # Update cashflow matrix with current payoff
       for (j in 1: nPath){
         if (currentPayoff[j] > ECV[j]){
           cashflow[j, (i+1):nSims] <- 0
@@ -170,7 +171,6 @@ LSMC <- function (delta, nSims, t, strikePrice, S, r, sigma, nPath, k, METHOD, i
           cashflow[j,i] <- currentPayoff[j]
         }
       }
-    # Update cashflow matrix with current payoff
     }
   }
   discountFactorForAllPeriods <- exp(seq(-r*delta,-nSims*r*delta, -r*delta))
@@ -185,36 +185,36 @@ strike <- 40
 nPath <- 100000
 stopping_time <- 1
 isForwardStart <- FALSE
+technique <- Monomial # three methods: Lagurre, Hermit and Monomial, replace with method accordingly
 #################### Please uncomment to run the entire scripts #################### 
 ################################# t= 0.05 ##########################################
-# three methods: Lagurre, Hermit and Monomial, replace with method accordingly
 # k=2
 nSims <- 100
 t <- 0.5
 k <- 2
 delta <- t/nSims
 S <-36
-payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
+payoffK2S36t05 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-40
-payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
+payoffK2S40t05 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-44
-payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
+payoffK2S44t05 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 
 k <- 3
 S <-36
-payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
+payoffK3S36t05 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-40
-payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
+payoffK3S40t05 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-44
-payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
+payoffK3S44t05 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 
 k <- 4
 S <-36
-payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
+payoffK4S36t05 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-40
-payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
+payoffK4S40t05 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-44
-payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Hermit, isForwardStart, stopping_time)
+payoffK4S44t05 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 
 ################################# t= 1 ##########################################
 nSims <- 200
@@ -222,27 +222,27 @@ t <- 1
 k <- 2
 delta <- t/nSims
 S <- 36
-payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK2S36t1 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-40
-payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK2S40t1 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-44
-payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK2S44t1 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 
 k <- 3
 S <-36
-payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK3S36t1 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-40
-payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK3S40t1 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-44
-payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK3S44t1 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 
 k <- 4
 S <-36
-payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK4S36t1 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-40
-payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK4S40t1 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-44
-payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK4S44t1 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 
 ################################# t= 2 ##########################################
 nSims <- 400
@@ -250,27 +250,27 @@ t <- 2
 k <- 2
 delta <- t/nSims
 S <- 36
-payoffK2S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK2S36t2 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-40
-payoffK2S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK2S40t2 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-44
-payoffK2S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK2S44t2 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 
 k <- 3
 S <-36
-payoffK3S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK3S36t2 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-40
-payoffK3S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK3S40t2 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-44
-payoffK3S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK3S44t2 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 
 k <- 4
 S <-36
-payoffK4S36 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK4S36t2 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-40
-payoffK4S40 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK4S40t2 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 S <-44
-payoffK4S44 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, Lagurre, isForwardStart, stopping_time)
+payoffK4S44t2 <- LSMC(delta, nSims, t, strike, S, r, sigma, nPath, k, technique, isForwardStart, stopping_time)
 
 # (b)
 
@@ -285,7 +285,7 @@ ForwardStartOpt <- function(Terminal, t, S, strike, sigma, r){
   priceProcess <- GeneratePricePath(nPath, nSims, S, r, sigma, delta)
   # intialize cashflow matrix
   strikeCol <- nSims * t + 1
-  strikeAtt <- mean(priceProcess[,strikeCol])
+  strikeAtt <- priceProcess[,strikeCol]
   cashflow <- strikeAtt  - priceProcess[, nSims + 1]
   cashflow[cashflow<0] <- 0 
   payoff <- mean(exp(-r*Terminal) * cashflow)
@@ -303,6 +303,8 @@ r <- 0.06
 payoff2a <- ForwardStartOpt(Terminal, t, S, strike, sigma, r)
 
 #2(b)
+
+
 stopping_time <- nSims * t 
 isForwardStart <- TRUE
 delta <- Terminal/ nSims
