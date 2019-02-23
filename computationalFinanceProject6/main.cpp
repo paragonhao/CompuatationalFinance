@@ -190,22 +190,11 @@ int main() {
     cout << "######################################## Qn1 ##################################################" <<endl;
     RunQ1();
     cout << "###############################################################################################" <<endl;
-    cout << "######################################## Qn1 ##################################################" <<endl;
-
-    double lamdaOne = 0.2;
-    double lamdaTwoIncrement = 0.1;
-    cout << "lamda One is 0.2" << endl;
-    cout << "Year lamdaTwo Option_Price Probability Expected_Tau"<< endl;
-//    for(int t = 3; t <= 8; t++){
-//        for(int i = 0; i<=8;i++){
-//            double * result = Proj6_2function(lamdaOne, i * lamdaTwoIncrement, t);
-//            cout << t<<" "<<(i * lamdaTwoIncrement)<< " "<<result[0]<<" "<< result[1] <<" "<<result[2]<<endl;
-//        }
-//    }
+    cout << "######################################## Qn2 ##################################################" <<endl;
 
     double lamdaTwo = 0.4;
     double lamdaOneIncrement = 0.05;
-    lamdaOne = 0.05;
+    double lamdaOne = 0.05;
     cout << "lamda Two is 0.4" << endl;
     cout << "Year lamdaOne Option_Price Probability Expected_Tau"<< endl;
 
@@ -216,6 +205,18 @@ int main() {
         }
     }
 
-    //
+    lamdaOne = 0.2;
+    double lamdaTwoIncrement = 0.1;
+    cout << "lamda One is 0.2" << endl;
+    cout << "Year lamdaTwo Option_Price Probability Expected_Tau"<< endl;
+    for(int t = 3; t <= 8; t++){
+        for(int i = 0; i<=8;i++){
+            double * result = Proj6_2function(lamdaOne, i * lamdaTwoIncrement, t);
+            cout << t<<" "<<(i * lamdaTwoIncrement)<< " "<<result[0]<<" "<< result[1] <<" "<<result[2]<<endl;
+        }
+    }
+
+
+
     cout << "###############################################################################################" <<endl;
 }

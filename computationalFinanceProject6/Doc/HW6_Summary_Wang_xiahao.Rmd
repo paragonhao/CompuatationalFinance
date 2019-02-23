@@ -26,7 +26,7 @@ Implementation in C++ code
 callPrice <- c(8.78015,11.9791,15.8853,18.6341,
                21.8975,24.6296,28.9913,32.5146,34.2307,40.4474)
 volatility <- seq(12,48,4)
-plot(y=callPrice,x=volatilityCP, xlab="Volatility",
+plot(y=callPrice,x=volatility, xlab="Volatility",
      ylab="Call Price", main="Call Price", type="l")
 
 putPrice <- c(9.26799,11.9689,14.734,16.77,19.181,
@@ -63,7 +63,7 @@ lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.7,]$Option_Price, type
 lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.8,]$Option_Price, type="l",col="tomato")
 legend("bottomright", c("0", "0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8"), col=color1, lwd=5,cex=0.5)
 
-plot(x= year, y= fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.05,]$Option_Price, type = "l",ylim = c(200,7000), ylab = "Default Option Price", main = "LamdaTwo = 0.4, Option Price")
+plot(x= year, y= fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.05,]$Option_Price, type = "l",ylim = c(200,7000), ylab = "Default Option Price", main = "LamdaTwo = 0.4, Option Price varies with LamdaOne")
 lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.1,]$Option_Price, type="l",col="blue")
 lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.15,]$Option_Price, type="l",col="green")
 lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.2,]$Option_Price, type="l",col="yellow")
@@ -93,7 +93,7 @@ lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.7,]$Probability, type=
 lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.8,]$Probability, type="l",col="tomato")
 legend("bottomright", c("0", "0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8"), col=color1, lwd=5,cex=0.5)
 
-plot(x= year, y= fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.05,]$Probability, type = "l",ylim = c(0,1), ylab = "Default Probability", main = "LamdaTwo = 0.4, Option Price")
+plot(x= year, y= fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.05,]$Probability, type = "l",ylim = c(0.5,1), ylab = "Default Probability", main = "LamdaTwo = 0.4, Option Price varies with LamdaOne")
 lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.1,]$Probability, type="l",col="blue")
 lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.15,]$Probability, type="l",col="green")
 lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.2,]$Probability, type="l",col="yellow")
@@ -105,3 +105,26 @@ legend("bottomright", c("0.05", "0.1","0.15","0.2","0.25","0.3","0.35","0.4"), c
 ```
 
 (c) Probability with different Lamda one and two over the years
+```{r}
+plot(x= year, y= fixedLambdaOne[fixedLambdaOne$lamdaTwo==0,]$Expected_Tau, type = "l",ylim = c(0,8), ylab = "Expected_Tau", main = "LamdaOne = 0.2, Option Price varies with LamdaTwo")
+lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.1,]$Expected_Tau, type="l",col="blue")
+lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.2,]$Expected_Tau, type="l",col="green")
+lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.3,]$Expected_Tau, type="l",col="yellow")
+lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.4,]$Expected_Tau, type="l",col="pink")
+lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.5,]$Expected_Tau, type="l",col="red")
+lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.5,]$Expected_Tau, type="l",col="orange")
+lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.6,]$Expected_Tau, type="l",col="purple")
+lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.7,]$Expected_Tau, type="l",col="grey")
+lines(x=year, y=fixedLambdaOne[fixedLambdaOne$lamdaTwo==0.8,]$Expected_Tau, type="l",col="tomato")
+legend("bottomright", c("0", "0.1","0.2","0.3","0.4","0.5","0.6","0.7","0.8"), col=color1, lwd=5,cex=0.5)
+
+plot(x= year, y= fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.05,]$Expected_Tau, type = "l",ylim = c(0,2.5), ylab = "Expected_Tau", main = "LamdaTwo = 0.4, Option Price varies with LamdaOne")
+lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.1,]$Expected_Tau, type="l",col="blue")
+lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.15,]$Expected_Tau, type="l",col="green")
+lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.2,]$Expected_Tau, type="l",col="yellow")
+lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.25,]$Expected_Tau, type="l",col="pink")
+lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.30,]$Expected_Tau, type="l",col="red")
+lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.35,]$Expected_Tau, type="l",col="orange")
+lines(x=year, y=fixedLambdaTwo[fixedLambdaTwo$lamdaOne==0.40,]$Expected_Tau, type="l",col="purple")
+legend("bottomright", c("0.05", "0.1","0.15","0.2","0.25","0.3","0.35","0.4"), col=color2, lwd=5,cex=0.5)
+```
