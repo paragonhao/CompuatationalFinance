@@ -1,0 +1,88 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/JDDefaultOption.cpp
+cmath
+-
+JDDefaultOption.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/JDDefaultOption.h
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/JDDefaultOption.h
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/Mutils.cpp
+Mutils.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/Mutils.h
+iostream
+-
+cmath
+-
+fstream
+-
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/Mutils.h
+string
+-
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/OptionPricing.cpp
+cmath
+-
+algorithm
+-
+iostream
+-
+vector
+-
+limits
+-
+cstdint
+-
+Mutils.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/Mutils.h
+RandomGenerator.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/RandomGenerator.h
+OptionPricing.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/OptionPricing.h
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/OptionPricing.h
+string
+-
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/RandomGenerator.cpp
+cmath
+-
+iostream
+-
+RandomGenerator.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/RandomGenerator.h
+Mutils.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/Mutils.h
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/RandomGenerator.h
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/main.cpp
+iostream
+-
+cmath
+-
+algorithm
+-
+array
+-
+vector
+-
+RandomGenerator.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/RandomGenerator.h
+Mutils.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/Mutils.h
+OptionPricing.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/OptionPricing.h
+JDDefaultOption.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/ComputationalFinanceProject6/JDDefaultOption.h
+random
+-
+
