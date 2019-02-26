@@ -14,6 +14,8 @@ public:
     static double getPMEFD(double dt, double sigma, double delta_X, double r);
 
     static double getPDEFD(double dt, double sigma, double delta_X, double r);
+
+    static void EFDSolver(double currPrice, int deltaFactor);
 };
 
 

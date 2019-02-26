@@ -1069,6 +1069,16 @@ lapacke_mangling.h
 /Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject7/DifferenceMethod.cpp
 DifferenceMethod.h
 /Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject7/DifferenceMethod.h
+OptionPricing.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject7/OptionPricing.h
+cmath
+-
+Eigen/Dense
+-
+iostream
+-
+Mutils.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject7/Mutils.h
 
 /Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject7/DifferenceMethod.h
 
