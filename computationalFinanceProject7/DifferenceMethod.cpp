@@ -12,6 +12,7 @@
 using namespace Eigen;
 using namespace std;
 
+// EFD
 double DifferenceMethod::getPUEFD(double dt, double sigma, double delta_X, double r){
     return dt * ((sigma * sigma)/ (2 * delta_X * delta_X) + (r - 0.5 * sigma * sigma)/ (2 * delta_X));
 }
@@ -24,6 +25,34 @@ double DifferenceMethod::getPDEFD(double dt, double sigma, double delta_X, doubl
     return dt * ((sigma * sigma)/ (2 * delta_X * delta_X) - (r - 0.5 * sigma * sigma)/ (2 * delta_X));
 }
 
+// IFD
+double DifferenceMethod::getPUIFD(double dt, double sigma, double delta_X, double r){
+    return -0.5 * dt * ((sigma*sigma)/(delta_X*delta_X) + (r - 0.5 *sigma*sigma)/delta_X );
+}
+
+double DifferenceMethod::getPMIFD(double dt, double sigma, double delta_X, double r){
+    return 1 + dt * ((sigma * sigma)/(delta_X * delta_X)) + r * dt;
+}
+
+double DifferenceMethod::getPDIFD(double dt, double sigma, double delta_X, double r){
+    return -0.5 * dt * ((sigma*sigma)/(delta_X*delta_X) - (r - 0.5 *sigma*sigma)/delta_X);
+}
+
+//CNFD
+double DifferenceMethod::getPUCNFD(double dt, double sigma, double delta_X, double r){
+    return -0.25* dt * ((sigma*sigma)/(delta_X*delta_X) + (r - 0.5* sigma * sigma)/delta_X);
+}
+
+double DifferenceMethod::getPMCNFD(double dt, double sigma, double delta_X, double r){
+    return 1 + dt * sigma * sigma * 0.5 / (delta_X * delta_X) + r * dt * 0.5;
+}
+
+double DifferenceMethod::getPDCNFD(double dt, double sigma, double delta_X, double r){
+    return -0.25* dt * ((sigma*sigma)/(delta_X*delta_X) - (r - 0.5* sigma * sigma)/delta_X);
+}
+
+
+
 void DifferenceMethod::EFDSolver(double currPrice, int deltaFactor){
     double s0 = currPrice;
     double sigma = 0.2;
@@ -35,7 +64,7 @@ void DifferenceMethod::EFDSolver(double currPrice, int deltaFactor){
     double delta_x = sigma * sqrt(deltaFactor * dt);
     int time = int(t/dt) + 1; // cols
     int N = int(((log(currPrice * 3 * sigma + currPrice) -log(currPrice - currPrice * 3 * sigma))/delta_x)); // rows
-
+//    int N = 50;
     double pu = DifferenceMethod::getPUEFD(dt, sigma, delta_x, r);
     double pm = DifferenceMethod::getPMEFD(dt, sigma, delta_x, r);
     double pd = DifferenceMethod::getPDEFD(dt, sigma, delta_x, r);
@@ -97,6 +126,9 @@ void DifferenceMethod::EFDSolver(double currPrice, int deltaFactor){
     int size = int(payoffVectorF.size());
 
     int midpoint = (size - 1)/2;
+
+    //price for mid point
+//    cout << payoffVectorF(midpoint)<<endl;
 
     for(int i =4; i<=16; i++){
         int ceilPos = midpoint - ceil(log(i/s0)/delta_x);

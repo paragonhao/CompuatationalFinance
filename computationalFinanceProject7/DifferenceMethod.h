@@ -16,6 +16,18 @@ public:
     static double getPDEFD(double dt, double sigma, double delta_X, double r);
 
     static void EFDSolver(double currPrice, int deltaFactor);
+
+    static double getPDIFD(double dt, double sigma, double delta_X, double r);
+
+    static double getPMIFD(double dt, double sigma, double delta_X, double r);
+
+    static double getPUIFD(double dt, double sigma, double delta_X, double r);
+
+    static double getPUCNFD(double dt, double sigma, double delta_X, double r);
+
+    static double getPMCNFD(double dt, double sigma, double delta_X, double r);
+
+    static double getPDCNFD(double dt, double sigma, double delta_X, double r);
 };
 
 
