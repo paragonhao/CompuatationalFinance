@@ -34,7 +34,7 @@ void DifferenceMethod::EFDSolver(double currPrice, int deltaFactor){
 
     double delta_x = sigma * sqrt(deltaFactor * dt);
     int time = int(t/dt) + 1; // cols
-    int N = int(((log(30) -log(0.5))/delta_x)); // rows
+    int N = int(((log(currPrice * 3 * sigma + currPrice) -log(currPrice - currPrice * 3 * sigma))/delta_x)); // rows
 
     double pu = DifferenceMethod::getPUEFD(dt, sigma, delta_x, r);
     double pm = DifferenceMethod::getPMEFD(dt, sigma, delta_x, r);
@@ -66,7 +66,6 @@ void DifferenceMethod::EFDSolver(double currPrice, int deltaFactor){
         payoffVectorF(counter) = Mutils::max(k - exp(logStockPath(counter)), 0) ;
         counter ++;
     }
-
     // Generate Matrix A
 
     //initialize the first and last row
@@ -80,9 +79,9 @@ void DifferenceMethod::EFDSolver(double currPrice, int deltaFactor){
     // start from the second row and end at second last row
     int startPos = 0;
     for(int i = 1; i < totalPath - 1; i++) {
-        matA(i, startPos) = pd;
+        matA(i, startPos) = pu;
         matA(i, startPos + 1) = pm;
-        matA(i, startPos + 2) = pu;
+        matA(i, startPos + 2) = pd;
         startPos++;
     }
 
@@ -97,11 +96,15 @@ void DifferenceMethod::EFDSolver(double currPrice, int deltaFactor){
 
     int size = int(payoffVectorF.size());
 
-    int midpoint = (deltaFactor == 1)?(size/2 - 2):(size/2 - 1);
+    int midpoint = (size - 1)/2;
 
     for(int i =4; i<=16; i++){
         int ceilPos = midpoint - ceil(log(i/s0)/delta_x);
         int floorPos = midpoint - floor(log(i/s0)/delta_x);
-        cout << i <<", " <<OptionPricing::putOptionPriceBS(r, sigma, t, i, k) << ", "<< (payoffVectorF(ceilPos) + payoffVectorF(floorPos)) / 2 << endl;
+        if(i == currPrice){
+            cout << i <<", " <<OptionPricing::putOptionPriceBS(r, sigma, t, i, k) << ", "<< payoffVectorF(midpoint) << endl;
+        }else{
+            cout << i <<", " <<OptionPricing::putOptionPriceBS(r, sigma, t, i, k) << ", "<< (payoffVectorF(ceilPos) + payoffVectorF(floorPos)) / 2 << endl;
+        }
     }
 }

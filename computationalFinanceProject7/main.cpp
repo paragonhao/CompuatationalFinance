@@ -14,7 +14,7 @@
 using namespace Eigen;
 using namespace std;
 
-int main() {
+void RunQn1(){
     cout << "######################################## Qn1 ##################################################" <<endl;
     cout << "Explicit Finite-Difference method: sigma * sqrt(dx)" <<endl;
     cout << "Price, Black sholes, Put Pay off" <<endl;
@@ -27,8 +27,13 @@ int main() {
     deltaFactor = 4;
     DifferenceMethod::EFDSolver(10, deltaFactor);
     cout << "###############################################################################################" <<endl;
+}
 
 
+int main() {
+
+
+    RunQn1();
 
     return 0;
 }
