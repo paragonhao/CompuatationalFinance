@@ -465,5 +465,5 @@ void DifferenceMethod::GeneralisationOptionPriceSolver(double currPrice, double 
 
     int midpoint = (size - 1)/2;
 
-    cout << currPrice << ", "<< payoffVectorF(midpoint)<<endl;
+    cout << currPrice << " "<< method << " "<< type<<" "<< payoffVectorF(midpoint)<<endl;
 }

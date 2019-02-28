@@ -135,14 +135,11 @@ void RunQn2(){
 
 int main() {
 
-//    RunQn1EFD();
-//    RunQn1IFD();
-//    RunQn1CNFD();
-//    RunQn2();
-    double ds =0.25;
-    for(int i =4; i<=16; i ++ ){
-        DifferenceMethod::GeneralisationOptionPriceSolver(i, ds, "CNFD", "Call");
-    }
+    RunQn1EFD();
+    RunQn1IFD();
+    RunQn1CNFD();
+    RunQn2();
+
 
     return 0;
 }

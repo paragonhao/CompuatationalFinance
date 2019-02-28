@@ -23,27 +23,15 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="123" column="4" selection-start-line="123" selection-start-column="4" selection-end-line="123" selection-end-column="4" />
+            <state relative-caret-position="327">
+              <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#315#336#0" />
                 <element signature="e#1003#1024#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DifferenceMethod.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="450" column="32" selection-start-line="450" selection-start-column="32" selection-end-line="450" selection-end-column="32" />
-              <folding>
-                <element signature="e#44#73#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -162,7 +150,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51937000" />
+    <option name="totallyTimeSpent" value="52232000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -179,12 +167,12 @@
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09270073" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32880434" />
-      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.3125" />
+      <window_info anchor="bottom" id="Messages" weight="0.4769022" />
       <window_info anchor="bottom" id="CMake" weight="0.32880434" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" auto_hide="true" id="Run" order="2" weight="0.21059783" />
+      <window_info active="true" anchor="bottom" auto_hide="true" id="Run" order="2" visible="true" weight="0.13043478" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" weight="0.32880434" />
       <window_info id="Favorites" side_tool="true" />
@@ -585,24 +573,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="123" column="4" selection-start-line="123" selection-start-column="4" selection-end-line="123" selection-end-column="4" />
+        <state relative-caret-position="1524">
+          <caret line="304" column="25" selection-start-line="304" selection-start-column="25" selection-end-line="304" selection-end-column="25" />
           <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#315#336#0" />
-            <element signature="e#1003#1024#0" />
+            <element signature="e#44#73#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="450" column="32" selection-start-line="450" selection-start-column="32" selection-end-line="450" selection-end-column="32" />
+        <state relative-caret-position="327">
+          <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
           <folding>
-            <element signature="e#44#73#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#315#336#0" />
+            <element signature="e#1003#1024#0" />
           </folding>
         </state>
       </provider>
