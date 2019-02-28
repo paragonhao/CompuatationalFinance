@@ -315,7 +315,7 @@ void DifferenceMethod::CNFDEuroPutSolver(double currPrice, int deltaFactor){
 }
 
 // Generalisation Solver
-void DifferenceMethod::GeneralisationPutSolver(double currPrice, double ds, string method){
+void DifferenceMethod::GeneralisationOptionPriceSolver(double currPrice, double ds, string method){
     double sigma = 0.2;
     double k = 10;
     double r =0.04;
@@ -377,20 +377,16 @@ void DifferenceMethod::GeneralisationPutSolver(double currPrice, double ds, stri
     matB(totalPath - 1, totalPath - 2) = 1;
     matB(totalPath - 1, totalPath - 1) = -1;
 
-    for (int i = 1; i < totalPath - 1; ++i) {
+    for (int i = 1; i < totalPath - 1; i++) {
         double j = totalPath - 1 - i;
-        //a3
-        matA(i, i - 1) = r * j*(1 - alpha) / 2 + sigma * sigma*j*j*(1 - alpha) / 2;
-        //a2
-        matA(i, i) = -1 / dt - sigma * sigma*j*j*(1 - alpha) - r * (1 - alpha);
-        //a1
-        matA(i, i + 1) = -r * j*(1 - alpha) / 2 + sigma * sigma*j*j*(1 - alpha) / 2;
-        //b3
-        matB(i, i - 1) = -(r * j*(alpha) / 2 + sigma * sigma*j*j*(alpha) / 2);
-        //b2
-        matB(i, i) = -(1 / dt - sigma * sigma*j*j*(alpha) - r * (alpha));
-        //b1
-        matB(i, i + 1) = -(-r * j*(alpha) / 2 + sigma * sigma*j*j*(alpha) / 2);
+        double sigmaPow2JPow2 = sigma * sigma * j * j;
+
+        matA(i, i - 1) = 0.5 * r * j*(1 - alpha) + sigmaPow2JPow2 * (1 - alpha) * 0.5;
+        matA(i, i) = -1 / dt - sigmaPow2JPow2*(1 - alpha) - r * (1 - alpha);
+        matA(i, i + 1) = -r * j*(1 - alpha) * 0.5 + sigmaPow2JPow2 * (1 - alpha) * 0.5;
+        matB(i, i - 1) = -(r * j*(alpha) * 0.5 + sigmaPow2JPow2 * (alpha) * 0.5);
+        matB(i, i) = -(1 / dt - sigmaPow2JPow2 * (alpha) - r * (alpha));
+        matB(i, i + 1) = -(-r * j*(alpha) * 0.5 + sigmaPow2JPow2 * (alpha) * 0.5);
     }
 
     // Inverse of A
@@ -405,18 +401,10 @@ void DifferenceMethod::GeneralisationPutSolver(double currPrice, double ds, stri
     // initialize the RHS of the equation
     vectorD = matB * payoffVectorF;
 
-    VectorXd interimPayoff = VectorXd::Zero(totalPath);
-
-
-//    cout << vectorD << endl;
-
     for(int i = time; i > 0; i--){
-        // getting pay off
-        interimPayoff = vectorD;
-
-        interimPayoff(0) = stockPrice(0) - stockPrice(1);
-        interimPayoff(totalPath - 1) = 0;
-        payoffVectorF = matAInverse * interimPayoff;
+        vectorD(0) = stockPrice(0) - stockPrice(1);
+        vectorD(totalPath - 1) = 0;
+        payoffVectorF = matAInverse * vectorD;
         // American option, get pay off and compare with terminal pay off
         for(int j =0; j< totalPath; j++){
             payoffVectorF(j) = max(payoffVectorF(j),termialPayOff(j));

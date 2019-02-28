@@ -26,8 +26,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="262" column="33" selection-start-line="262" selection-start-column="33" selection-end-line="262" selection-end-column="33" />
+            <state relative-caret-position="283">
+              <caret line="276" column="51" selection-start-line="276" selection-start-column="51" selection-end-line="276" selection-end-column="51" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#315#336#0" />
@@ -41,8 +41,8 @@
       <file leaf-file-name="DifferenceMethod.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="381" column="12" lean-forward="true" selection-start-line="381" selection-start-column="12" selection-end-line="381" selection-end-column="12" />
+            <state relative-caret-position="146">
+              <caret line="403" column="34" selection-start-line="403" selection-start-column="34" selection-end-line="403" selection-end-column="34" />
               <folding>
                 <element signature="e#44#73#0" expanded="true" />
                 <element signature="e#768#3574#0" />
@@ -74,8 +74,8 @@
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/OptionPricing.cpp" />
         <option value="$PROJECT_DIR$/DifferenceMethod.h" />
-        <option value="$PROJECT_DIR$/DifferenceMethod.cpp" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/DifferenceMethod.cpp" />
       </list>
     </option>
   </component>
@@ -165,7 +165,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48914000" />
+    <option name="totallyTimeSpent" value="49417000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -177,12 +177,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="238" y="23" width="1391" height="833" extended-state="0" />
+    <frame x="10" y="23" width="1391" height="833" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09270073" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32880434" />
-      <window_info anchor="bottom" id="Messages" weight="0.5244565" />
+      <window_info anchor="bottom" id="Messages" weight="0.44972825" />
       <window_info anchor="bottom" id="CMake" weight="0.32880434" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -195,12 +195,13 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.2853261" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14306569" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09270073" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32880434" />
       <window_info anchor="bottom" id="CMake" order="7" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.38858697" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -607,8 +608,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="262" column="33" selection-start-line="262" selection-start-column="33" selection-end-line="262" selection-end-column="33" />
+        <state relative-caret-position="283">
+          <caret line="276" column="51" selection-start-line="276" selection-start-column="51" selection-end-line="276" selection-end-column="51" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#315#336#0" />
@@ -620,8 +621,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="381" column="12" lean-forward="true" selection-start-line="381" selection-start-column="12" selection-end-line="381" selection-end-column="12" />
+        <state relative-caret-position="146">
+          <caret line="403" column="34" selection-start-line="403" selection-start-column="34" selection-end-line="403" selection-end-column="34" />
           <folding>
             <element signature="e#44#73#0" expanded="true" />
             <element signature="e#768#3574#0" />

@@ -274,7 +274,7 @@ int main() {
 //    string type = "Call";
 
     for(int i =4; i<=16; i ++ ){
-        DifferenceMethod::GeneralisationPutSolver(i, ds, method);
+        DifferenceMethod::GeneralisationOptionPriceSolver(i, ds, method);
     }
 
 
