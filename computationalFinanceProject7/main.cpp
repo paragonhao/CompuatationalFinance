@@ -131,7 +131,6 @@ void RunQn2EFD(double currPrice, double ds, string method, string type){
             counter++;
         }
     }
-
     // make a copy of the terminal pay off
     termialPayOff = payoffVectorF;
 
@@ -194,13 +193,8 @@ void RunQn2EFD(double currPrice, double ds, string method, string type){
     matA(0,0) = 1;
     matA(0,1) = -1;
 
-    if(type == "Call"){
-        matA(totalPath - 1, totalPath - 1) = -1;
-        matA(totalPath - 1, totalPath - 2) = 1;
-    }else if(type == "Put"){
-        matA(totalPath - 1, totalPath - 1) = 1;
-        matA(totalPath - 1, totalPath - 2) = -1;
-    }
+    matA(totalPath - 1, totalPath - 1) = 1;
+    matA(totalPath - 1, totalPath - 2) = -1;
 
     int startPos=0;
     for(int i = 1; i< totalPath - 1; i++){
@@ -241,9 +235,11 @@ void RunQn2EFD(double currPrice, double ds, string method, string type){
         vectorD(0) = 0;
         vectorD(totalPath - 1) = -(stockPrice(totalPath - 1) - stockPrice(totalPath - 2));
     }
+//    cout << vectorD << endl;
 
     for(int i = time; i > 0; i--){
         // getting pay off
+        payoffVectorF = VectorXd::Zero(totalPath);
         payoffVectorF = matAInverse * vectorD;
 
         // American option, get pay off and compare with terminal pay off
@@ -273,12 +269,12 @@ int main() {
 //    RunQn1IFD();
 //    RunQn1CNFD();
 
-    double ds = 0.5;
+    double ds = 0.25;
     string method = "EFD";
-    string type = "Call";
+//    string type = "Call";
 
     for(int i =4; i<=16; i ++ ){
-        RunQn2EFD(i, ds, method, type);
+        DifferenceMethod::GeneralisationPutSolver(i, ds, method);
     }
 
 

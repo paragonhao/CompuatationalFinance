@@ -5,6 +5,9 @@
 #ifndef COMPUTATIONALFINANCEPROJECT7_DIFFERENCEMETHOD_H
 #define COMPUTATIONALFINANCEPROJECT7_DIFFERENCEMETHOD_H
 
+#include <string>
+
+using namespace std;
 
 class DifferenceMethod {
 
@@ -32,6 +35,9 @@ public:
     static void IFDEuroPutSolver(double currPrice, int deltaFactor);
 
     static void CNFDEuroPutSolver(double currPrice, int deltaFactor);
+
+    static void GeneralisationPutSolver(double currPrice, double ds, string method);
+
 };
 
 
