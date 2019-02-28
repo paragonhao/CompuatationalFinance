@@ -302,7 +302,7 @@ void DifferenceMethod::CNFDEuroPutSolver(double currPrice, int deltaFactor){
 
     int midpoint = (size - 1)/2;
 
-    cout << currPrice<<", "<<payoffVectorF(midpoint)<<", "<<OptionPricing::putOptionPriceBS(r, sigma, t, currPrice, k) <<endl;
+    cout << currPrice<<" "<<payoffVectorF(midpoint)<<" "<<OptionPricing::putOptionPriceBS(r, sigma, t, currPrice, k) <<endl;
 }
 
 // Generalisation Solver
