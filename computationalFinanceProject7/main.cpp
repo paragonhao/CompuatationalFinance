@@ -270,7 +270,7 @@ int main() {
 //    RunQn1CNFD();
 
     double ds = 0.25;
-    string method = "EFD";
+    string method = "CNFD";
 //    string type = "Call";
 
     for(int i =4; i<=16; i ++ ){
