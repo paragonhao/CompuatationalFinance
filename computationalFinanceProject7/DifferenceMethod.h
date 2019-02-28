@@ -36,7 +36,7 @@ public:
 
     static void CNFDEuroPutSolver(double currPrice, int deltaFactor);
 
-    static void GeneralisationOptionPriceSolver(double currPrice, double ds, string method);
+    static void GeneralisationOptionPriceSolver(double currPrice, double ds, string method, string type);
 
 };
 

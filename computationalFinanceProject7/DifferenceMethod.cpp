@@ -130,15 +130,6 @@ void DifferenceMethod::EFDEuroPutSolver(double currPrice, int deltaFactor){
     //price for mid point
     cout << currPrice<<", "<<payoffVectorF(midpoint)<<", "<<OptionPricing::putOptionPriceBS(r, sigma, t, currPrice, k) <<endl;
 
-//    for(int i =4; i<=16; i++){
-//        int ceilPos = midpoint - ceil(log(i/s0)/delta_x);
-//        int floorPos = midpoint - floor(log(i/s0)/delta_x);
-//        if(i == currPrice){
-//            cout << i <<", " <<OptionPricing::putOptionPriceBS(r, sigma, t, i, k) << ", "<< payoffVectorF(midpoint) << endl;
-//        }else{
-//            cout << i <<", " <<OptionPricing::putOptionPriceBS(r, sigma, t, i, k) << ", "<< (payoffVectorF(ceilPos) + payoffVectorF(floorPos)) / 2 << endl;
-//        }
-//    }
 }
 
 void DifferenceMethod::IFDEuroPutSolver(double currPrice, int deltaFactor){
@@ -315,14 +306,14 @@ void DifferenceMethod::CNFDEuroPutSolver(double currPrice, int deltaFactor){
 }
 
 // Generalisation Solver
-void DifferenceMethod::GeneralisationOptionPriceSolver(double currPrice, double ds, string method){
+void DifferenceMethod::GeneralisationOptionPriceSolver(double currPrice, double ds, string method, string type){
     double sigma = 0.2;
     double k = 10;
     double r =0.04;
     double dt =0.002;
     double t = 0.5;
 
-    int N = currPrice / ds;
+    int N = int(currPrice / ds);
     int totalPath = N * 2 + 1; // rows
     int time = int(t/dt) + 1; // cols
 
@@ -337,11 +328,21 @@ void DifferenceMethod::GeneralisationOptionPriceSolver(double currPrice, double 
 
     //######################## decide call put pay off ##########################
 
-    int counter = 0;
-    for(int j= totalPath-1; j>=0;j--){
-        stockPrice(counter) = j * ds;
-        payoffVectorF(counter) = Mutils::max(k - stockPrice(counter) , 0);
-        counter++;
+    if(type == "Call"){
+        int counter = 0;
+        for(int j= totalPath-1; j>=0;j--){
+            stockPrice(counter) = j * ds;
+            payoffVectorF(counter) = Mutils::max(stockPrice(counter) -k , 0.0);
+            counter++;
+        }
+
+    }else if(type == "Put"){
+        int counter = 0;
+        for(int j= totalPath-1; j>=0;j--){
+            stockPrice(counter) = j * ds;
+            payoffVectorF(counter) = Mutils::max(k - stockPrice(counter) , 0.0);
+            counter++;
+        }
     }
 
     // make a copy of the terminal pay off
@@ -377,16 +378,52 @@ void DifferenceMethod::GeneralisationOptionPriceSolver(double currPrice, double 
     matB(totalPath - 1, totalPath - 2) = 1;
     matB(totalPath - 1, totalPath - 1) = -1;
 
-    for (int i = 1; i < totalPath - 1; i++) {
+    VectorXd a1(totalPath - 1);
+    a1 = VectorXd::Zero(totalPath - 1);
+
+    VectorXd a2(totalPath - 1);
+    a2 = VectorXd::Zero(totalPath - 1);
+
+    VectorXd a3(totalPath - 1);
+    a3 = VectorXd::Zero(totalPath - 1);
+
+    VectorXd b1(totalPath - 1);
+    b1 = VectorXd::Zero(totalPath - 1);
+
+    VectorXd b2(totalPath - 1);
+    b2 = VectorXd::Zero(totalPath - 1);
+
+    VectorXd b3(totalPath - 1);
+    b3 = VectorXd::Zero(totalPath);
+
+    int Acounter = 0;
+    //assume currPrice = 10, totalPath = 41 (0-40),
+    // we want to start from 39, in total 40 iterations (0-39)
+    for(int i = 1; i< totalPath - 1; i++){
+
         double j = totalPath - 1 - i;
         double sigmaPow2JPow2 = sigma * sigma * j * j;
 
-        matA(i, i - 1) = 0.5 * r * j*(1 - alpha) + sigmaPow2JPow2 * (1 - alpha) * 0.5;
-        matA(i, i) = -1 / dt - sigmaPow2JPow2*(1 - alpha) - r * (1 - alpha);
-        matA(i, i + 1) = -r * j*(1 - alpha) * 0.5 + sigmaPow2JPow2 * (1 - alpha) * 0.5;
-        matB(i, i - 1) = -(r * j*(alpha) * 0.5 + sigmaPow2JPow2 * (alpha) * 0.5);
-        matB(i, i) = -(1 / dt - sigmaPow2JPow2 * (alpha) - r * (alpha));
-        matB(i, i + 1) = -(-r * j*(alpha) * 0.5 + sigmaPow2JPow2 * (alpha) * 0.5);
+        a1(Acounter) = 0.5 * (sigmaPow2JPow2 - r * j) * (1 - alpha);
+        a2(Acounter) = - (1/dt) - (sigmaPow2JPow2 + r) * (1 - alpha);
+        a3(Acounter) = 0.5 * (sigmaPow2JPow2 + r * j) * (1 - alpha);
+
+        b1(Acounter) = 0.5 * (sigmaPow2JPow2 - r * j) * alpha;
+        b2(Acounter) = (1/dt) - (sigmaPow2JPow2 + r) * alpha;
+        b3(Acounter) = 0.5 * (sigmaPow2JPow2 + r * j) * alpha;
+        Acounter++;
+    }
+
+    int startPos=0;
+    for(int i = 1; i< totalPath - 1; i++){
+        matA(i, startPos) = a3(i -1);
+        matA(i, startPos + 1) = a2(i -1);
+        matA(i, startPos + 2) = a1(i -1);
+
+        matB(i, startPos) = -b3(i - 1);
+        matB(i, startPos + 1) = -b2(i - 1);
+        matB(i, startPos + 2) = -b1(i - 1);
+        startPos++;
     }
 
     // Inverse of A
@@ -402,12 +439,23 @@ void DifferenceMethod::GeneralisationOptionPriceSolver(double currPrice, double 
     vectorD = matB * payoffVectorF;
 
     for(int i = time; i > 0; i--){
-        vectorD(0) = stockPrice(0) - stockPrice(1);
-        vectorD(totalPath - 1) = 0;
-        payoffVectorF = matAInverse * vectorD;
-        // American option, get pay off and compare with terminal pay off
-        for(int j =0; j< totalPath; j++){
-            payoffVectorF(j) = max(payoffVectorF(j),termialPayOff(j));
+
+        if(type == "Call"){
+            vectorD(0) = stockPrice(0) - stockPrice(1);
+            vectorD(totalPath - 1) = 0;
+            payoffVectorF = matAInverse * vectorD;
+            // American option, get pay off and compare with terminal pay off
+            for(int j =0; j< totalPath; j++){
+                payoffVectorF(j) = max(payoffVectorF(j),termialPayOff(j));
+            }
+        }else if(type == "Put"){
+            vectorD(0) = 0;
+            vectorD(totalPath - 1) = -(stockPrice(totalPath - 1) - stockPrice(totalPath - 2));
+            payoffVectorF = matAInverse * vectorD;
+            // American option, get pay off and compare with terminal pay off
+            for(int j =0; j< totalPath; j++){
+                payoffVectorF(j) = max(payoffVectorF(j),termialPayOff(j));
+            }
         }
 
         vectorD = matB * payoffVectorF;
@@ -417,5 +465,5 @@ void DifferenceMethod::GeneralisationOptionPriceSolver(double currPrice, double 
 
     int midpoint = (size - 1)/2;
 
-    cout << payoffVectorF(midpoint)<<endl;
+    cout << currPrice << ", "<< payoffVectorF(midpoint)<<endl;
 }

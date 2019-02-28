@@ -26,13 +26,12 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="276" column="51" selection-start-line="276" selection-start-column="51" selection-end-line="276" selection-end-column="51" />
+            <state relative-caret-position="309">
+              <caret line="123" column="4" selection-start-line="123" selection-start-column="4" selection-end-line="123" selection-end-column="4" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
                 <element signature="e#315#336#0" />
                 <element signature="e#1003#1024#0" />
-                <element signature="e#3554#3575#0" />
               </folding>
             </state>
           </provider>
@@ -41,13 +40,10 @@
       <file leaf-file-name="DifferenceMethod.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="403" column="34" selection-start-line="403" selection-start-column="34" selection-end-line="403" selection-end-column="34" />
+            <state relative-caret-position="361">
+              <caret line="450" column="32" selection-start-line="450" selection-start-column="32" selection-end-line="450" selection-end-column="32" />
               <folding>
                 <element signature="e#44#73#0" expanded="true" />
-                <element signature="e#768#3574#0" />
-                <element signature="e#4840#4882#0" />
-                <element signature="e#7346#10008#0" />
               </folding>
             </state>
           </provider>
@@ -94,8 +90,9 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
+  <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="238" />
+    <option name="x" value="310" />
     <option name="y" value="23" />
     <option name="width" value="1391" />
     <option name="height" value="833" />
@@ -165,7 +162,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49417000" />
+    <option name="totallyTimeSpent" value="51937000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -177,17 +174,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="23" width="1391" height="833" extended-state="0" />
+    <frame x="310" y="23" width="1391" height="833" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09270073" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32880434" />
-      <window_info anchor="bottom" id="Messages" weight="0.44972825" />
+      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.3125" />
       <window_info anchor="bottom" id="CMake" weight="0.32880434" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" auto_hide="true" id="Run" order="2" visible="true" weight="0.29076087" />
+      <window_info anchor="bottom" auto_hide="true" id="Run" order="2" weight="0.21059783" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" weight="0.32880434" />
       <window_info id="Favorites" side_tool="true" />
@@ -220,7 +217,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="39" />
+      <option name="time" value="40" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
@@ -269,9 +266,6 @@
           <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding>
             <element signature="e#44#73#0" expanded="true" />
-            <element signature="e#768#3574#0" />
-            <element signature="e#4840#4882#0" />
-            <element signature="e#7346#10008#0" />
           </folding>
         </state>
       </provider>
@@ -330,9 +324,6 @@
           <caret line="55" column="73" selection-start-line="55" selection-start-column="73" selection-end-line="55" selection-end-column="73" />
           <folding>
             <element signature="e#44#73#0" expanded="true" />
-            <element signature="e#768#3574#0" />
-            <element signature="e#4840#4882#0" />
-            <element signature="e#7346#10008#0" />
           </folding>
         </state>
       </provider>
@@ -345,7 +336,6 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#315#336#0" />
             <element signature="e#1003#1024#0" />
-            <element signature="e#3554#3575#0" />
           </folding>
         </state>
       </provider>
@@ -393,9 +383,6 @@
           <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding>
             <element signature="e#44#73#0" expanded="true" />
-            <element signature="e#768#3574#0" />
-            <element signature="e#4840#4882#0" />
-            <element signature="e#7346#10008#0" />
           </folding>
         </state>
       </provider>
@@ -408,7 +395,6 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#315#336#0" />
             <element signature="e#1003#1024#0" />
-            <element signature="e#3554#3575#0" />
           </folding>
         </state>
       </provider>
@@ -474,9 +460,6 @@
           <caret line="111" column="45" selection-start-line="111" selection-start-column="45" selection-end-line="111" selection-end-column="45" />
           <folding>
             <element signature="e#44#73#0" expanded="true" />
-            <element signature="e#768#3574#0" />
-            <element signature="e#4840#4882#0" />
-            <element signature="e#7346#10008#0" />
           </folding>
         </state>
       </provider>
@@ -496,7 +479,6 @@
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#315#336#0" />
             <element signature="e#1003#1024#0" />
-            <element signature="e#3554#3575#0" />
           </folding>
         </state>
       </provider>
@@ -544,9 +526,6 @@
           <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding>
             <element signature="e#44#73#0" expanded="true" />
-            <element signature="e#768#3574#0" />
-            <element signature="e#4840#4882#0" />
-            <element signature="e#7346#10008#0" />
           </folding>
         </state>
       </provider>
@@ -592,13 +571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DifferenceMethod.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../../../../dev/eigen/Eigen/src/Core/DenseCoeffsBase.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="137">
@@ -606,28 +578,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DifferenceMethod.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="38" column="40" selection-start-line="38" selection-start-column="40" selection-end-line="38" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="276" column="51" selection-start-line="276" selection-start-column="51" selection-end-line="276" selection-end-column="51" />
+        <state relative-caret-position="309">
+          <caret line="123" column="4" selection-start-line="123" selection-start-column="4" selection-end-line="123" selection-end-column="4" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
             <element signature="e#315#336#0" />
             <element signature="e#1003#1024#0" />
-            <element signature="e#3554#3575#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="403" column="34" selection-start-line="403" selection-start-column="34" selection-end-line="403" selection-end-column="34" />
+        <state relative-caret-position="361">
+          <caret line="450" column="32" selection-start-line="450" selection-start-column="32" selection-end-line="450" selection-end-column="32" />
           <folding>
             <element signature="e#44#73#0" expanded="true" />
-            <element signature="e#768#3574#0" />
-            <element signature="e#4840#4882#0" />
-            <element signature="e#7346#10008#0" />
           </folding>
         </state>
       </provider>
