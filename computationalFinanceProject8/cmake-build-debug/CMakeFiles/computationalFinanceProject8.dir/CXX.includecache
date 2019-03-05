@@ -1097,8 +1097,16 @@ Eigen/Dense
 -
 ctime
 -
+random
+-
+iostream
+-
 
 /Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/FixedIncome.h
+Eigen/Dense
+-
+ctime
+-
 
 /Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/JDDefaultOption.cpp
 cmath
@@ -1158,6 +1166,922 @@ Mutils.h
 
 /Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/RandomGenerator.h
 
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbern.hpp
+dbern.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbern.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbern.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbeta.hpp
+dbeta.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbeta.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbeta.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbinom.hpp
+dbinom.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dcauchy.hpp
+dcauchy.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dcauchy.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dcauchy.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dchisq.hpp
+dchisq.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dchisq.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dchisq.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dens.hpp
+dbern.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbern.hpp
+dbeta.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbeta.hpp
+dcauchy.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dcauchy.hpp
+dchisq.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dchisq.hpp
+dexp.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dexp.hpp
+df.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/df.hpp
+dgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dgamma.hpp
+dinvgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dinvgamma.hpp
+dinvwish.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dinvwish.hpp
+dlaplace.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlaplace.hpp
+dlogis.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlogis.hpp
+dmvnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dmvnorm.hpp
+dnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dnorm.hpp
+dpois.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dpois.hpp
+dt.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dt.hpp
+dunif.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dunif.hpp
+dweibull.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dweibull.hpp
+dwish.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dwish.hpp
+dbinom.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dbinom.hpp
+dlnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlnorm.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dexp.hpp
+dexp.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dexp.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dexp.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/df.hpp
+df.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/df.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/df.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dgamma.hpp
+dgamma.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dinvgamma.hpp
+dinvgamma.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dinvgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dinvgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dinvwish.hpp
+dinvwish.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dinvwish.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dinvwish.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlaplace.hpp
+dlaplace.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlaplace.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlaplace.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlnorm.hpp
+dlnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlogis.hpp
+dlogis.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlogis.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dlogis.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dmvnorm.hpp
+dmvnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dmvnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dmvnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dnorm.hpp
+dnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dpois.hpp
+dpois.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dpois.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dpois.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dt.hpp
+dt.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dt.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dt.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dunif.hpp
+dunif.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dunif.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dunif.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dweibull.hpp
+dweibull.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dweibull.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dweibull.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dwish.hpp
+dwish.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dwish.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dwish.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem.hpp
+gcem_incl/gcem_options.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/gcem_options.hpp
+gcem_incl/quadrature/gauss_legendre_50.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/quadrature/gauss_legendre_50.hpp
+gcem_incl/abs.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/abs.hpp
+gcem_incl/floor.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/floor.hpp
+gcem_incl/is_odd.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/is_odd.hpp
+gcem_incl/is_even.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/is_even.hpp
+gcem_incl/max.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/max.hpp
+gcem_incl/min.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/min.hpp
+gcem_incl/sqrt.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/sqrt.hpp
+gcem_incl/sgn.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/sgn.hpp
+gcem_incl/find_exponent.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/find_exponent.hpp
+gcem_incl/find_fraction.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/find_fraction.hpp
+gcem_incl/find_whole.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/find_whole.hpp
+gcem_incl/mantissa.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/mantissa.hpp
+gcem_incl/pow_integral.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/pow_integral.hpp
+gcem_incl/exp.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/exp.hpp
+gcem_incl/log.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/log.hpp
+gcem_incl/pow.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/pow.hpp
+gcem_incl/gcd.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/gcd.hpp
+gcem_incl/lcm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/lcm.hpp
+gcem_incl/tan.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/tan.hpp
+gcem_incl/cos.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/cos.hpp
+gcem_incl/sin.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/sin.hpp
+gcem_incl/atan.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/atan.hpp
+gcem_incl/acos.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/acos.hpp
+gcem_incl/asin.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/asin.hpp
+gcem_incl/tanh.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/tanh.hpp
+gcem_incl/cosh.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/cosh.hpp
+gcem_incl/sinh.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/sinh.hpp
+gcem_incl/atanh.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/atanh.hpp
+gcem_incl/acosh.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/acosh.hpp
+gcem_incl/asinh.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/asinh.hpp
+gcem_incl/binomial_coef.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/binomial_coef.hpp
+gcem_incl/lgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/lgamma.hpp
+gcem_incl/tgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/tgamma.hpp
+gcem_incl/factorial.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/factorial.hpp
+gcem_incl/lbeta.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/lbeta.hpp
+gcem_incl/beta.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/beta.hpp
+gcem_incl/log_multi_gamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/log_multi_gamma.hpp
+gcem_incl/erf.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/erf.hpp
+gcem_incl/erf_inv.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/erf_inv.hpp
+gcem_incl/incomplete_beta.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/incomplete_beta.hpp
+gcem_incl/incomplete_beta_inv.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/incomplete_beta_inv.hpp
+gcem_incl/incomplete_gamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/incomplete_gamma.hpp
+gcem_incl/incomplete_gamma_inv.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/incomplete_gamma_inv.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/abs.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/acos.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/acosh.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/asin.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/asinh.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/atan.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/atanh.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/beta.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/binomial_coef.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/cos.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/cosh.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/erf.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/erf_inv.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/exp.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/factorial.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/find_exponent.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/find_fraction.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/find_whole.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/floor.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/gcd.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/gcem_options.hpp
+cstddef
+-
+limits
+-
+type_traits
+-
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/incomplete_beta.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/incomplete_beta_inv.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/incomplete_gamma.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/incomplete_gamma_inv.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/is_even.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/is_odd.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/lbeta.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/lcm.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/lgamma.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/log.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/log_multi_gamma.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/mantissa.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/max.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/min.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/pow.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/pow_integral.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/quadrature/gauss_legendre_50.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/sgn.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/sin.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/sinh.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/sqrt.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/tan.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/tanh.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem_incl/tgamma.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/accu.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/chol.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/cumsum.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/det.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/eye.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/fill.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/get_mem_ptr.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/get_row.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/inv.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/log_det.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/mean.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/n_cols.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/n_elem.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/n_rows.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/repmat.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/solve.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/spacing.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/trace.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/trans.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/var.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/zeros.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/matrix_ops.hpp
+mat_ops/get_mem_ptr.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/get_mem_ptr.hpp
+mat_ops/n_cols.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/n_cols.hpp
+mat_ops/n_elem.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/n_elem.hpp
+mat_ops/n_rows.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/n_rows.hpp
+mat_ops/accu.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/accu.hpp
+mat_ops/chol.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/chol.hpp
+mat_ops/cumsum.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/cumsum.hpp
+mat_ops/det.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/det.hpp
+mat_ops/eye.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/eye.hpp
+mat_ops/fill.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/fill.hpp
+mat_ops/get_row.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/get_row.hpp
+mat_ops/inv.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/inv.hpp
+mat_ops/log_det.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/log_det.hpp
+mat_ops/mean.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/mean.hpp
+mat_ops/repmat.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/repmat.hpp
+mat_ops/solve.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/solve.hpp
+mat_ops/spacing.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/spacing.hpp
+mat_ops/trace.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/trace.hpp
+mat_ops/trans.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/trans.hpp
+mat_ops/var.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/var.hpp
+mat_ops/zeros.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/mat_ops/zeros.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/statslib_options.hpp
+omp.h
+-
+cmath
+-
+limits
+-
+random
+-
+RcppArmadillo.h
+-
+armadillo
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/armadillo
+blaze/Blaze.h
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/blaze/Blaze.h
+Eigen/Dense
+-
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbern.hpp
+pbern.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbern.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbern.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbeta.hpp
+pbeta.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbeta.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbeta.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbinom.hpp
+pbinom.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pcauchy.hpp
+pcauchy.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pcauchy.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pcauchy.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pchisq.hpp
+pchisq.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pchisq.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pchisq.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pexp.hpp
+pexp.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pexp.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pexp.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pf.hpp
+pf.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pf.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pf.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pgamma.hpp
+pgamma.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pinvgamma.hpp
+pinvgamma.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pinvgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pinvgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plaplace.hpp
+plaplace.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plaplace.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plaplace.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plnorm.hpp
+plnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plogis.hpp
+plogis.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plogis.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plogis.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pnorm.hpp
+pnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/ppois.hpp
+ppois.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/ppois.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/ppois.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/prob.hpp
+pbern.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbern.hpp
+pbeta.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbeta.hpp
+pbinom.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pbinom.hpp
+pcauchy.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pcauchy.hpp
+pchisq.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pchisq.hpp
+pexp.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pexp.hpp
+pf.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pf.hpp
+pgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pgamma.hpp
+pinvgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pinvgamma.hpp
+plaplace.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plaplace.hpp
+plogis.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plogis.hpp
+pnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pnorm.hpp
+ppois.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/ppois.hpp
+pt.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pt.hpp
+punif.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/punif.hpp
+pweibull.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pweibull.hpp
+plnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/plnorm.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pt.hpp
+pt.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pt.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pt.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/punif.hpp
+punif.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/punif.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/punif.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pweibull.hpp
+pweibull.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pweibull.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/pweibull.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbern.hpp
+qbern.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbern.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbern.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbeta.hpp
+qbeta.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbeta.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbeta.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbinom.hpp
+qbinom.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qcauchy.hpp
+qcauchy.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qcauchy.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qcauchy.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qchisq.hpp
+qchisq.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qchisq.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qchisq.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qexp.hpp
+qexp.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qexp.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qexp.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qf.hpp
+qf.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qf.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qf.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qgamma.hpp
+qgamma.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qinvgamma.hpp
+qinvgamma.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qinvgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qinvgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlaplace.hpp
+qlaplace.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlaplace.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlaplace.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlnorm.hpp
+qlnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlogis.hpp
+qlogis.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlogis.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlogis.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qnorm.hpp
+qnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qpois.hpp
+qpois.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qpois.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qpois.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qt.hpp
+qt.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qt.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qt.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/quant.hpp
+qbern.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbern.hpp
+qbeta.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbeta.hpp
+qbinom.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qbinom.hpp
+qcauchy.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qcauchy.hpp
+qchisq.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qchisq.hpp
+qexp.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qexp.hpp
+qf.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qf.hpp
+qgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qgamma.hpp
+qinvgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qinvgamma.hpp
+qlaplace.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlaplace.hpp
+qlogis.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlogis.hpp
+qnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qnorm.hpp
+qpois.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qpois.hpp
+qt.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qt.hpp
+qunif.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qunif.hpp
+qweibull.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qweibull.hpp
+qlnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qlnorm.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qunif.hpp
+qunif.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qunif.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qunif.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qweibull.hpp
+qweibull.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qweibull.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/qweibull.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rand.hpp
+runif.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/runif.hpp
+rnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rnorm.hpp
+rgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rgamma.hpp
+rbern.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbern.hpp
+rbeta.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbeta.hpp
+rbinom.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbinom.hpp
+rcauchy.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rcauchy.hpp
+rchisq.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rchisq.hpp
+rexp.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rexp.hpp
+rf.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rf.hpp
+rinvgamma.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rinvgamma.hpp
+rinvwish.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rinvwish.hpp
+rlaplace.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlaplace.hpp
+rlnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlnorm.hpp
+rlogis.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlogis.hpp
+rmultinom.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rmultinom.hpp
+rmvnorm.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rmvnorm.hpp
+rpois.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rpois.hpp
+rt.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rt.hpp
+rweibull.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rweibull.hpp
+rwish.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rwish.hpp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbern.hpp
+rbern.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbern.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbern.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbeta.hpp
+rbeta.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbeta.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbeta.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbinom.hpp
+rbinom.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rbinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rcauchy.hpp
+rcauchy.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rcauchy.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rcauchy.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rchisq.hpp
+rchisq.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rchisq.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rchisq.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rexp.hpp
+rexp.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rexp.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rexp.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rf.hpp
+rf.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rf.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rf.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rgamma.hpp
+rgamma.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rinvgamma.hpp
+rinvgamma.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rinvgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rinvgamma.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rinvwish.hpp
+rinvwish.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rinvwish.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rinvwish.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlaplace.hpp
+rlaplace.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlaplace.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlaplace.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlnorm.hpp
+rlnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlogis.hpp
+rlogis.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlogis.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rlogis.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rmultinom.hpp
+rmultinom.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rmultinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rmultinom.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rmvnorm.hpp
+rmvnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rmvnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rmvnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rnorm.hpp
+rnorm.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rnorm.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rpois.hpp
+rpois.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rpois.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rpois.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rt.hpp
+rt.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rt.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rt.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/runif.hpp
+runif.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/runif.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/runif.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rweibull.hpp
+rweibull.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rweibull.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rweibull.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rwish.hpp
+rwish.ipp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rwish.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rwish.ipp
+
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/stats.hpp
+math/gcem.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/math/gcem.hpp
+misc/statslib_options.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/statslib_options.hpp
+misc/matrix_ops.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/misc/matrix_ops.hpp
+dens/dens.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/dens/dens.hpp
+prob/prob.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/prob/prob.hpp
+quant/quant.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/quant/quant.hpp
+rand/rand.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/rand/rand.hpp
+
 /Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/main.cpp
 iostream
 -
@@ -1185,4 +2109,6 @@ random
 -
 Eigen/Dense
 -
+include/stats.hpp
+/Users/paragonhao/Documents/ucla/Dropbox/Quarter2/Computational Finance/HW/computationalFinanceProject8/include/stats.hpp
 

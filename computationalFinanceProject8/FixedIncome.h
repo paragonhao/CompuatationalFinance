@@ -14,10 +14,16 @@ class FixedIncome {
 
 public:
     static double calculateZCBPV(double r0, double sigma, double specialK, double rbar, double FV, double T, int steps);
-    static double getInterestRateSim(double r0, double sigma, double specialK, double rbar, double T, int steps, double payoff);
 
     static double getBondPrice(double FV, double rt, double specialK, double sigma, double rbar, double T, double t);
-    static void getRPathAndBigR(double r0, double sigma, double specialK, double rbar, double T, int steps, MatrixXd & rMat, VectorXd & bigR);
+
+    static void getRPathAndBigRVasicek(double r0, double sigma, double specialK, double rbar, double T, int steps,
+                                       MatrixXd &rMat, VectorXd &bigR, int simNum);
+
+    static void getRPathAndBigRCIR(double r0, double sigma, double specialK, double rbar, double T, int steps, MatrixXd &rMat,
+                            VectorXd &bigR, int simNum);
+
+    static void getfunctionAandB(double specialK, double sigma, double rbar, double t, double T, double &A_t_T, double &B_t_T);
 };
 
 
