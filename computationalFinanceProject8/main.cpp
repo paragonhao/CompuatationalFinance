@@ -128,10 +128,9 @@ void RunQn2a(double r0, double sigma, double specialK, double rbar){
     double strike = 980;
     double T = 0.5;
     double S = 1.0;
-    double t =0;
 
     int tradingDays = 252;
-    int simNum = 1000;
+    int simNum = 5000;
     int steps = int(floor(T * tradingDays));
 
     MatrixXd rMat(simNum, steps);
@@ -145,13 +144,14 @@ void RunQn2a(double r0, double sigma, double specialK, double rbar){
 
     double A_t_T = 0.0;
     double B_t_T = 0.0;
-    FixedIncome::getfunctionAandB(specialK, sigma, rbar, t, T, A_t_T, B_t_T);
+    FixedIncome::getfunctionAandB(specialK, sigma, rbar, T, S, A_t_T, B_t_T);
 
 
     double optionPrice = 0;
     for(int i =0; i< simNum; i++){
         double bondPrice = FV * A_t_T * exp(-B_t_T * rMat(i, steps - 1));
         double payoff = Mutils::max(bondPrice - strike, 0); // payoff = bondprice with explicit formula - strike
+
         optionPrice += payoff/exp(bigR(i));
     }
 
@@ -216,24 +216,24 @@ int main() {
     double rbar = 0.05;
 
     cout << "######################################## Qn1 a ##################################################" <<endl;
-    //RunQn1a(r0, sigma, specialK, rbar);
+    RunQn1a(r0, sigma, specialK, rbar);
     cout << "###############################################################################################" <<endl;
 
     cout << "######################################## Qn1 b ##################################################" <<endl;
-    //RunQn1b(r0, sigma, specialK, rbar);
+    RunQn1b(r0, sigma, specialK, rbar);
     cout << "###############################################################################################" <<endl;
 
     cout << "######################################## Qn1 c ##################################################" <<endl;
-    //RunQn1c(r0, sigma, specialK, rbar);
+    RunQn1c(r0, sigma, specialK, rbar);
     cout << "###############################################################################################" <<endl;
 
     cout << "######################################## Qn1 d ##################################################" <<endl;
-    //RunQn1d(r0, sigma, specialK, rbar);
+    RunQn1d(r0, sigma, specialK, rbar);
     cout << "###############################################################################################" <<endl;
 
 
     r0 = 0.05;
-    sigma = 0.12;
+    sigma = 0.18;
     specialK = 0.92;
     rbar = 0.055;
 
@@ -245,7 +245,8 @@ int main() {
     //RunQn2b(r0, sigma, specialK, rbar);
     cout << "###############################################################################################" <<endl;
 
-//    cout <<stats::pnorm(1,0,1)<<endl;
+
+
 
 
 

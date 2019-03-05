@@ -99,7 +99,7 @@ void FixedIncome::getRPathAndBigRCIR(double r0, double sigma, double specialK, d
     for(int i =0; i< simNum; i++){
         for(int j =1; j< steps; j++){
             double z = distribution(generator);
-            rMat(i, j) =  rMat(i, j-1) + specialK * (rbar -  rMat(i, j-1)) * delta_t + sigma * sqrt(abs(rMat(i, j-1))) * sqrt(delta_t) * z;
+            rMat(i, j) =  rMat(i, j-1) + specialK * (rbar -  rMat(i, j-1)) * delta_t + sigma * sqrt(rMat(i, j-1)) * sqrt(delta_t) * z;
             bigR(i) += rMat(i, j) * delta_t;
         }
     }
