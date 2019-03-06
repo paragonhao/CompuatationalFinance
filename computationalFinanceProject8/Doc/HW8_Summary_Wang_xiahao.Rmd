@@ -1,0 +1,60 @@
+---
+header-includes:
+- \usepackage{amssymb, amsmath, amsthm}
+- \usepackage{tabu}
+- \newcommand{\E}{\mathbb{E}}
+- \newcommand{\var}{{\rm Var}}
+- \newcommand{\N}{\mathcal{N}}
+output: pdf_document
+---
+\noindent \begin{tabu} to \textwidth {@{}X[4 l] @{}X[r]}
+  \textbf{Project 8}           & \\ 
+  \textbf{MFE 405: Computational Finance}   & \\ 
+  \textbf{Professor Goukasian}         & \\
+  \textbf{Student: Xiahao Wang}
+\end{tabu}
+
+## This is a summary of the project for data visualisation, for detail implementation and result,
+## please refer to the print out of the program
+## NOTE: Qn 1d and 3 uses monte carlo simulation to get bond price, hence takes a long time to finish (rough 5 mins each)
+
+## Qn 1. Vasicek Model
+Implementation in C++
+
+(a)
+
+The bond price at time 0 is: 975.824
+
+(b)
+
+The bond price at time 0 is: 1081.47
+
+(c)
+
+European Call on the zero coupon bond in part(a) is:  11.7919
+
+(d)
+
+European Call on the coupon paying bond in part(a) is:  121.91
+
+## Qn 2. CIR Model
+Implementation in C++
+
+(a)
+
+European Call on the zero coupon bond in is:  1.12946
+
+(b)
+
+Compute using the explicit method, 
+The European Call on the zero coupon bond is:1.14161
+
+Comment: the European Call option obtained from Monte carlo simulation is very close to the price calculated using explicit method in part(a)
+
+## Qn 3. G2++ Model
+
+The European Put on the zero coupon bond is: 13.4579
+
+
+
+

@@ -11,7 +11,6 @@
 #include "FixedIncome.h"
 #include <random>
 #include <Eigen/Dense>
-#include "include/stats.hpp"
 
 using namespace Eigen;
 using namespace std;
@@ -74,10 +73,10 @@ void RunQn1d(double r0, double sigma, double specialK, double rbar){
     double T = 0.25;
     double S = 4;
     int tradingDays = 252;
-    int simNum = 100;
+    int simNum = 1000;
 
     int steps = int(floor(T * tradingDays));
-    int M = 100;
+    int M = 1000;
 
     vector<double> cashflow{ 30, 30, 30, 30, 30, 30, 30, 1030};
     vector<double> time{0.25, 0.75, 1.25, 1.75, 2.25, 2.75, 3.25, 3.75};
@@ -98,7 +97,6 @@ void RunQn1d(double r0, double sigma, double specialK, double rbar){
     // Then generate the path from T to S
     double priceAt0 = 0;
     for(int i =0; i< simNum; i++){
-
         // This is the function to calculate the bond price at the specific interest at time T
         int numCF =8;
         // treat each dividend payment as a zero coupon bond,
@@ -129,7 +127,7 @@ void RunQn2a(double r0, double sigma, double specialK, double rbar){
     double T = 0.5;
     double S = 1.0;
 
-    int tradingDays = 252;
+    int tradingDays = 360;
     int simNum = 5000;
     int steps = int(floor(T * tradingDays));
 
@@ -146,7 +144,6 @@ void RunQn2a(double r0, double sigma, double specialK, double rbar){
     double B_t_T = 0.0;
     FixedIncome::getfunctionAandB(specialK, sigma, rbar, T, S, A_t_T, B_t_T);
 
-
     double optionPrice = 0;
     for(int i =0; i< simNum; i++){
         double bondPrice = FV * A_t_T * exp(-B_t_T * rMat(i, steps - 1));
@@ -159,53 +156,93 @@ void RunQn2a(double r0, double sigma, double specialK, double rbar){
 
 }
 
+void RunQn2b(double r0, double sigma, double specialK, double rbar){
+    double FV = 1000;
+    double strike = 980;
+    double t = 0;
+    double T = 0.5;
+    double S = 1;
+    FixedIncome::getExplicitOptionCallPriceCIR(r0,  sigma,  specialK,  rbar,  strike, FV, T,  S,  t);
 
-//
-//void RunQn2b(double r0, double sigma, double specialK, double rbar){
-//    double FV = 1000;
-//    double strike = 980;
-//    double T = 0.5;
-//    double S = 1.0;
-//    double tau = S - T;
-//    double t = 0;
-//
-//    double A_T_S = 0.0;
-//    double B_T_S = 0.0;
-//    FixedIncome::getfunctionAandB(specialK, sigma, rbar, tau, A_T_S, B_T_S);
-//
-//    double theta = sqrt(specialK * specialK + 2 * sigma * sigma);
-//    double phi = (2 * theta)/(sigma * sigma * (exp(theta * (T-t)) - 1));
-//    double psi = (specialK + theta)/(sigma * sigma);
-//    double r_star = log(A_T_S/strike)/B_T_S;
-//
-//    // get P(t, S)
-//    double A_t_S = 0.0;
-//    double B_t_S = 0.0;
-//    FixedIncome::getfunctionAandB(specialK, sigma, rbar, S, A_t_S, B_t_S);
-//    double p_t_S = FV * A_t_S * exp(-B_t_S * r0);
-//
-//    // get P(t, T)
-//    double A_t_T_1 = 0.0;
-//    double B_t_T_1 = 0.0;
-//    FixedIncome::getfunctionAandB(specialK, sigma, rbar, T, A_t_T_1, B_t_T_1);
-//    double p_t_T = FV * A_t_T_1 * exp(-B_t_T_1 * r0);
-//
-//    double chisq_1_x = 2 * r_star * (phi + psi + B_t_S);
-//    double chisq_1_p = (4 * specialK * rbar)/(sigma * sigma);
-//    double chisq_1_q = (2 * phi * phi * r0 * exp(theta * T))/ (phi + psi + B_t_S);
-//
-//    double chisq_2_x = 2 * r_star * (phi + psi);
-//    double chisq_2_p = (4 * specialK * rbar)/(sigma * sigma);
-//    double chisq_2_q = (2 * phi * phi * r0 * exp(theta * T)) /(phi + psi);
-//
-//
-//    double chisq_1_cdf;
-//    double chisq_2_cdf;
-//
-//    double call_option = p_t_S * chisq_1_cdf - strike * p_t_T * chisq_2_cdf;
-//
-//}
-//
+}
+
+
+void RunQn3(double r0, double sigma){
+    // expiry time and maturity time
+    double T = 0.5;
+    double S = 1;
+    double strike = 985;
+    int steps = int(floor(T * 360)) + 1;
+    int simNum =1000;
+    double FV =1000;
+
+    // variables
+    double rho = 0.7;
+    double a = 0.1;
+    double b = 0.3;
+    double eta = 0.08;
+    double phi = 0.03;
+
+    MatrixXd rMat(simNum, steps);
+    rMat = MatrixXd::Zero(simNum, steps);
+
+    for(int i = 0; i< simNum; i++){
+        rMat(i, 0) = r0;
+    }
+
+    MatrixXd xMat(simNum, steps);
+    xMat = MatrixXd::Zero(simNum, steps);
+
+    MatrixXd yMat(simNum, steps);
+    yMat = MatrixXd::Zero(simNum, steps);
+
+    VectorXd bigR(simNum);
+    bigR = VectorXd::Zero(simNum);
+
+    FixedIncome::getRPathAndBigRGPlusPlusModel(simNum, T, steps, a, b, sigma, phi,  eta,  r0,  rho, rMat, bigR, xMat, yMat);
+
+    double optionPrice =0;
+
+    for(int i=0; i< simNum; i++) {
+        MatrixXd rMatT_S(simNum, steps);
+        rMatT_S = MatrixXd::Zero(simNum, steps);
+
+        // using one fixed r as starting point for this iteration
+        for (int j = 0; j < simNum; j++) {
+            rMatT_S(j, 0) = rMat(i, steps - 1);
+        }
+
+        MatrixXd xMatT_S(simNum, steps);
+        xMatT_S = MatrixXd::Zero(simNum, steps);
+        for (int j = 0; j < simNum; j++) {
+            xMatT_S(j, 0) = xMat(i, steps - 1);
+        }
+
+        MatrixXd yMatT_S(simNum, steps);
+        yMatT_S = MatrixXd::Zero(simNum, steps);
+        for (int j = 0; j < simNum; j++) {
+            yMatT_S(j, 0) = yMat(i, steps - 1);
+        }
+
+        VectorXd bigRT_S(simNum);
+        bigRT_S = VectorXd::Zero(simNum);
+
+
+        FixedIncome::getRPathAndBigRGPlusPlusModel(simNum, (S - T), steps, a, b, sigma, phi, eta, r0, rho, rMat, bigRT_S,
+                                                   xMatT_S, yMatT_S);
+        double payoff = 0;
+        for (int m = 0; m < simNum; m++) {
+            double bondPrice = FV * exp(-bigRT_S(m));
+            payoff += Mutils::max(strike - bondPrice, 0);
+        }
+
+        payoff /= simNum;
+
+        optionPrice += payoff * exp(-bigR(i));
+
+    }
+    cout << "Option Price is: "<<optionPrice / simNum << endl;
+}
 
 
 
@@ -241,14 +278,16 @@ int main() {
     RunQn2a(r0, sigma, specialK, rbar);
     cout << "###############################################################################################" <<endl;
 
-    cout << "######################################## Qn2 a ##################################################" <<endl;
-    //RunQn2b(r0, sigma, specialK, rbar);
+    cout << "######################################## Qn2 b ##################################################" <<endl;
+    RunQn2b(r0, sigma, specialK, rbar);
     cout << "###############################################################################################" <<endl;
 
+    r0 = 0.03;
+    sigma = 0.03;
 
-
-
-
+    cout << "######################################## Qn3 ##################################################" <<endl;
+    RunQn3(r0, sigma);
+    cout << "###############################################################################################" <<endl;
 
     return 0;
 }
