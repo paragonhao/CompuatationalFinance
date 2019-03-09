@@ -109,7 +109,7 @@ void RunQn1d(double r0, double sigma, double specialK, double rbar){
         double p_i_T_S =0;
 
         for(int j=0; j< M; j++){
-            p_i_T_S += Mutils::max(bondPVatT - strike, 0)/exp(-rAtT(i) * T);
+            p_i_T_S += Mutils::max(bondPVatT - strike, 0);
         }
 
         // bond price at T with maturity at S;

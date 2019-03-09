@@ -42,7 +42,7 @@ Implementation in C++
 
 (a)
 
-European Call on the zero coupon bond in is:  1.12946
+European Call on the zero coupon bond in is:  1.14469
 
 (b)
 
