@@ -182,7 +182,3 @@ void FixedIncome::getfunctionAandB(double specialK, double sigma, double rbar, d
     A_t_T = pow((h1 * exp_h2_tau )/((h2 * (exp_h1_tau - 1)) + h1), h3);
     B_t_T = (exp_h1_tau - 1)/((h2 * (exp_h1_tau - 1)) + h1);
 }
-
-
-
-

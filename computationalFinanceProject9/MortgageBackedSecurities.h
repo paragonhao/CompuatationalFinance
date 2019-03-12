@@ -25,8 +25,9 @@ public:
                          MatrixXd &rMat, int simNum);
 
     static double getCPR_t(const double &pv0, const double &pvt_minus_1, const double &t, const double &R, const double &rt,
-                    const int &window, const double &time, const int &steps, const double &specialK, const double &rbar,
-                    const double &sigma, const int &monthIndex);
+                    const int &monthIndex);
+
+    static double getNumerixPrepaymentModel(double WAC, double pv0, double r0, double specialK, double rbar, double sigma, double time, double OAS, bool isOAS);
 };
 
 

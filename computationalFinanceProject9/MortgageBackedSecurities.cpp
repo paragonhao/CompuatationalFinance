@@ -78,28 +78,9 @@ double MortgageBackedSecurities::getSeasonalitySY(const int &month_index){
  * int monthindex: 1 to 12;
  * */
 double MortgageBackedSecurities::getCPR_t(const double &pv0, const double &pvt_minus_1, const double &t,
-                                          const double &R, const double &rt, const int &window, const double &T,
-                                          const int &steps, const double &specialK,
-                                          const double &rbar, const double &sigma, const int & monthIndex){
-    double curr_r = rt;
-    double delta_t = 10 / steps;
+                                          const double &R, const double &rt, const int & monthIndex){
 
-    double r_t_minus_1 = 0;
-    // rt is the starting pos for the interest rate process
-    srand(time(0));
-    int seed = rand();
-    std::default_random_engine generator(seed);
-    std::normal_distribution<double> distribution(0.0,1.0);
-
-    for(int i=0; i<window; i++){
-        double z = distribution(generator);
-        double r_next = curr_r + specialK * (rbar - curr_r) * delta_t + sigma * sqrt(abs(curr_r)) * sqrt(delta_t) * z;
-        r_t_minus_1 += r_next ;
-        curr_r = r_next;
-    }
-    r_t_minus_1 /= window;
-
-    double CPR_t = getInterestRate(R, r_t_minus_1) * getBurnOutRate(pv0, pvt_minus_1) * getSeasoningSG(t) * getSeasonalitySY(monthIndex);
+    double CPR_t = getInterestRate(R, rt) * getBurnOutRate(pv0, pvt_minus_1) * getSeasoningSG(t) * getSeasonalitySY(monthIndex);
 
     return CPR_t;
 
@@ -127,20 +108,81 @@ void MortgageBackedSecurities::getRPathCIRModel(double r0, double sigma, double 
     std::default_random_engine generator(seed);
     std::normal_distribution<double> distribution(0.0,1.0);
 
-
     // clear Matrix rMat and bigR
     rMat = MatrixXd::Zero(simNum, steps);
 
-    // initialize r[0]  to be r0
-    for(int i =0; i < simNum ;i++){
-        rMat(i,0) = r0;
-    }
-
     // Discretization of the r matrix
     for(int i =0; i< simNum; i++){
+        rMat(i,0) = r0;
         for(int j =1; j< steps; j++){
             double z = distribution(generator);
             rMat(i, j) =  rMat(i, j-1) + specialK * (rbar -  rMat(i, j-1)) * delta_t + sigma * sqrt(abs(rMat(i, j-1))) * sqrt(delta_t) * z;
         }
     }
 }
+
+
+
+double MortgageBackedSecurities::getNumerixPrepaymentModel(double WAC, double pv0, double r0,
+                                                         double specialK, double rbar, double sigma,
+                                                         double time, double OAS, bool isOAS){
+    cout << "Calculating MBS"<<endl;
+    double x = isOAS?OAS:0;
+    cout <<"Trying OAS Spread: " <<x<<endl;
+
+    int interval = 12; // 12 month a year or change to 360 days per year
+    int window = 120; // 10 year = 120 months to calculate 10 year rate
+    double r = WAC/12;
+
+// step 1: generating interest rate process for 30 years, this r path would be used as cash flow discount factor
+    int simNum = 5000;
+    auto steps = int(time * interval + 1); // taking each month  should be 361, including the initial r0;
+    double delta_t = time/steps;
+
+    MatrixXd rMat;
+    rMat = MatrixXd::Zero(simNum, steps);
+    MortgageBackedSecurities::getRPathCIRModel(r0, sigma, specialK, rbar, (time + 10), (steps + 10 * interval), rMat, simNum);
+
+    MatrixXd r10Mat;
+    r10Mat = MatrixXd::Zero(simNum, steps);
+    for(int i=0; i< simNum;i++){
+        for(int j=0; j<steps; j++){
+            for(int l=j; l< window + j; l++){
+                r10Mat(i,j) += rMat(i,l) * delta_t;
+            }
+//            r10Mat(i,j) /= window;
+        }
+    }
+
+    double mbsPrice = 0;
+
+    for(int sim =0; sim< simNum;sim++){
+
+        double pv_t_minus_1 = pv0;
+        double pv_this_iter = 0;
+
+        for(int i=1; i<steps; i++){
+
+
+            double CPR_t = MortgageBackedSecurities::getCPR_t(pv0, pv_t_minus_1, i, WAC, r10Mat(sim, i), (i+1)%12);
+            double temp_1 = (1/ (1 - pow((1 + r),(i - 1 - steps)))) - 1;
+            double temp_2 = pow((1 - CPR_t), 1/12);
+            double tpp_t = pv_t_minus_1 * r * temp_1 + (pv_t_minus_1 - pv_t_minus_1 * r * temp_1) * (1 - temp_2);
+            double pv_t = pv_t_minus_1 - tpp_t;
+            double c_t = tpp_t + pv_t * r; //in total there should be 360 cashflows
+
+            double R =0;
+            for(int m=1; m<=i; m++){
+                R += (rMat(sim,m) + x) * delta_t;
+            }
+            pv_this_iter += exp(-R) * c_t;
+
+            pv_t_minus_1 = pv_t;
+        }
+        mbsPrice += pv_this_iter;
+    }
+
+    cout <<"rbar = "<<rbar <<", sigma = "<< sigma <<", k = " << specialK <<", Price = "<< mbsPrice/double(simNum)<< endl;
+    return mbsPrice/double(simNum);
+}
+
