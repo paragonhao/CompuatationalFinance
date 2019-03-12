@@ -103,8 +103,8 @@ void MortgageBackedSecurities::getRPathCIRModel(double r0, double sigma, double 
 
     double delta_t = T/steps;
 
-    srand(time(0));
-    int seed = rand();
+//    srand(time(0));
+    int seed = 12345678;
     std::default_random_engine generator(seed);
     std::normal_distribution<double> distribution(0.0,1.0);
 

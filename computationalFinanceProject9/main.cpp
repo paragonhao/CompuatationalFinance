@@ -18,7 +18,7 @@ void RunQn1(double WAC, double pv0, double r0, double specialK, double rbar, dou
 
 void RunQn2(double WAC, double pv0, double r0, double specialK, double rbar, double sigma, double time, double OAS, bool isOAS){
 
-    OAS = -0.0088; // starting position
+    OAS = -0.0085; // starting position
     double mbsPrice = MortgageBackedSecurities::getNumerixPrepaymentModel(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time, OAS, isOAS);
     cout << " Price is "<< mbsPrice << endl;
 
@@ -35,7 +35,8 @@ int main() {
     double OAS = 0;
     bool isOAS = true;
 
-//    RunQn1(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time);
+    RunQn1(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time);
+
     RunQn2(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time, OAS, isOAS);
 
 
