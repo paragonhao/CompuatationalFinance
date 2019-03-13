@@ -50,13 +50,12 @@ int main() {
     double OAS = 0;
     bool isOAS = true;
 
-    RunQn1(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time);
+//    RunQn1(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time);
 
-    OAS = -0.0085;
-    RunQn2(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time, OAS, isOAS);
+    OAS = -0.008492;
+//    RunQn2(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time, OAS, isOAS);
 
     RunQn3(WAC, pv0, r0, specialK, rbar, sigma, time, OAS, isOAS);
-
 
     return 0;
 }
