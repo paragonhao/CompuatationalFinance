@@ -21,10 +21,12 @@ output: pdf_document
 Implementation in C++
 
 (a)
+
 Function in `MortgageBackedSecurities::getNumerixPrepaymentModel` is created.
 MBS Price at rbar = 8%, kappa = 0.6, and sigma=12% is 101167
 
 (b)
+
 ```{r}
 library(ggplot2)
 kappa <- seq(0.3,0.9,0.1)
@@ -51,8 +53,20 @@ ggplot(data=df2d, aes(x=sigma, y=price)) + geom_line()+ ggtitle("MBS Price at ka
 ```
 
 ## Qn 2. OAS Spread
+
+Implementation in C++
 Assume rbar = 0.08, kappa = 0.6, sigma = 0.12
 when the spread is -0.0085, the price of the MBS is 110,009, which is very close to the market price of 110,000
+
+## Qn 3. OAS-adjusted Duration and Convexity
+
+Implementation in C++
+
+set y = 0.0005, which is 5bps
+
+Duration: 10.1118
+Convexity: 409.394
+
 
 
 
