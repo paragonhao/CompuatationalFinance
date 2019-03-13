@@ -9,8 +9,8 @@ void RunQn1(double WAC, double pv0, double r0, double specialK, double rbar, dou
 
     double OAS = 0;
     bool isOAS = false;
-//    cout << "Please Enter the Kappa, rbar, and sigma" << endl;
-//    cin >> specialK >> rbar>> sigma;
+    cout << "Please Enter the Kappa, rbar, and sigma" << endl;
+    cin >> specialK >> rbar>> sigma;
 
     MortgageBackedSecurities::getNumerixPrepaymentModel( WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time, OAS, isOAS);
 
@@ -43,23 +43,24 @@ int main() {
     double WAC = 0.08;
     double pv0 = 100000;
     double r0 = 0.078;
-    double specialK = 0.3;
+    double specialK = 0.6;
     double rbar = 0.08;
     double sigma = 0.12;
     double time = 30; //num of years
     double OAS = 0;
     bool isOAS = true;
 
-    for(int i = 0; i< 7;i++){
-        RunQn1(WAC,  pv0,  r0,  specialK + i * 0.1,  rbar,  sigma,  time);
-    }
 
+    RunQn1(WAC,  pv0,  r0,  specialK,  rbar,  sigma ,  time);
 
+    OAS = -0.0117823;
+    RunQn2(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time, OAS, isOAS);
 
-//    OAS = -0.008492;
-//    RunQn2(WAC,  pv0,  r0,  specialK,  rbar,  sigma,  time, OAS, isOAS);
-//
-//    RunQn3(WAC, pv0, r0, specialK, rbar, sigma, time, OAS, isOAS);
+    RunQn3(WAC, pv0, r0, specialK, rbar, sigma, time, OAS, isOAS);
 
+// For loop to get the values for the graph
+//    for(int i = 0; i< 11;i++){
+//        RunQn1(WAC,  pv0,  r0,  specialK,  rbar,  sigma + i * 0.01,  time);
+//    }
     return 0;
 }
