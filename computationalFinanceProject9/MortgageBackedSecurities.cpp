@@ -165,8 +165,8 @@ double MortgageBackedSecurities::getNumerixPrepaymentModel(double WAC, double pv
 
 
             double CPR_t = MortgageBackedSecurities::getCPR_t(pv0, pv_t_minus_1, i, WAC, r10Mat(sim, i), (i+1)%12);
-            double temp_1 = (1/ (1 - pow((1 + r),(i - 1 - steps)))) - 1;
-            double temp_2 = pow((1 - CPR_t), 1/12);
+            double temp_1 = (1.0/ (1.0 - pow((1.0 + r),(i - 1.0 - steps)))) - 1.0;
+            double temp_2 = pow((1 - CPR_t), 1.0/12);
             double tpp_t = pv_t_minus_1 * r * temp_1 + (pv_t_minus_1 - pv_t_minus_1 * r * temp_1) * (1 - temp_2);
             double pv_t = pv_t_minus_1 - tpp_t;
             double c_t = tpp_t + pv_t * r; //in total there should be 360 cashflows
