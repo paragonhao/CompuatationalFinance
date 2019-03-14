@@ -27,7 +27,7 @@ public:
     static double getCPR_t(const double &pv0, const double &pvt_minus_1, const double &t, const double &R, const double &rt,
                     const int &monthIndex);
 
-    static double getNumerixPrepaymentModel(double WAC, double pv0, double r0, double specialK, double rbar, double sigma, double time, double OAS, bool isOAS);
+    static double getNumerixPrepaymentModel(double WAC, double pv0, double r0, double specialK, double rbar, double sigma, double duration, double OAS, bool isOAS);
 };
 
 

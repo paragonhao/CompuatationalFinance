@@ -125,7 +125,7 @@ void MortgageBackedSecurities::getRPathCIRModel(double r0, double sigma, double 
 
 double MortgageBackedSecurities::getNumerixPrepaymentModel(double WAC, double pv0, double r0,
                                                          double specialK, double rbar, double sigma,
-                                                         double time, double OAS, bool isOAS){
+                                                         double duration, double OAS, bool isOAS){
     cout << "Calculating MBS"<<endl;
     double x = isOAS?OAS:0;
     cout <<"Trying OAS Spread: " <<x<<endl;
@@ -136,12 +136,12 @@ double MortgageBackedSecurities::getNumerixPrepaymentModel(double WAC, double pv
 
 // step 1: generating interest rate process for 30 years, this r path would be used as cash flow discount factor
     int simNum = 5000;
-    auto steps = int(time * interval + 1); // taking each month  should be 361, including the initial r0;
-    double delta_t = time/steps;
+    auto steps = int(duration * interval + 1); // taking each month  should be 361, including the initial r0;
+    double delta_t = duration/steps;
 
     MatrixXd rMat;
-    rMat = MatrixXd::Zero(simNum, steps);
-    MortgageBackedSecurities::getRPathCIRModel(r0, sigma, specialK, rbar, (time + 10), (steps + 10 * interval), rMat, simNum);
+    //rMat = MatrixXd::Zero(simNum, steps);
+    MortgageBackedSecurities::getRPathCIRModel(r0, sigma, specialK, rbar, (duration + 10), (steps + 10 * interval), rMat, simNum);
 
     MatrixXd r10Mat;
     r10Mat = MatrixXd::Zero(simNum, steps);
