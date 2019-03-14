@@ -101,7 +101,7 @@ double MortgageBackedSecurities::getCPR_t(const double &pv0, const double &pvt_m
 void MortgageBackedSecurities::getRPathCIRModel(double r0, double sigma, double specialK, double rbar, double T, int steps,
                                         MatrixXd &rMat, int simNum){
 
-    double delta_t = T/steps;
+    double delta_t = 1.0/12;
 
 //    srand(time(0));
     int seed = 12345678;
@@ -135,7 +135,7 @@ double MortgageBackedSecurities::getNumerixPrepaymentModel(double WAC, double pv
     double r = WAC/12;
 
 // step 1: generating interest rate process for 30 years, this r path would be used as cash flow discount factor
-    int simNum = 5000;
+    int simNum = 1000;
     auto steps = int(duration * interval + 1); // taking each month  should be 361, including the initial r0;
     double delta_t = duration/steps;
 
@@ -143,15 +143,17 @@ double MortgageBackedSecurities::getNumerixPrepaymentModel(double WAC, double pv
     //rMat = MatrixXd::Zero(simNum, steps);
     MortgageBackedSecurities::getRPathCIRModel(r0, sigma, specialK, rbar, (duration + 10), (steps + 10 * interval), rMat, simNum);
 
-    MatrixXd r10Mat;
-    r10Mat = MatrixXd::Zero(simNum, steps);
-    for(int i=0; i< simNum;i++){
-        for(int j=0; j<steps; j++){
-            for(int l=j; l< window + j; l++){
-                r10Mat(i,j) += rMat(i,l) * delta_t;
-            }
-//            r10Mat(i,j) /= window;
+    VectorXd r10Mat;
+
+    r10Mat = VectorXd::Zero(steps);
+    for(int i=0; i<steps; i++){
+        for(int j=i; j< window +i; j++){
+//            cout<<"j is "<<j <<endl;
+//            cout<<"window +i is "<<i+window <<endl;
+//            cout<<"i is "<<i<<endl;
+            r10Mat(i) += rMat.col(j).sum()/simNum;
         }
+        r10Mat(i) /= window;
     }
 
     double mbsPrice = 0;
@@ -164,7 +166,7 @@ double MortgageBackedSecurities::getNumerixPrepaymentModel(double WAC, double pv
         for(int i=1; i<steps; i++){
 
 
-            double CPR_t = MortgageBackedSecurities::getCPR_t(pv0, pv_t_minus_1, i, WAC, r10Mat(sim, i), (i+1)%12);
+            double CPR_t = MortgageBackedSecurities::getCPR_t(pv0, pv_t_minus_1, i, WAC, r10Mat(i), (i+1)%12);
             double temp_1 = (1.0/ (1.0 - pow((1.0 + r),(i - 1.0 - steps)))) - 1.0;
             double temp_2 = pow((1 - CPR_t), 1.0/12);
             double tpp_t = pv_t_minus_1 * r * temp_1 + (pv_t_minus_1 - pv_t_minus_1 * r * temp_1) * (1 - temp_2);
