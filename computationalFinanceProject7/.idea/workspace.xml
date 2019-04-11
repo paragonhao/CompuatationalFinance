@@ -26,22 +26,28 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="130" column="45" selection-start-line="130" selection-start-column="45" selection-end-line="130" selection-end-column="45" />
+            <state relative-caret-position="147">
+              <caret line="30" column="33" lean-forward="true" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#315#336#0" />
                 <element signature="e#1003#1024#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="HW7_Summary_Wang_xiahao.Rmd" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Doc/HW7_Summary_Wang_xiahao.Rmd">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-60" />
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="DifferenceMethod.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="505">
-              <caret line="304" column="54" selection-start-line="304" selection-start-column="54" selection-end-line="304" selection-end-column="54" />
+            <state relative-caret-position="17">
+              <caret line="141" lean-forward="true" selection-start-line="141" selection-end-line="141" />
               <folding>
                 <element signature="e#44#73#0" expanded="true" />
               </folding>
@@ -92,8 +98,8 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="310" />
-    <option name="y" value="23" />
+    <option name="x" value="14" />
+    <option name="y" value="94" />
     <option name="width" value="1391" />
     <option name="height" value="833" />
   </component>
@@ -162,7 +168,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52314000" />
+    <option name="totallyTimeSpent" value="56371000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -174,17 +180,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="310" y="23" width="1391" height="833" extended-state="0" />
-    <editor active="true" />
+    <frame x="14" y="94" width="1391" height="833" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09270073" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2240876" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32880434" />
-      <window_info anchor="bottom" id="Messages" weight="0.4769022" />
+      <window_info anchor="bottom" id="Messages" weight="0.72961956" />
       <window_info anchor="bottom" id="CMake" weight="0.32880434" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" auto_hide="true" id="Run" order="2" weight="0.5230978" />
+      <window_info anchor="bottom" auto_hide="true" id="Run" order="2" weight="0.875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" weight="0.32880434" />
       <window_info id="Favorites" side_tool="true" />
@@ -260,23 +265,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding>
-            <element signature="e#44#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/OptionPricing.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -334,7 +322,6 @@
           <caret line="69" column="17" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#315#336#0" />
             <element signature="e#1003#1024#0" />
           </folding>
         </state>
@@ -393,7 +380,6 @@
           <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#315#336#0" />
             <element signature="e#1003#1024#0" />
           </folding>
         </state>
@@ -477,7 +463,6 @@
           <caret line="124" column="13" lean-forward="true" selection-start-line="124" selection-start-column="13" selection-end-line="124" selection-end-column="13" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#315#336#0" />
             <element signature="e#1003#1024#0" />
           </folding>
         </state>
@@ -585,13 +570,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Doc/HW-6_Wang_xiahao.r">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Doc/HW7_Summary_Wang_xiahao.Rmd">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="130" column="45" selection-start-line="130" selection-start-column="45" selection-end-line="130" selection-end-column="45" />
+        <state relative-caret-position="147">
+          <caret line="30" column="33" lean-forward="true" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#315#336#0" />
             <element signature="e#1003#1024#0" />
           </folding>
         </state>
@@ -599,8 +591,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DifferenceMethod.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="304" column="54" selection-start-line="304" selection-start-column="54" selection-end-line="304" selection-end-column="54" />
+        <state relative-caret-position="17">
+          <caret line="141" lean-forward="true" selection-start-line="141" selection-end-line="141" />
           <folding>
             <element signature="e#44#73#0" expanded="true" />
           </folding>

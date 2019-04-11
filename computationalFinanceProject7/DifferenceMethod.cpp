@@ -128,7 +128,7 @@ void DifferenceMethod::EFDEuroPutSolver(double currPrice, int deltaFactor){
     int midpoint = (size - 1)/2;
 
     //price for mid point
-    cout << currPrice<<", "<<payoffVectorF(midpoint)<<", "<<OptionPricing::putOptionPriceBS(r, sigma, t, currPrice, k) <<endl;
+    cout << currPrice<<" "<<payoffVectorF(midpoint)<<" "<<OptionPricing::putOptionPriceBS(r, sigma, t, currPrice, k) <<endl;
 
 }
 
@@ -143,7 +143,7 @@ void DifferenceMethod::IFDEuroPutSolver(double currPrice, int deltaFactor){
     double delta_x = sigma * sqrt(deltaFactor * dt);
     int time = int(t/dt) + 1;
 //    int N = int(((log(currPrice * 3 * sigma + currPrice) -log(currPrice - currPrice * 3 * sigma))/delta_x)); // rows
-    int N = 50;
+    int N = 80;
     double pu = DifferenceMethod::getPUIFD(dt, sigma, delta_x, r);
     double pm = DifferenceMethod::getPMIFD(dt, sigma, delta_x, r);
     double pd = DifferenceMethod::getPDIFD(dt, sigma, delta_x, r);
@@ -209,7 +209,7 @@ void DifferenceMethod::IFDEuroPutSolver(double currPrice, int deltaFactor){
 
     int midpoint = (size - 1)/2;
 
-    cout << currPrice<<", "<<payoffVectorF(midpoint)<<", "<<OptionPricing::putOptionPriceBS(r, sigma, t, currPrice, k) <<endl;
+    cout << currPrice<<" "<<payoffVectorF(midpoint)<<" "<<OptionPricing::putOptionPriceBS(r, sigma, t, currPrice, k) <<endl;
 }
 
 void DifferenceMethod::CNFDEuroPutSolver(double currPrice, int deltaFactor){

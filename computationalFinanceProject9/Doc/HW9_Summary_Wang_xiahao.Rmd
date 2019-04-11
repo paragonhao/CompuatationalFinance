@@ -56,14 +56,14 @@ ggplot(data=df2d, aes(x=sigma, y=price)) + geom_line()+ ggtitle("MBS Price at ka
 
 Implementation in C++
 Assume rbar = 0.08, kappa = 0.6, sigma = 0.12
-when the spread is -0.008492, the price of the MBS is 110,000, which is equal to the market price of 110,000
+when the spread is -0.012811, the price of the MBS is 110,000, which is equal to the market price of 110,000
 
 ## Qn 3. OAS-adjusted Duration and Convexity
 
 Implementation in C++
 
-Duration: 10.1105
-Convexity: 85.8279
+Duration: 7.28974
+Convexity: 51.2725
 
 
 

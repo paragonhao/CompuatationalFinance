@@ -28,14 +28,14 @@ void RunQn1EFD(){
     cout << "Price"<<", "<<"Pay off"<<", BS"<<endl;
     deltaFactor = 3;
     for(int i =4; i<=16; i++){
-        DifferenceMethod::EFDEuroPutSolver(i, deltaFactor);
+        DifferenceMethod::IFDEuroPutSolver(i, deltaFactor);
     }
 
     cout << "sigma * sqrt(4 * dx)" <<endl;
     cout << "Price"<<", "<<"Pay off"<<", BS"<<endl;
     deltaFactor = 4;
     for(int i =4; i<=16; i++){
-        DifferenceMethod::EFDEuroPutSolver(i, deltaFactor);
+        DifferenceMethod::CNFDEuroPutSolver(i, deltaFactor);
     }
     cout << "###############################################################################################" <<endl;
 }

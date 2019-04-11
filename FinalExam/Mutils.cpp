@@ -6,8 +6,11 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <Eigen/Dense>
+#include "random"
 
 using namespace std;
+using namespace Eigen;
 
 double Mutils::Mean(double arr[], int n)
 {
@@ -160,4 +163,75 @@ double Mutils::min(const double &num1, const double &num2) {
         return num1;
     }
     return num2;
+}
+
+
+void Mutils::cumSum(MatrixXd &matrix, MatrixXd &cumSumMatrix, int nSteps, int nSim){
+    cumSumMatrix = MatrixXd::Zero(nSim, nSteps);
+    for(int i=0;i < nSim;i++){
+        double cum = 0.0;
+        for(int j = 0; j<nSteps; j++){
+            cumSumMatrix(i,j) += matrix(i,j) + cum;
+            cum = cumSumMatrix(i,j);
+        }
+    }
+    cout << cumSumMatrix<<endl;
+}
+
+
+void Mutils::generateWProcessMat(int nSim, int nSteps, double delta_t, MatrixXd &mat, int seed){
+
+    std::default_random_engine generator(seed);
+    std::normal_distribution<double> distribution(0.0, 1.0);
+
+    mat = MatrixXd::Zero(nSim, nSteps);
+
+    int half = nSim/2;
+    for(int i =0; i< half; i++){
+        for(int j =0; j< nSteps; j++){
+            double z = distribution(generator);
+            mat(i, j) =  z * sqrt(delta_t);
+            mat(half + i, j) = -z * sqrt(delta_t);
+        }
+    }
+}
+
+int LGMGenerator(unsigned int m, unsigned int num) {
+    unsigned int a = int(pow(7, 5));
+    unsigned int b = 0;
+    return (a * num + b) % m ;
+}
+
+
+double* Mutils::runif(int size, int seed) {
+    auto * arr = new double[size];
+    double m = pow(2, 31) -1;
+    arr[0] = seed;
+
+    for(int i=0; i<=size;i++){
+        arr[i+1] = LGMGenerator(m, arr[i]);
+        arr[i] /= m;
+    }
+    return arr;
+}
+
+
+
+void Mutils::generatePricePath(int nSteps, int nSim, double T, double s0, double r, double sigma, MatrixXd &priceProcess){
+
+    int seed = 12345678;
+    default_random_engine generator(seed);
+    normal_distribution<double> distribution(0.0,1.0);
+
+    double delta_t = T/nSteps;
+
+    priceProcess = MatrixXd::Zero(nSim, nSteps);
+
+    for(int i =0; i< nSim; i++){
+        priceProcess(i,0) = s0;
+        for(int j =1; j< nSteps; j++){
+            double z = distribution(generator);
+            priceProcess(i, j) =  priceProcess(i, j-1) * exp((r - 0.5 * sigma * sigma) * delta_t + sigma * z * sqrt(delta_t));
+        }
+    }
 }

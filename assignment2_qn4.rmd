@@ -1,0 +1,228 @@
+Qn 4
+
+```{r}
+library(ggplot2)
+
+tradingDays <- 30
+intervalPerday <- 96
+twoMonthInYear <- 60/365
+s0 <- 100
+strike <- 100
+r <- 0.05
+sigma <- 0.3
+mu <- 0.2
+
+```
+
+
+(a)
+
+```{r}
+nPaths <- 1
+nIntervalsInAMonth <- intervalPerday * tradingDays
+oneMonthInYear <- 30/365
+delta_t <- oneMonthInYear/nIntervalsInAMonth
+maturity <- seq(from=twoMonthInYear, to=oneMonthInYear, by= -delta_t)
+
+set.seed(1234)
+stdNor1 <- matrix(rnorm(nIntervalsInAMonth+1,0,1), nrow=1)
+priceProcess <- matrix(0, 1, nIntervalsInAMonth + 1)
+priceProcess[,1] <- s0
+
+for(i in 1:nIntervalsInAMonth){
+  priceProcess[,i+1] <- priceProcess[, i] *exp((mu - 0.5 * sigma * sigma) *     delta_t + sigma * stdNor1[,i] * sqrt(delta_t))
+}
+```
+
+(b)
+```{r}
+BSCallPrice <- function(mu, sigma, capT, s0, strike){
+  d1 <- log(s0/strike) + ((mu + 0.5 * sigma^2) * capT)/(sigma * sqrt(capT))
+  d2 <- d1 - sigma * sqrt(capT)
+  
+  return (s0 * pnorm(d1) - (strike * pnorm(d2)/exp(mu * capT)))
+}
+# Test if the bs gives the right price 
+#BSCallPrice(0.03, 0.15, 1, 100, 100)
+BSCallOptionPrice <- matrix(0, 1, nIntervalsInAMonth + 1)
+
+for(i in 1:length(maturity)){
+  BSCallOptionPrice[i] = BSCallPrice(mu, sigma,maturity[i], priceProcess[i], strike)
+}
+```
+
+(c)
+
+```{r}
+stock_price <- as.vector(priceProcess)
+delta_greek <- rep(0, nIntervalsInAMonth)
+bond_value <- rep(0, nIntervalsInAMonth +1)
+V_value <- rep(0, nIntervalsInAMonth + 1)
+
+#delta_greek[1] <- (BSCallOptionPrice[2] - BSCallOptionPrice[1]) / (stock_price[2] - stock_price[1])
+# find delta
+for(i in 1:nIntervalsInAMonth){
+  delta_greek[i] <- (BSCallOptionPrice[i+1] - BSCallOptionPrice[i]) / (stock_price[i+1] - stock_price[i])
+}
+
+# find bond value at time 0 
+c0 <- BSCallOptionPrice[1]
+bond_value[1] <- c0 - delta_greek[1] * stock_price[1]
+
+for(i in 1:nIntervalsInAMonth){
+  V_value[i+1] = delta_greek[i] * stock_price[i+1] + bond_value[i] * exp(r * delta_t)
+  bond_value[i+1] =  V_value[i+1] - delta_greek[i+1] * stock_price[i+1]
+}
+
+plot(priceProcess, x=maturity, type="l",main="Underlying Price Process", ylab="Stock process", xlab="Maturity")
+
+plot(y=V_value[-1], x = maturity[-1],type="l", col="red", ylab="Option Price", xlab="Maturity", main="Evolution of the call option and of the replicating portfolio")
+lines(y=BSCallOptionPrice[-1], x = maturity[-1],col="blue")
+legend("bottomright", c("Replicating Portfolio","BS Option Price"), col=c("red", "blue"), lwd=5, cex=0.8)
+
+plot(delta_greek, x=rev(maturity[-1]), type="l",main="Hedge Ratio", ylab="Stock process", xlab="Hedge Ratio")
+```
+
+(d)
+
+```{r}
+# jump happens at jump_point
+delta_greek_d <- rep(0, nIntervalsInAMonth)
+bond_value_d <- rep(0, nIntervalsInAMonth +1)
+V_value_d <- rep(0, nIntervalsInAMonth + 1)
+
+jump_point <- nIntervalsInAMonth/2
+price_with_before_jump <- rep(0, nIntervalsInAMonth + 1)
+for(i in 1: jump_point ){
+  price_with_before_jump[i] <- priceProcess[i]
+}
+price_with_before_jump[jump_point] <- price_with_before_jump[jump_point] * 0.9
+
+for(i in jump_point:nIntervalsInAMonth){
+  price_with_before_jump[i+1] <- price_with_before_jump[i] *exp((mu - 0.5 * sigma * sigma) * delta_t + sigma * stdNor1[,i] * sqrt(delta_t))
+}
+plot(y=price_with_before_jump, x=rev(maturity), type="l",main="Underlying Price Process Part D", ylab="Stock process", xlab="Maturity")
+
+#initialize BS price vector 
+BSCPDrop <- rep(0, length(maturity))
+#calculate price using BS
+for(i in 1:length(maturity)){
+  BSCPDrop[i] = BSCallPrice(mu, sigma, maturity[i], price_with_before_jump[i], strike)
+}
+
+# find delta
+for(i in 1:nIntervalsInAMonth){
+  delta_greek_d[i] <- (BSCPDrop[i+1] - BSCPDrop[i]) / (price_with_before_jump[i+1] - price_with_before_jump[i])
+}
+
+c0_d <- BSCPDrop[1]
+bond_value_d[1] <- c0_d - delta_greek_d[1] * price_with_before_jump[1]
+
+for(i in 1:nIntervalsInAMonth){
+  V_value_d[i+1] = delta_greek_d[i] * price_with_before_jump[i+1] + bond_value_d[i] * exp(r * delta_t)
+  bond_value_d[i+1] =  V_value_d[i+1] - delta_greek_d[i+1] * price_with_before_jump[i+1]
+}
+
+
+plot(y=V_value_d[-1], x = rev(maturity[-1]),type="l", col="red", ylab="Option Price", xlab="Maturity", main="Evolution of the call option and of the replicating portfolio Part D")
+lines(y=BSCPDrop[-1], x = rev(maturity[-1]),col="blue")
+legend("topright", c("Replicating Portfolio","BS Option Price"), col=c("red", "blue"), lwd=5, cex=0.8)
+
+plot(delta_greek_d, x=rev(maturity[-1]), type="l",main="Hedge Ratio part D", ylab="Stock process", xlab="Hedge Ratio")
+abline(v = maturity[jump_point], col="red")
+```
+We can see that the option price calculated using black scholes and replicating portfolio are very similar, and hedge ratio at which jump happens is very small due to as the change in stock price is greater that the change in option price.
+
+
+(e)
+
+```{r}
+delta_greek_e <- rep(0, nIntervalsInAMonth)
+bond_value_e <- rep(0, nIntervalsInAMonth +1)
+V_value_e <- rep(0, nIntervalsInAMonth + 1)
+
+jump_point <- nIntervalsInAMonth/2
+price_with_before_jump_e <- rep(0, nIntervalsInAMonth + 1)
+for(i in 1: jump_point ){
+  price_with_before_jump_e[i] <- priceProcess[i]
+}
+price_with_before_jump_e[jump_point] <- price_with_before_jump_e[jump_point] * 1.1
+
+for(i in jump_point:nIntervalsInAMonth){
+  price_with_before_jump_e[i+1] <- price_with_before_jump_e[i] *exp((mu - 0.5 * sigma * sigma) * delta_t + sigma * stdNor1[,i] * sqrt(delta_t))
+}
+plot(y=price_with_before_jump_e, x=rev(maturity), type="l",main="Underlying Price Process Part E", ylab="Stock process", xlab="Maturity")
+
+#initialize BS price vector 
+BSCPUP <- rep(0, length(maturity))
+#calculate price using BS
+for(i in 1:length(maturity)){
+  BSCPUP[i] = BSCallPrice(mu, sigma, maturity[i], price_with_before_jump_e[i], strike)
+}
+
+# find delta
+for(i in 1:nIntervalsInAMonth){
+  delta_greek_e[i] <- (BSCPUP[i+1] - BSCPUP[i]) / (price_with_before_jump_e[i+1] - price_with_before_jump_e[i])
+}
+
+c0_e <- BSCPUP[1]
+bond_value_e[1] <- c0_e - delta_greek_e[1] * price_with_before_jump_e[1]
+
+for(i in 1:nIntervalsInAMonth){
+  V_value_e[i+1] = delta_greek_e[i] * price_with_before_jump_e[i+1] + bond_value_e[i] * exp(r * delta_t)
+  bond_value_e[i+1] =  V_value_e[i+1] - delta_greek_e[i+1] * price_with_before_jump_e[i+1]
+}
+
+
+plot(y=V_value_e[-1], x = rev(maturity[-1]),type="l", col="red", ylab="Option Price", xlab="Maturity", main="Evolution of the call option and of the replicating portfolio Part E")
+lines(y=BSCPUP[-1], x = rev(maturity[-1]),col="blue")
+legend("bottomright", c("Replicating Portfolio","BS Option Price"), col=c("red", "blue"), lwd=5, cex=0.8)
+
+plot(delta_greek_e, x=rev(maturity[-1]), type="l",main="Hedge Ratio part E", ylab="Stock process", xlab="Hedge Ratio")
+abline(v = maturity[jump_point], col="red")
+
+```
+Almost same observation as that in part D.
+
+(f)
+
+```{r}
+BSCallOptionPrice_f <- matrix(0, 1, nIntervalsInAMonth + 1)
+
+for(i in 1:length(maturity)){
+  BSCallOptionPrice_f[i] = BSCallPrice(mu, sigma,maturity[i], priceProcess[i], strike)
+}
+
+stock_price_f <- as.vector(priceProcess)
+delta_greek_f <- rep(0, nIntervalsInAMonth)
+bond_value_f <- rep(0, nIntervalsInAMonth +1)
+V_value_f <- rep(0, nIntervalsInAMonth + 1)
+
+#delta_greek[1] <- (BSCallOptionPrice[2] - BSCallOptionPrice[1]) / (stock_price[2] - stock_price[1])
+# find delta
+for(i in 1:nIntervalsInAMonth){
+  delta_greek_f[i] <- (BSCallOptionPrice_f[i+1] - BSCallOptionPrice_f[i]) / (stock_price_f[i+1] - stock_price_f[i])
+}
+
+# find bond value at time 0 
+c0_f <- BSCallOptionPrice_f[1]
+bond_value_f[1] <- c0_f - delta_greek_f[1] * stock_price_f[1]
+
+for(i in 1:nIntervalsInAMonth){
+  transactionCost <- (delta_greek_f[i+1]-delta_greek_f[i]) * stock_price_f[i+1] *0.002
+  V_value_f[i+1] = delta_greek_f[i] * stock_price_f[i+1] + bond_value_f[i] * exp(r * delta_t) - transactionCost
+  bond_value_f[i+1] =  V_value_f[i+1] - delta_greek_f[i+1] * stock_price_f[i+1]
+}
+
+plot(stock_price_f, x=maturity, type="l",main="Underlying Price Process Part F", ylab="Stock process", xlab="Maturity")
+
+plot(y=V_value_f[-1], x = maturity[-1],type="l", col="red", ylab="Option Price", xlab="Maturity", main="Evolution of the call option and of the replicating portfolio Part F")
+lines(y=BSCallOptionPrice_f[-1], x = maturity[-1],col="blue")
+legend("bottomright", c("Replicating Portfolio","BS Option Price"), col=c("red", "blue"), lwd=5, cex=0.8)
+
+plot(delta_greek_f, x=rev(maturity[-1]), type="l",main="Hedge Ratio Part F", ylab="Stock process", xlab="Hedge Ratio")
+
+```
+As observed from the graph, the 20 basis point of trading cost does not have much impact on the price of the option obtained using replicating portfolio
+
+
